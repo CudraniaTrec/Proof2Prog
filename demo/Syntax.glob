@@ -1,0 +1,3051 @@
+DIGEST 191d7a2af93b18adc91e21930514a1c2
+FPLF.Syntax
+R84:87 PLF.Maps <> <> lib
+R114:126 Coq.Floats.Floats <> <> lib
+R153:162 Coq.Lists.List <> <> lib
+ind 203:204 <> Ty
+constr 222:227 <> TyByte
+constr 240:246 <> TyShort
+constr 259:263 <> TyInt
+constr 276:281 <> TyLong
+constr 294:300 <> TyFloat
+constr 313:320 <> TyDouble
+constr 333:338 <> TyBool
+constr 351:356 <> TyChar
+constr 369:376 <> TyString
+constr 389:398 <> TyExternal
+constr 456:465 <> TyGeneric0
+constr 504:513 <> TyGeneric1
+constr 553:562 <> TyGeneric2
+constr 606:612 <> TyArray
+constr 654:659 <> TyVoid
+R231:232 PLF.Syntax <> Ty:1 ind
+R250:251 PLF.Syntax <> Ty:1 ind
+R267:268 PLF.Syntax <> Ty:1 ind
+R285:286 PLF.Syntax <> Ty:1 ind
+R304:305 PLF.Syntax <> Ty:1 ind
+R324:325 PLF.Syntax <> Ty:1 ind
+R342:343 PLF.Syntax <> Ty:1 ind
+R360:361 PLF.Syntax <> Ty:1 ind
+R380:381 PLF.Syntax <> Ty:1 ind
+R408:409 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R402:407 Coq.Strings.String <> string ind
+R410:411 PLF.Syntax <> Ty:1 ind
+R475:476 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R469:474 Coq.Strings.String <> string ind
+R477:478 PLF.Syntax <> Ty:1 ind
+R523:524 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R517:522 Coq.Strings.String <> string ind
+R527:528 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R525:526 PLF.Syntax <> Ty:1 ind
+R529:530 PLF.Syntax <> Ty:1 ind
+R572:573 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R566:571 Coq.Strings.String <> string ind
+R576:577 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R574:575 PLF.Syntax <> Ty:1 ind
+R580:581 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R578:579 PLF.Syntax <> Ty:1 ind
+R582:583 PLF.Syntax <> Ty:1 ind
+R618:619 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R616:617 PLF.Syntax <> Ty:1 ind
+R620:621 PLF.Syntax <> Ty:1 ind
+R663:664 PLF.Syntax <> Ty:1 ind
+scheme 203:204 <> Ty_rect
+scheme 203:204 <> Ty_ind
+scheme 203:204 <> Ty_rec
+scheme 203:204 <> Ty_sind
+ind 709:712 <> Term
+constr 761:765 <> TmVar
+constr 788:796 <> TmInteger
+constr 816:822 <> TmFloat
+constr 844:849 <> TmChar
+constr 869:876 <> TmString
+constr 899:904 <> TmTrue
+constr 919:925 <> TmFalse
+constr 940:945 <> TmNull
+constr 994:1001 <> TmAssign
+constr 1062:1073 <> TmConversion
+constr 1138:1150 <> TmFieldAccess
+constr 1201:1213 <> TmArrayAccess
+constr 1268:1272 <> TmNew
+constr 1336:1351 <> TmNewArrayNoInit
+constr 1420:1433 <> TmNewArrayInit
+constr 1505:1522 <> TmMethodInvocation
+constr 1574:1593 <> TmTyMethodInvocation
+constr 1640:1662 <> TmMethodInvocationNoObj
+constr 1704:1708 <> TmNil
+constr 1776:1781 <> TmList
+constr 1845:1856 <> TmEmptyArray
+constr 1906:1918 <> TmArrayConcat
+constr 2006:2010 <> TmAdd
+constr 2074:2078 <> TmSub
+constr 2142:2146 <> TmMul
+constr 2210:2214 <> TmDiv
+constr 2278:2282 <> TmMod
+constr 2346:2350 <> TmNeg
+constr 2408:2415 <> TmShiftL
+constr 2477:2484 <> TmShiftR
+constr 2546:2553 <> TmBitAnd
+constr 2614:2620 <> TmBitOr
+constr 2682:2689 <> TmBitXor
+constr 2750:2757 <> TmBitNot
+constr 2812:2820 <> TmPostInc
+constr 2875:2883 <> TmPostDec
+constr 2938:2945 <> TmPreInc
+constr 3001:3008 <> TmPreDec
+constr 3083:3086 <> TmEq
+constr 3152:3155 <> TmNe
+constr 3221:3224 <> TmLt
+constr 3289:3292 <> TmLe
+constr 3358:3361 <> TmGt
+constr 3426:3429 <> TmGe
+constr 3495:3499 <> TmAnd
+constr 3564:3567 <> TmOr
+constr 3633:3637 <> TmNot
+constr 3695:3702 <> TmChoose
+R775:776 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R769:774 Coq.Strings.String <> string ind
+R777:780 PLF.Syntax <> Term:3 ind
+R803:804 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R800:802 Coq.Init.Datatypes <> nat ind
+R805:808 PLF.Syntax <> Term:3 ind
+R831:832 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R826:830 Coq.Floats.PrimFloat <> float prim
+R833:836 PLF.Syntax <> Term:3 ind
+R856:857 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R853:855 Coq.Init.Datatypes <> nat ind
+R858:861 PLF.Syntax <> Term:3 ind
+R886:887 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R880:885 Coq.Strings.String <> string ind
+R888:891 PLF.Syntax <> Term:3 ind
+R908:911 PLF.Syntax <> Term:3 ind
+R929:932 PLF.Syntax <> Term:3 ind
+R949:952 PLF.Syntax <> Term:3 ind
+R1009:1010 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1005:1008 PLF.Syntax <> Term:3 ind
+R1015:1016 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1011:1014 PLF.Syntax <> Term:3 ind
+R1017:1020 PLF.Syntax <> Term:3 ind
+R1079:1080 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1077:1078 PLF.Syntax <> Ty ind
+R1085:1086 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1081:1084 PLF.Syntax <> Term:3 ind
+R1087:1090 PLF.Syntax <> Term:3 ind
+R1158:1159 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1154:1157 PLF.Syntax <> Term:3 ind
+R1166:1167 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1160:1165 Coq.Strings.String <> string ind
+R1168:1171 PLF.Syntax <> Term:3 ind
+R1221:1222 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1217:1220 PLF.Syntax <> Term:3 ind
+R1227:1228 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1223:1226 PLF.Syntax <> Term:3 ind
+R1229:1232 PLF.Syntax <> Term:3 ind
+R1278:1279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1276:1277 PLF.Syntax <> Ty ind
+R1284:1285 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1280:1283 PLF.Syntax <> Term:3 ind
+R1286:1289 PLF.Syntax <> Term:3 ind
+R1357:1358 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1355:1356 PLF.Syntax <> Ty ind
+R1363:1364 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1359:1362 PLF.Syntax <> Term:3 ind
+R1365:1368 PLF.Syntax <> Term:3 ind
+R1439:1440 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1437:1438 PLF.Syntax <> Ty ind
+R1445:1446 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1441:1444 PLF.Syntax <> Term:3 ind
+R1447:1450 PLF.Syntax <> Term:3 ind
+R1530:1531 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1526:1529 PLF.Syntax <> Term:3 ind
+R1538:1539 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1532:1537 Coq.Strings.String <> string ind
+R1544:1545 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1540:1543 PLF.Syntax <> Term:3 ind
+R1546:1549 PLF.Syntax <> Term:3 ind
+R1599:1600 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1597:1598 PLF.Syntax <> Ty ind
+R1607:1608 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1601:1606 Coq.Strings.String <> string ind
+R1613:1614 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1609:1612 PLF.Syntax <> Term:3 ind
+R1615:1618 PLF.Syntax <> Term:3 ind
+R1672:1673 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1666:1671 Coq.Strings.String <> string ind
+R1678:1679 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1674:1677 PLF.Syntax <> Term:3 ind
+R1680:1683 PLF.Syntax <> Term:3 ind
+R1712:1715 PLF.Syntax <> Term:3 ind
+R1789:1792 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1785:1788 PLF.Syntax <> Term:3 ind
+R1797:1799 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1793:1796 PLF.Syntax <> Term:3 ind
+R1800:1803 PLF.Syntax <> Term:3 ind
+R1860:1863 PLF.Syntax <> Term:3 ind
+R1926:1927 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1922:1925 PLF.Syntax <> Term:3 ind
+R1932:1933 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1928:1931 PLF.Syntax <> Term:3 ind
+R1934:1937 PLF.Syntax <> Term:3 ind
+R2018:2019 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2014:2017 PLF.Syntax <> Term:3 ind
+R2024:2025 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2020:2023 PLF.Syntax <> Term:3 ind
+R2026:2029 PLF.Syntax <> Term:3 ind
+R2086:2087 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2082:2085 PLF.Syntax <> Term:3 ind
+R2092:2093 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2088:2091 PLF.Syntax <> Term:3 ind
+R2094:2097 PLF.Syntax <> Term:3 ind
+R2154:2155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2150:2153 PLF.Syntax <> Term:3 ind
+R2160:2161 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2156:2159 PLF.Syntax <> Term:3 ind
+R2162:2165 PLF.Syntax <> Term:3 ind
+R2222:2223 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2218:2221 PLF.Syntax <> Term:3 ind
+R2228:2229 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2224:2227 PLF.Syntax <> Term:3 ind
+R2230:2233 PLF.Syntax <> Term:3 ind
+R2290:2291 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2286:2289 PLF.Syntax <> Term:3 ind
+R2296:2297 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2292:2295 PLF.Syntax <> Term:3 ind
+R2298:2301 PLF.Syntax <> Term:3 ind
+R2358:2359 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2354:2357 PLF.Syntax <> Term:3 ind
+R2360:2363 PLF.Syntax <> Term:3 ind
+R2423:2424 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2419:2422 PLF.Syntax <> Term:3 ind
+R2429:2430 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2425:2428 PLF.Syntax <> Term:3 ind
+R2431:2434 PLF.Syntax <> Term:3 ind
+R2492:2493 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2488:2491 PLF.Syntax <> Term:3 ind
+R2498:2499 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2494:2497 PLF.Syntax <> Term:3 ind
+R2500:2503 PLF.Syntax <> Term:3 ind
+R2561:2562 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2557:2560 PLF.Syntax <> Term:3 ind
+R2567:2568 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2563:2566 PLF.Syntax <> Term:3 ind
+R2569:2572 PLF.Syntax <> Term:3 ind
+R2628:2629 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2624:2627 PLF.Syntax <> Term:3 ind
+R2634:2635 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2630:2633 PLF.Syntax <> Term:3 ind
+R2636:2639 PLF.Syntax <> Term:3 ind
+R2697:2698 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2693:2696 PLF.Syntax <> Term:3 ind
+R2703:2704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2699:2702 PLF.Syntax <> Term:3 ind
+R2705:2708 PLF.Syntax <> Term:3 ind
+R2765:2766 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2761:2764 PLF.Syntax <> Term:3 ind
+R2767:2770 PLF.Syntax <> Term:3 ind
+R2828:2829 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2824:2827 PLF.Syntax <> Term:3 ind
+R2830:2833 PLF.Syntax <> Term:3 ind
+R2891:2892 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2887:2890 PLF.Syntax <> Term:3 ind
+R2893:2896 PLF.Syntax <> Term:3 ind
+R2953:2954 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2949:2952 PLF.Syntax <> Term:3 ind
+R2955:2958 PLF.Syntax <> Term:3 ind
+R3016:3017 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3012:3015 PLF.Syntax <> Term:3 ind
+R3018:3021 PLF.Syntax <> Term:3 ind
+R3094:3095 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3090:3093 PLF.Syntax <> Term:3 ind
+R3100:3101 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3096:3099 PLF.Syntax <> Term:3 ind
+R3102:3105 PLF.Syntax <> Term:3 ind
+R3163:3164 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3159:3162 PLF.Syntax <> Term:3 ind
+R3169:3170 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3165:3168 PLF.Syntax <> Term:3 ind
+R3171:3174 PLF.Syntax <> Term:3 ind
+R3232:3233 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3228:3231 PLF.Syntax <> Term:3 ind
+R3238:3239 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3234:3237 PLF.Syntax <> Term:3 ind
+R3240:3243 PLF.Syntax <> Term:3 ind
+R3300:3301 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3296:3299 PLF.Syntax <> Term:3 ind
+R3306:3307 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3302:3305 PLF.Syntax <> Term:3 ind
+R3308:3311 PLF.Syntax <> Term:3 ind
+R3369:3370 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3365:3368 PLF.Syntax <> Term:3 ind
+R3375:3376 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3371:3374 PLF.Syntax <> Term:3 ind
+R3377:3380 PLF.Syntax <> Term:3 ind
+R3437:3438 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3433:3436 PLF.Syntax <> Term:3 ind
+R3443:3444 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3439:3442 PLF.Syntax <> Term:3 ind
+R3445:3448 PLF.Syntax <> Term:3 ind
+R3507:3508 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3503:3506 PLF.Syntax <> Term:3 ind
+R3513:3514 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3509:3512 PLF.Syntax <> Term:3 ind
+R3515:3518 PLF.Syntax <> Term:3 ind
+R3575:3576 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3571:3574 PLF.Syntax <> Term:3 ind
+R3581:3582 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3577:3580 PLF.Syntax <> Term:3 ind
+R3583:3586 PLF.Syntax <> Term:3 ind
+R3645:3646 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3641:3644 PLF.Syntax <> Term:3 ind
+R3647:3650 PLF.Syntax <> Term:3 ind
+R3710:3711 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3706:3709 PLF.Syntax <> Term:3 ind
+R3716:3717 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3712:3715 PLF.Syntax <> Term:3 ind
+R3722:3723 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3718:3721 PLF.Syntax <> Term:3 ind
+R3724:3727 PLF.Syntax <> Term:3 ind
+scheme 709:712 <> Term_rect
+scheme 709:712 <> Term_ind
+scheme 709:712 <> Term_rec
+scheme 709:712 <> Term_sind
+ind 3775:3783 <> Statement
+constr 3801:3806 <> StSkip
+constr 3826:3835 <> StDeclInit
+constr 3901:3912 <> StDeclNoInit
+constr 3971:3974 <> StIf
+constr 4049:4056 <> StIfElse
+constr 4138:4144 <> StWhile
+constr 4219:4227 <> StDoWhile
+constr 4303:4307 <> StFor
+constr 4391:4399 <> StForeach
+constr 4476:4483 <> StReturn
+constr 4552:4561 <> StContinue
+constr 4627:4633 <> StBreak
+constr 4699:4710 <> StExpression
+constr 4768:4775 <> StConcat
+R3810:3818 PLF.Syntax <> Statement:5 ind
+R3841:3842 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3839:3840 PLF.Syntax <> Ty ind
+R3849:3850 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3843:3848 Coq.Strings.String <> string ind
+R3855:3856 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3851:3854 PLF.Syntax <> Term ind
+R3857:3865 PLF.Syntax <> Statement:5 ind
+R3918:3919 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3916:3917 PLF.Syntax <> Ty ind
+R3926:3927 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3920:3925 Coq.Strings.String <> string ind
+R3928:3936 PLF.Syntax <> Statement:5 ind
+R3982:3983 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3978:3981 PLF.Syntax <> Term ind
+R3993:3994 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3984:3992 PLF.Syntax <> Statement:5 ind
+R3995:4003 PLF.Syntax <> Statement:5 ind
+R4064:4065 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4060:4063 PLF.Syntax <> Term ind
+R4075:4076 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4066:4074 PLF.Syntax <> Statement:5 ind
+R4086:4087 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4077:4085 PLF.Syntax <> Statement:5 ind
+R4088:4096 PLF.Syntax <> Statement:5 ind
+R4152:4153 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4148:4151 PLF.Syntax <> Term ind
+R4163:4164 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4154:4162 PLF.Syntax <> Statement:5 ind
+R4165:4173 PLF.Syntax <> Statement:5 ind
+R4240:4241 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4231:4239 PLF.Syntax <> Statement:5 ind
+R4246:4247 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4242:4245 PLF.Syntax <> Term ind
+R4248:4256 PLF.Syntax <> Statement:5 ind
+R4320:4321 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4311:4319 PLF.Syntax <> Statement:5 ind
+R4326:4327 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4322:4325 PLF.Syntax <> Term ind
+R4332:4333 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4328:4331 PLF.Syntax <> Term ind
+R4343:4344 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4334:4342 PLF.Syntax <> Statement:5 ind
+R4345:4353 PLF.Syntax <> Statement:5 ind
+R4405:4406 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4403:4404 PLF.Syntax <> Ty ind
+R4413:4414 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4407:4412 Coq.Strings.String <> string ind
+R4419:4420 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4415:4418 PLF.Syntax <> Term ind
+R4430:4431 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4421:4429 PLF.Syntax <> Statement:5 ind
+R4432:4440 PLF.Syntax <> Statement:5 ind
+R4491:4492 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4487:4490 PLF.Syntax <> Term ind
+R4493:4501 PLF.Syntax <> Statement:5 ind
+R4565:4573 PLF.Syntax <> Statement:5 ind
+R4637:4645 PLF.Syntax <> Statement:5 ind
+R4718:4719 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4714:4717 PLF.Syntax <> Term ind
+R4720:4728 PLF.Syntax <> Statement:5 ind
+R4788:4789 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4779:4787 PLF.Syntax <> Statement:5 ind
+R4799:4800 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4790:4798 PLF.Syntax <> Statement:5 ind
+R4801:4809 PLF.Syntax <> Statement:5 ind
+scheme 3775:3783 <> Statement_rect
+scheme 3775:3783 <> Statement_ind
+scheme 3775:3783 <> Statement_rec
+scheme 3775:3783 <> Statement_sind
+ind 4823:4836 <> ClassComponent
+constr 4854:4868 <> FieldDeclNoInit
+constr 4938:4950 <> FieldDeclInit
+constr 5027:5041 <> ConstructorDecl
+constr 5119:5128 <> MethodDecl
+constr 5288:5302 <> ComponentConcat
+R4879:4880 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4873:4878 Coq.Strings.String <> string ind
+R4883:4884 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4881:4882 PLF.Syntax <> Ty ind
+R4891:4892 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4885:4890 Coq.Strings.String <> string ind
+R4893:4906 PLF.Syntax <> ClassComponent:7 ind
+R4960:4961 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4954:4959 Coq.Strings.String <> string ind
+R4964:4965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4962:4963 PLF.Syntax <> Ty ind
+R4972:4973 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4966:4971 Coq.Strings.String <> string ind
+R4978:4979 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4974:4977 PLF.Syntax <> Term ind
+R4980:4993 PLF.Syntax <> ClassComponent:7 ind
+R5054:5055 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5045:5053 PLF.Syntax <> Statement ind
+R5065:5066 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5056:5064 PLF.Syntax <> Statement ind
+R5067:5080 PLF.Syntax <> ClassComponent:7 ind
+R5138:5139 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5132:5137 Coq.Strings.String <> string ind
+R5142:5143 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5140:5141 PLF.Syntax <> Ty ind
+R5150:5151 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5144:5149 Coq.Strings.String <> string ind
+R5161:5162 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5152:5160 PLF.Syntax <> Statement ind
+R5172:5173 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5163:5171 PLF.Syntax <> Statement ind
+R5174:5187 PLF.Syntax <> ClassComponent:7 ind
+R5320:5321 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5306:5319 PLF.Syntax <> ClassComponent:7 ind
+R5336:5337 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5322:5335 PLF.Syntax <> ClassComponent:7 ind
+R5338:5351 PLF.Syntax <> ClassComponent:7 ind
+scheme 4823:4836 <> ClassComponent_rect
+scheme 4823:4836 <> ClassComponent_ind
+scheme 4823:4836 <> ClassComponent_rec
+scheme 4823:4836 <> ClassComponent_sind
+ind 5365:5371 <> Program
+constr 5389:5397 <> ClassDecl
+constr 5439:5448 <> ImportDecl
+constr 5482:5494 <> ProgramConcat
+R5407:5408 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5401:5406 Coq.Strings.String <> string ind
+R5423:5424 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5409:5422 PLF.Syntax <> ClassComponent ind
+R5425:5431 PLF.Syntax <> Program:9 ind
+R5458:5459 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5452:5457 Coq.Strings.String <> string ind
+R5466:5467 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5460:5465 Coq.Strings.String <> string ind
+R5468:5474 PLF.Syntax <> Program:9 ind
+R5505:5506 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5498:5504 PLF.Syntax <> Program:9 ind
+R5514:5515 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5507:5513 PLF.Syntax <> Program:9 ind
+R5516:5522 PLF.Syntax <> Program:9 ind
+scheme 5365:5371 <> Program_rect
+scheme 5365:5371 <> Program_ind
+scheme 5365:5371 <> Program_rec
+scheme 5365:5371 <> Program_sind
+not 5645:5645 <> :::'<|'_x_'|>'
+not 5696:5696 <> :::'({'_x_'})'
+not 5752:5752 <> :FJ::'('_x_')'
+not 5805:5805 <> :FJ_Type::'('_x_')'
+not 5863:5863 <> :FJ::x
+not 5930:5930 <> :FJ_Class::x
+R6026:6031 PLF.Syntax <> TyBool constr
+not 6014:6014 <> :FJ_Type::'Bool'
+R6086:6091 PLF.Syntax <> TyByte constr
+not 6074:6074 <> :FJ_Type::'Byte'
+R6147:6153 PLF.Syntax <> TyShort constr
+not 6134:6134 <> :FJ_Type::'Short'
+R6207:6211 PLF.Syntax <> TyInt constr
+not 6196:6196 <> :FJ_Type::'Int'
+R6266:6271 PLF.Syntax <> TyLong constr
+not 6254:6254 <> :FJ_Type::'Long'
+R6326:6331 PLF.Syntax <> TyChar constr
+not 6314:6314 <> :FJ_Type::'Char'
+R6388:6395 PLF.Syntax <> TyString constr
+not 6374:6374 <> :FJ_Type::'String'
+R6451:6457 PLF.Syntax <> TyFloat constr
+not 6438:6438 <> :FJ_Type::'Float'
+R6514:6521 PLF.Syntax <> TyDouble constr
+not 6500:6500 <> :FJ_Type::'Double'
+R6577:6583 PLF.Syntax <> TyArray constr
+not 6564:6564 <> :FJ_Type::x_'[]'
+R6642:6647 PLF.Syntax <> TyVoid constr
+not 6630:6630 <> :FJ_Type::'Void'
+R6711:6720 PLF.Syntax <> TyGeneric1 constr
+not 6690:6690 <> :FJ_Type::'G('_x_'<'_x_'>'_')'
+R6830:6839 PLF.Syntax <> TyGeneric2 constr
+not 6805:6805 <> :FJ_Type::'G('_x_'<'_x_','_x_'>'_')'
+R6958:6967 PLF.Syntax <> TyExternal constr
+not 6941:6941 <> :FJ_Type::'E('_x_')'
+R7057:7062 PLF.Syntax <> TmTrue constr
+not 7045:7045 <> :FJ::'true'
+R7113:7119 PLF.Syntax <> TmFalse constr
+not 7100:7100 <> :FJ::'false'
+R7173:7178 PLF.Syntax <> TmChar constr
+not 7157:7157 <> :FJ::'Char('_x_')'
+R7237:7244 PLF.Syntax <> TmString constr
+not 7219:7219 <> :FJ::'String('_x_')'
+R7276:7308 PLF.Syntax <> TmInteger constr
+R7311:7343 PLF.Syntax <> TmFloat constr
+R7346:7377 PLF.Syntax <> TmVar constr
+R7401:7406 PLF.Syntax <> TmNull constr
+not 7389:7389 <> :FJ::'null'
+R7459:7466 PLF.Syntax <> TmAssign constr
+not 7444:7444 <> :FJ::x_'='_x
+R7542:7554 PLF.Syntax <> TmArrayAccess constr
+not 7528:7528 <> :FJ::x_'['_x_']'
+R7628:7640 PLF.Syntax <> TmFieldAccess constr
+not 7615:7615 <> :FJ::x_'\.'_x
+R7719:7736 PLF.Syntax <> TmMethodInvocation constr
+not 7701:7701 <> :FJ::x_'.'_x_'('_x_')'
+R7839:7858 PLF.Syntax <> TmTyMethodInvocation constr
+not 7814:7814 <> :FJ::'S('_x_'.'_x_'('_x_')'_')'
+R7986:7990 PLF.Syntax <> TmNew constr
+not 7966:7966 <> :FJ::'new'_x_'('_x_')'
+R8094:8105 PLF.Syntax <> TmConversion constr
+not 8079:8079 <> :FJ::'C('_x_')'_x
+R8202:8206 PLF.Syntax <> TmNil constr
+not 8194:8194 <> :FJ::'[]'
+R8257:8262 PLF.Syntax <> TmList constr
+R8266:8270 PLF.Syntax <> TmNil constr
+not 8245:8245 <> :FJ::'['_x_']'
+R8350:8355 PLF.Syntax <> TmList constr
+R8360:8365 PLF.Syntax <> TmList constr
+R8373:8378 PLF.Syntax <> TmList constr
+R8382:8386 PLF.Syntax <> TmNil constr
+not 8325:8325 <> :FJ::'['_x_';'_x_';'_'..'_';'_x_']'
+R8504:8508 PLF.Syntax <> TmAdd constr
+not 8492:8492 <> :FJ::x_'+'_x
+R8564:8568 PLF.Syntax <> TmSub constr
+not 8552:8552 <> :FJ::x_'-'_x
+R8624:8628 PLF.Syntax <> TmMul constr
+not 8612:8612 <> :FJ::x_'*'_x
+R8684:8688 PLF.Syntax <> TmDiv constr
+not 8672:8672 <> :FJ::x_'/'_x
+R8744:8748 PLF.Syntax <> TmMod constr
+not 8732:8732 <> :FJ::x_'%'_x
+R8802:8806 PLF.Syntax <> TmNeg constr
+not 8792:8792 <> :FJ::'-'_x
+R8861:8868 PLF.Syntax <> TmShiftL constr
+not 8848:8848 <> :FJ::x_'<<'_x
+R8925:8932 PLF.Syntax <> TmShiftR constr
+not 8912:8912 <> :FJ::x_'>>'_x
+R8988:8995 PLF.Syntax <> TmBitAnd constr
+not 8976:8976 <> :FJ::x_'&'_x
+R9051:9057 PLF.Syntax <> TmBitOr constr
+not 9039:9039 <> :FJ::x_'|'_x
+R9113:9120 PLF.Syntax <> TmBitXor constr
+not 9101:9101 <> :FJ::x_'^'_x
+R9174:9181 PLF.Syntax <> TmBitNot constr
+not 9164:9164 <> :FJ::'~'_x
+R9258:9261 PLF.Syntax <> TmEq constr
+not 9245:9245 <> :FJ::x_'=='_x
+R9318:9321 PLF.Syntax <> TmNe constr
+not 9305:9305 <> :FJ::x_'!='_x
+R9377:9380 PLF.Syntax <> TmLt constr
+not 9365:9365 <> :FJ::x_'<'_x
+R9437:9440 PLF.Syntax <> TmLe constr
+not 9424:9424 <> :FJ::x_'<='_x
+R9496:9499 PLF.Syntax <> TmGt constr
+not 9484:9484 <> :FJ::x_'>'_x
+R9556:9559 PLF.Syntax <> TmGe constr
+not 9543:9543 <> :FJ::x_'>='_x
+R9616:9620 PLF.Syntax <> TmAnd constr
+not 9603:9603 <> :FJ::x_'&&'_x
+R9677:9680 PLF.Syntax <> TmOr constr
+not 9664:9664 <> :FJ::x_'||'_x
+R9734:9738 PLF.Syntax <> TmNot constr
+not 9724:9724 <> :FJ::'!'_x
+R9796:9803 PLF.Syntax <> TmChoose constr
+not 9780:9780 <> :FJ::x_'?'_x_':'_x
+R9907:9912 PLF.Syntax <> StSkip constr
+not 9895:9895 <> :FJ::'skip'
+R9973:9976 PLF.Syntax <> StIf constr
+not 9950:9950 <> :FJ::'if'_'('_x_')'_'{'_x_'}'
+R10088:10095 PLF.Syntax <> StIfElse constr
+not 10052:10052 <> :FJ::'if'_'('_x_')'_'{'_x_'}'_'else'_'{'_x_'}'
+R10214:10220 PLF.Syntax <> StWhile constr
+not 10188:10188 <> :FJ::'while'_'('_x_')'_'{'_x_'}'
+R10295:10303 PLF.Syntax <> StDoWhile constr
+not 10264:10264 <> :FJ::'do'_'{'_x_'}'_'while'_'('_x_')'
+R10411:10415 PLF.Syntax <> StFor constr
+not 10377:10377 <> :FJ::'for'_'('_x_';;'_x_';;'_x_')'_'{'_x_'}'
+R10543:10550 PLF.Syntax <> StReturn constr
+not 10525:10525 <> :FJ::'Return'_x
+R10622:10629 PLF.Syntax <> StConcat constr
+not 10609:10609 <> :FJ::x_';'_x
+R10704:10713 PLF.Syntax <> StContinue constr
+not 10688:10688 <> :FJ::'continue'
+R10765:10771 PLF.Syntax <> StBreak constr
+not 10752:10752 <> :FJ::'break'
+R10827:10836 PLF.Syntax <> StDeclInit constr
+not 10810:10810 <> :FJ::x_x_'='_x
+R10937:10978 PLF.Syntax <> StExpression constr
+R11032:11041 PLF.Syntax <> MethodDecl constr
+not 11010:11010 <> :FJ_Class::x_x_'('_x_')'_'{'_x_'}'
+R11204:11218 PLF.Syntax <> FieldDeclNoInit constr
+not 11194:11194 <> :FJ_Class::x_x
+R11348:11362 PLF.Syntax <> ConstructorDecl constr
+not 11316:11316 <> :FJ_Class::'Constructor'_'('_x_')'_'{'_x_'}'
+R11475:11489 PLF.Syntax <> ComponentConcat constr
+not 11463:11463 <> :FJ_Class::x_';'_x
+R11597:11606 PLF.Syntax <> ImportDecl constr
+not 11573:11573 <> :FJ::'Import'_x_'.'_x_';'
+R11705:11713 PLF.Syntax <> ClassDecl constr
+not 11678:11678 <> :FJ::'class'_x_'{'_x_'}'
+R11818:11830 PLF.Syntax <> ProgramConcat constr
+not 11803:11803 <> :FJ::x_'\n'_x
+def 11892:11895 <> main
+R11899:11904 Coq.Strings.String <> string ind
+def 11928:11931 <> this
+R11935:11940 Coq.Strings.String <> string ind
+def 11964:11969 <> method
+R11973:11978 Coq.Strings.String <> string ind
+def 12004:12014 <> constructor
+R12018:12023 Coq.Strings.String <> string ind
+def 12054:12059 <> public
+R12063:12068 Coq.Strings.String <> string ind
+def 12094:12100 <> return'
+R12104:12109 Coq.Strings.String <> string ind
+def 12135:12140 <> empty'
+R12144:12149 Coq.Strings.String <> string ind
+ind 12276:12278 <> STy
+constr 12310:12319 <> STyBoolean
+constr 12353:12362 <> STyNumeric
+constr 12410:12418 <> STyString
+constr 12491:12498 <> STyArrow
+constr 12536:12542 <> STyVoid
+constr 12579:12585 <> STyList
+constr 12638:12645 <> STyArray
+constr 12694:12701 <> STyClass
+R12323:12325 PLF.Syntax <> STy:11 ind
+R12366:12368 PLF.Syntax <> STy:11 ind
+R12422:12424 PLF.Syntax <> STy:11 ind
+R12505:12506 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12502:12504 PLF.Syntax <> STy:11 ind
+R12510:12511 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12507:12509 PLF.Syntax <> STy:11 ind
+R12512:12514 PLF.Syntax <> STy:11 ind
+R12546:12548 PLF.Syntax <> STy:11 ind
+R12592:12593 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12589:12591 PLF.Syntax <> STy:11 ind
+R12597:12598 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12594:12596 PLF.Syntax <> STy:11 ind
+R12599:12601 PLF.Syntax <> STy:11 ind
+R12652:12653 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12649:12651 PLF.Syntax <> STy:11 ind
+R12654:12656 PLF.Syntax <> STy:11 ind
+R12720:12722 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12705:12715 PLF.Maps <> partial_map def
+R12717:12719 PLF.Syntax <> STy:11 ind
+R12723:12725 PLF.Syntax <> STy:11 ind
+scheme 12276:12278 <> STy_rect
+scheme 12276:12278 <> STy_ind
+scheme 12276:12278 <> STy_rec
+scheme 12276:12278 <> STy_sind
+not 12766:12766 <> :::'<('_x_')>'
+not 12821:12821 <> :FJ_STy::'('_x_')'
+not 12878:12878 <> :FJ_STy::x
+R12960:12969 PLF.Syntax <> STyBoolean constr
+not 12948:12948 <> :FJ_STy::'Bool'
+R13026:13035 PLF.Syntax <> STyNumeric constr
+not 13011:13011 <> :FJ_STy::'Numeric'
+R13091:13099 PLF.Syntax <> STyString constr
+not 13077:13077 <> :FJ_STy::'String'
+R13158:13165 PLF.Syntax <> STyArrow constr
+not 13141:13141 <> :FJ_STy::x_'->'_x
+R13240:13246 PLF.Syntax <> STyVoid constr
+not 13230:13230 <> :FJ_STy::'[]'
+R13300:13306 PLF.Syntax <> STyList constr
+R13310:13316 PLF.Syntax <> STyVoid constr
+not 13288:13288 <> :FJ_STy::'['_x_']'
+R13388:13394 PLF.Syntax <> STyList constr
+R13400:13406 PLF.Syntax <> STyList constr
+R13415:13421 PLF.Syntax <> STyList constr
+R13426:13432 PLF.Syntax <> STyVoid constr
+not 13360:13360 <> :FJ_STy::'['_x_';'_x_';'_'..'_';'_x_']'
+R13492:13499 PLF.Syntax <> STyArray constr
+not 13481:13481 <> :FJ_STy::x_'[]'
+def 13620:13628 <> SimplType
+R13633:13634 PLF.Syntax <> Ty ind
+binder 13631:13631 <> T:13
+R13639:13641 PLF.Syntax <> STy ind
+R13656:13656 PLF.Syntax <> T:13 var
+R13669:13674 PLF.Syntax <> TyBool constr
+R13679:13688 PLF.Syntax <> STyBoolean constr
+R13696:13701 PLF.Syntax <> TyByte constr
+R13706:13715 PLF.Syntax <> STyNumeric constr
+R13723:13729 PLF.Syntax <> TyShort constr
+R13734:13743 PLF.Syntax <> STyNumeric constr
+R13751:13755 PLF.Syntax <> TyInt constr
+R13760:13769 PLF.Syntax <> STyNumeric constr
+R13777:13782 PLF.Syntax <> TyLong constr
+R13787:13796 PLF.Syntax <> STyNumeric constr
+R13804:13810 PLF.Syntax <> TyFloat constr
+R13815:13824 PLF.Syntax <> STyNumeric constr
+R13832:13839 PLF.Syntax <> TyDouble constr
+R13844:13853 PLF.Syntax <> STyNumeric constr
+R13861:13866 PLF.Syntax <> TyChar constr
+R13871:13880 PLF.Syntax <> STyNumeric constr
+R13888:13895 PLF.Syntax <> TyString constr
+R13900:13908 PLF.Syntax <> STyString constr
+R13916:13922 PLF.Syntax <> TyArray constr
+R13930:13937 PLF.Syntax <> STyArray constr
+R13940:13948 PLF.Syntax <> SimplType:14 def
+R13960:13965 PLF.Syntax <> TyVoid constr
+R13970:13976 PLF.Syntax <> STyVoid constr
+R13984:13993 PLF.Syntax <> TyExternal constr
+R14048:14055 PLF.Syntax <> STyClass constr
+R14069:14071 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14082:14082 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14094:14096 PLF.Maps <> :::x_'|->'_x not
+R14097:14106 PLF.Syntax <> STyNumeric constr
+R14072:14081 PLF.Syntax <> STyNumeric constr
+R14141:14148 PLF.Syntax <> STyClass constr
+R14156:14159 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14190:14192 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14198:14200 PLF.Maps <> :::x_'|->'_x not
+R14201:14202 PLF.Syntax <> :::'<('_x_')>' not
+R14229:14230 PLF.Syntax <> :::'<('_x_')>' not
+R14220:14221 PLF.Syntax <> :FJ_STy::x_'->'_x not
+R14203:14203 PLF.Syntax <> :FJ_STy::'['_x_';'_x_';'_'..'_';'_x_']' not
+R14211:14211 PLF.Syntax <> :FJ_STy::'['_x_';'_x_';'_'..'_';'_x_']' not
+R14219:14219 PLF.Syntax <> :FJ_STy::'['_x_';'_x_';'_'..'_';'_x_']' not
+R14204:14210 PLF.Syntax <> :FJ_STy::'Numeric' not
+R14212:14218 PLF.Syntax <> :FJ_STy::'Numeric' not
+R14222:14228 PLF.Syntax <> :FJ_STy::'Numeric' not
+R14160:14161 PLF.Syntax <> :::'<('_x_')>' not
+R14188:14189 PLF.Syntax <> :::'<('_x_')>' not
+R14179:14180 PLF.Syntax <> :FJ_STy::x_'->'_x not
+R14162:14162 PLF.Syntax <> :FJ_STy::'['_x_';'_x_';'_'..'_';'_x_']' not
+R14170:14170 PLF.Syntax <> :FJ_STy::'['_x_';'_x_';'_'..'_';'_x_']' not
+R14178:14178 PLF.Syntax <> :FJ_STy::'['_x_';'_x_';'_'..'_';'_x_']' not
+R14163:14169 PLF.Syntax <> :FJ_STy::'Numeric' not
+R14171:14177 PLF.Syntax <> :FJ_STy::'Numeric' not
+R14181:14187 PLF.Syntax <> :FJ_STy::'Numeric' not
+R14261:14268 PLF.Syntax <> STyClass constr
+R14271:14275 PLF.Maps <> empty def
+R14308:14317 PLF.Syntax <> TyGeneric0 constr
+R14324:14331 PLF.Syntax <> STyClass constr
+R14334:14338 PLF.Maps <> empty def
+R14347:14356 PLF.Syntax <> TyGeneric1 constr
+R14375:14383 PLF.Syntax <> SimplType:14 def
+binder 14369:14370 <> ST:17
+R14465:14472 PLF.Syntax <> STyClass constr
+R14479:14481 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14494:14495 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14504:14506 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14524:14525 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14531:14533 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14551:14551 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14562:14564 PLF.Maps <> :::x_'|->'_x not
+R14565:14566 PLF.Syntax <> ST:17 var
+R14534:14535 PLF.Syntax <> :::'<('_x_')>' not
+R14549:14550 PLF.Syntax <> :::'<('_x_')>' not
+R14545:14546 PLF.Syntax <> :FJ_STy::x_'->'_x not
+R14536:14536 PLF.Syntax <> :FJ_STy::'['_x_']' not
+R14544:14544 PLF.Syntax <> :FJ_STy::'['_x_']' not
+R14537:14543 PLF.Syntax <> :FJ_STy::'Numeric' not
+R14547:14548 PLF.Syntax <> ST:17 var
+R14507:14508 PLF.Syntax <> :::'<('_x_')>' not
+R14522:14523 PLF.Syntax <> :::'<('_x_')>' not
+R14518:14519 PLF.Syntax <> :FJ_STy::x_'->'_x not
+R14509:14509 PLF.Syntax <> :FJ_STy::'['_x_']' not
+R14517:14517 PLF.Syntax <> :FJ_STy::'['_x_']' not
+R14510:14516 PLF.Syntax <> :FJ_STy::'Numeric' not
+R14520:14521 PLF.Syntax <> :FJ_STy::'[]' not
+R14482:14483 PLF.Syntax <> :::'<('_x_')>' not
+R14492:14493 PLF.Syntax <> :::'<('_x_')>' not
+R14488:14489 PLF.Syntax <> :FJ_STy::x_'->'_x not
+R14484:14484 PLF.Syntax <> :FJ_STy::'['_x_']' not
+R14487:14487 PLF.Syntax <> :FJ_STy::'['_x_']' not
+R14485:14486 PLF.Syntax <> ST:17 var
+R14490:14491 PLF.Syntax <> :FJ_STy::'[]' not
+R14604:14611 PLF.Syntax <> STyClass constr
+R14618:14620 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14633:14634 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14643:14645 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14658:14659 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14670:14672 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14687:14687 PLF.Maps <> :::x_'|->'_x_';'_x not
+R14698:14700 PLF.Maps <> :::x_'|->'_x not
+R14701:14702 PLF.Syntax <> ST:17 var
+R14673:14674 PLF.Syntax <> :::'<('_x_')>' not
+R14685:14686 PLF.Syntax <> :::'<('_x_')>' not
+R14679:14680 PLF.Syntax <> :FJ_STy::x_'->'_x not
+R14675:14675 PLF.Syntax <> :FJ_STy::'['_x_']' not
+R14678:14678 PLF.Syntax <> :FJ_STy::'['_x_']' not
+R14676:14677 PLF.Syntax <> ST:17 var
+R14681:14684 PLF.Syntax <> :FJ_STy::'Bool' not
+R14646:14647 PLF.Syntax <> :::'<('_x_')>' not
+R14656:14657 PLF.Syntax <> :::'<('_x_')>' not
+R14652:14653 PLF.Syntax <> :FJ_STy::x_'->'_x not
+R14648:14648 PLF.Syntax <> :FJ_STy::'['_x_']' not
+R14651:14651 PLF.Syntax <> :FJ_STy::'['_x_']' not
+R14649:14650 PLF.Syntax <> ST:17 var
+R14654:14655 PLF.Syntax <> :FJ_STy::'[]' not
+R14621:14622 PLF.Syntax <> :::'<('_x_')>' not
+R14631:14632 PLF.Syntax <> :::'<('_x_')>' not
+R14627:14628 PLF.Syntax <> :FJ_STy::x_'->'_x not
+R14623:14623 PLF.Syntax <> :FJ_STy::'['_x_']' not
+R14626:14626 PLF.Syntax <> :FJ_STy::'['_x_']' not
+R14624:14625 PLF.Syntax <> ST:17 var
+R14629:14630 PLF.Syntax <> :FJ_STy::'[]' not
+R14736:14743 PLF.Syntax <> STyClass constr
+R14756:14758 PLF.Maps <> :::x_'|->'_x not
+R14759:14760 PLF.Syntax <> ST:17 var
+R14797:14806 PLF.Syntax <> TyGeneric2 constr
+R14830:14838 PLF.Syntax <> SimplType:14 def
+binder 14823:14825 <> ST1:19
+R14885:14893 PLF.Syntax <> SimplType:14 def
+binder 14878:14880 <> ST2:20
+R14981:14988 PLF.Syntax <> STyClass constr
+R14995:14997 PLF.Maps <> :::x_'|->'_x_';'_x not
+R15015:15016 PLF.Maps <> :::x_'|->'_x_';'_x not
+R15022:15024 PLF.Maps <> :::x_'|->'_x not
+R15025:15026 PLF.Syntax <> :::'<('_x_')>' not
+R15037:15038 PLF.Syntax <> :::'<('_x_')>' not
+R15032:15033 PLF.Syntax <> :FJ_STy::x_'->'_x not
+R15027:15027 PLF.Syntax <> :FJ_STy::'['_x_']' not
+R15031:15031 PLF.Syntax <> :FJ_STy::'['_x_']' not
+R15028:15030 PLF.Syntax <> ST1:19 var
+R15034:15036 PLF.Syntax <> ST2:20 var
+R14998:14999 PLF.Syntax <> :::'<('_x_')>' not
+R15013:15014 PLF.Syntax <> :::'<('_x_')>' not
+R15009:15010 PLF.Syntax <> :FJ_STy::x_'->'_x not
+R15000:15000 PLF.Syntax <> :FJ_STy::'['_x_';'_x_';'_'..'_';'_x_']' not
+R15004:15004 PLF.Syntax <> :FJ_STy::'['_x_';'_x_';'_'..'_';'_x_']' not
+R15008:15008 PLF.Syntax <> :FJ_STy::'['_x_';'_x_';'_'..'_';'_x_']' not
+R15001:15003 PLF.Syntax <> ST1:19 var
+R15005:15007 PLF.Syntax <> ST2:20 var
+R15011:15012 PLF.Syntax <> :FJ_STy::'[]' not
+R15076:15083 PLF.Syntax <> STyClass constr
+R15086:15090 PLF.Maps <> empty def
+def 15146:15153 <> iterable
+R15163:15165 PLF.Syntax <> STy ind
+binder 15156:15157 <> T1:22
+binder 15159:15160 <> T2:23
+R15180:15181 PLF.Syntax <> T2:23 var
+R15194:15201 PLF.Syntax <> STyArray constr
+R15211:15211 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15209:15210 PLF.Syntax <> T1:22 var
+R15221:15228 PLF.Syntax <> STyClass constr
+R15283:15286 Coq.Init.Datatypes <> Some constr
+R15296:15296 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15294:15295 PLF.Syntax <> T1:22 var
+R15322:15325 Coq.Init.Datatypes <> None constr
+R15330:15334 Coq.Init.Logic <> False ind
+R15371:15375 Coq.Init.Logic <> False ind
+def 15468:15474 <> Context
+R15486:15496 PLF.Maps <> partial_map def
+R15498:15500 PLF.Syntax <> STy ind
+def 15514:15522 <> ClassType
+R15534:15544 PLF.Maps <> partial_map def
+R15546:15548 PLF.Syntax <> STy ind
+def 15562:15572 <> updateMerge
+binder 15575:15575 <> A:25
+R15590:15600 PLF.Maps <> partial_map def
+R15602:15602 PLF.Syntax <> A:25 var
+binder 15584:15585 <> m1:26
+binder 15587:15588 <> m2:27
+R15607:15617 PLF.Maps <> partial_map def
+R15619:15619 PLF.Syntax <> A:25 var
+binder 15632:15632 <> x:28
+R15643:15644 PLF.Syntax <> m1:26 var
+R15646:15646 PLF.Syntax <> x:28 var
+R15667:15670 Coq.Init.Datatypes <> Some constr
+R15677:15680 Coq.Init.Datatypes <> Some constr
+R15698:15701 Coq.Init.Datatypes <> None constr
+R15706:15707 PLF.Syntax <> m2:27 var
+R15709:15709 PLF.Syntax <> x:28 var
+ind 15838:15845 <> has_type
+constr 15912:15916 <> T_Var
+constr 16006:16014 <> T_Integer
+constr 16087:16093 <> T_Float
+constr 16164:16169 <> T_Char
+constr 16238:16245 <> T_String
+constr 16317:16322 <> T_True
+constr 16386:16392 <> T_False
+constr 16457:16462 <> T_Null
+constr 16578:16585 <> T_Assign
+constr 16732:16743 <> T_Conversion
+constr 16983:16995 <> T_FieldAccess
+constr 17160:17173 <> T_FieldAccess'
+constr 17336:17348 <> T_ArrayAccess
+constr 17536:17540 <> T_New
+constr 17783:17788 <> T_New'
+constr 18007:18022 <> T_NewArrayNoInit
+constr 18129:18145 <> T_NewArrayNoInit'
+constr 18375:18388 <> T_NewArrayInit
+constr 18574:18591 <> T_MethodInvocation
+constr 18836:18854 <> T_MethodInvocation'
+constr 19080:19099 <> T_TyMethodInvocation
+constr 19336:19356 <> T_TyMethodInvocation'
+constr 19574:19596 <> T_MethodInvocationNoObj
+constr 19793:19797 <> T_Nil
+constr 19857:19862 <> T_List
+constr 20044:20055 <> T_EmptyArray
+constr 20146:20158 <> T_ArrayConcat
+constr 20378:20382 <> T_Add
+constr 20567:20571 <> T_Sub
+constr 20756:20760 <> T_Mul
+constr 20945:20949 <> T_Div
+constr 21134:21138 <> T_Mod
+constr 21323:21327 <> T_Neg
+constr 21455:21462 <> T_ShiftL
+constr 21651:21658 <> T_ShiftR
+constr 21847:21854 <> T_BitAnd
+constr 22042:22048 <> T_BitOr
+constr 22235:22242 <> T_BitXor
+constr 22430:22437 <> T_BitNot
+constr 22568:22576 <> T_PostInc
+constr 22709:22717 <> T_PostDec
+constr 22850:22857 <> T_PreInc
+constr 22989:22996 <> T_PreDec
+constr 23147:23150 <> T_Eq
+constr 23319:23322 <> T_Ne
+constr 23491:23494 <> T_Lt
+constr 23678:23681 <> T_Le
+constr 23866:23869 <> T_Gt
+constr 24053:24056 <> T_Ge
+constr 24241:24245 <> T_And
+constr 24431:24434 <> T_Or
+constr 24619:24623 <> T_Not
+constr 24751:24758 <> T_Choose
+R15856:15857 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15849:15855 PLF.Syntax <> Context def
+R15862:15863 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15858:15861 PLF.Syntax <> Term ind
+R15867:15868 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15864:15866 PLF.Syntax <> STy ind
+R25003:25010 PLF.Syntax <> has_type:30 ind
+binder 15927:15931 <> Gamma:31
+binder 15933:15933 <> x:32
+binder 15935:15935 <> T:33
+R15962:15973 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15953:15955 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15946:15950 PLF.Syntax <> Gamma:31 var
+R15952:15952 PLF.Syntax <> x:32 var
+R15956:15959 Coq.Init.Datatypes <> Some constr
+R15961:15961 PLF.Syntax <> T:33 var
+R15979:15984 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R15992:15997 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R15974:15978 PLF.Syntax <> Gamma:31 var
+R15985:15989 PLF.Syntax <> TmVar constr
+R15991:15991 PLF.Syntax <> x:32 var
+R15998:15998 PLF.Syntax <> T:33 var
+binder 16025:16029 <> Gamma:34
+binder 16031:16031 <> n:35
+R16047:16052 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16064:16069 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16042:16046 PLF.Syntax <> Gamma:34 var
+R16053:16061 PLF.Syntax <> TmInteger constr
+R16063:16063 PLF.Syntax <> n:35 var
+R16070:16079 PLF.Syntax <> STyNumeric constr
+binder 16104:16108 <> Gamma:36
+binder 16110:16110 <> f:37
+R16126:16131 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16141:16146 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16121:16125 PLF.Syntax <> Gamma:36 var
+R16132:16138 PLF.Syntax <> TmFloat constr
+R16140:16140 PLF.Syntax <> f:37 var
+R16147:16156 PLF.Syntax <> STyNumeric constr
+binder 16180:16184 <> Gamma:38
+binder 16186:16186 <> c:39
+R16202:16207 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16216:16221 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16197:16201 PLF.Syntax <> Gamma:38 var
+R16208:16213 PLF.Syntax <> TmChar constr
+R16215:16215 PLF.Syntax <> c:39 var
+R16222:16230 PLF.Syntax <> STyString constr
+binder 16256:16260 <> Gamma:40
+binder 16262:16262 <> s:41
+R16278:16284 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16295:16300 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16273:16277 PLF.Syntax <> Gamma:40 var
+R16285:16292 PLF.Syntax <> TmString constr
+R16294:16294 PLF.Syntax <> s:41 var
+R16301:16309 PLF.Syntax <> STyString constr
+binder 16333:16337 <> Gamma:42
+R16353:16357 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16364:16368 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16348:16352 PLF.Syntax <> Gamma:42 var
+R16358:16363 PLF.Syntax <> TmTrue constr
+R16369:16378 PLF.Syntax <> STyBoolean constr
+binder 16403:16407 <> Gamma:43
+R16423:16427 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16435:16439 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16418:16422 PLF.Syntax <> Gamma:43 var
+R16428:16434 PLF.Syntax <> TmFalse constr
+R16440:16449 PLF.Syntax <> STyBoolean constr
+binder 16473:16477 <> Gamma:44
+binder 16479:16479 <> T:45
+R16495:16499 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16506:16510 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16490:16494 PLF.Syntax <> Gamma:44 var
+R16500:16505 PLF.Syntax <> TmNull constr
+R16511:16511 PLF.Syntax <> T:45 var
+binder 16596:16600 <> Gamma:46
+binder 16602:16602 <> x:47
+binder 16604:16604 <> T:48
+binder 16606:16606 <> t:49
+R16654:16665 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16642:16646 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16648:16652 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16637:16641 PLF.Syntax <> Gamma:46 var
+R16647:16647 PLF.Syntax <> x:47 var
+R16653:16653 PLF.Syntax <> T:48 var
+R16683:16694 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16671:16675 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16677:16681 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16666:16670 PLF.Syntax <> Gamma:46 var
+R16676:16676 PLF.Syntax <> t:49 var
+R16682:16682 PLF.Syntax <> T:48 var
+R16700:16705 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16718:16723 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16695:16699 PLF.Syntax <> Gamma:46 var
+R16706:16713 PLF.Syntax <> TmAssign constr
+R16715:16715 PLF.Syntax <> x:47 var
+R16717:16717 PLF.Syntax <> t:49 var
+R16724:16724 PLF.Syntax <> T:48 var
+binder 16754:16758 <> Gamma:50
+binder 16760:16760 <> T:51
+binder 16762:16762 <> t:52
+R16819:16830 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16798:16802 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16804:16808 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16793:16797 PLF.Syntax <> Gamma:50 var
+R16803:16803 PLF.Syntax <> t:52 var
+R16809:16818 PLF.Syntax <> STyNumeric constr
+R16855:16866 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16842:16844 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16831:16839 PLF.Syntax <> SimplType def
+R16841:16841 PLF.Syntax <> T:51 var
+R16845:16854 PLF.Syntax <> STyNumeric constr
+R16872:16877 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16894:16899 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R16867:16871 PLF.Syntax <> Gamma:50 var
+R16878:16889 PLF.Syntax <> TmConversion constr
+R16891:16891 PLF.Syntax <> T:51 var
+R16893:16893 PLF.Syntax <> t:52 var
+R16900:16909 PLF.Syntax <> STyNumeric constr
+binder 17006:17010 <> Gamma:53
+binder 17012:17013 <> tm:54
+binder 17015:17015 <> f:55
+binder 17017:17018 <> ct:56
+binder 17020:17020 <> T:57
+R17082:17093 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17055:17059 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17062:17068 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17080:17081 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17050:17054 PLF.Syntax <> Gamma:53 var
+R17060:17061 PLF.Syntax <> tm:54 var
+R17069:17076 PLF.Syntax <> STyClass constr
+R17078:17079 PLF.Syntax <> ct:56 var
+R17107:17118 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17098:17100 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17094:17095 PLF.Syntax <> ct:56 var
+R17097:17097 PLF.Syntax <> f:55 var
+R17101:17104 Coq.Init.Datatypes <> Some constr
+R17106:17106 PLF.Syntax <> T:57 var
+R17124:17128 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17147:17151 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17119:17123 PLF.Syntax <> Gamma:53 var
+R17129:17141 PLF.Syntax <> TmFieldAccess constr
+R17143:17144 PLF.Syntax <> tm:54 var
+R17146:17146 PLF.Syntax <> f:55 var
+R17152:17152 PLF.Syntax <> T:57 var
+binder 17184:17188 <> Gamma:58
+binder 17190:17191 <> tm:59
+binder 17193:17193 <> f:60
+binder 17195:17196 <> ct:61
+binder 17198:17198 <> T:62
+R17260:17271 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17233:17237 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17240:17246 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17258:17259 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17228:17232 PLF.Syntax <> Gamma:58 var
+R17238:17239 PLF.Syntax <> tm:59 var
+R17247:17254 PLF.Syntax <> STyClass constr
+R17256:17257 PLF.Syntax <> ct:61 var
+R17283:17294 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17276:17278 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17272:17273 PLF.Syntax <> ct:61 var
+R17275:17275 PLF.Syntax <> f:60 var
+R17279:17282 Coq.Init.Datatypes <> None constr
+R17300:17304 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17323:17327 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17295:17299 PLF.Syntax <> Gamma:58 var
+R17305:17317 PLF.Syntax <> TmFieldAccess constr
+R17319:17320 PLF.Syntax <> tm:59 var
+R17322:17322 PLF.Syntax <> f:60 var
+R17328:17328 PLF.Syntax <> T:62 var
+binder 17359:17363 <> Gamma:63
+binder 17365:17367 <> tm1:64
+binder 17369:17371 <> tm2:65
+binder 17373:17373 <> T:66
+R17440:17451 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17413:17417 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17421:17427 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17438:17439 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17408:17412 PLF.Syntax <> Gamma:63 var
+R17418:17420 PLF.Syntax <> tm1:64 var
+R17428:17435 PLF.Syntax <> STyArray constr
+R17437:17437 PLF.Syntax <> T:66 var
+R17480:17491 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17457:17461 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17465:17469 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17452:17456 PLF.Syntax <> Gamma:63 var
+R17462:17464 PLF.Syntax <> tm2:65 var
+R17470:17479 PLF.Syntax <> STyNumeric constr
+R17497:17501 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17523:17527 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17492:17496 PLF.Syntax <> Gamma:63 var
+R17502:17514 PLF.Syntax <> TmArrayAccess constr
+R17516:17518 PLF.Syntax <> tm1:64 var
+R17520:17522 PLF.Syntax <> tm2:65 var
+R17528:17528 PLF.Syntax <> T:66 var
+binder 17551:17555 <> Gamma:67
+binder 17557:17557 <> T:68
+binder 17559:17563 <> param:69
+binder 17565:17566 <> PT:70
+binder 17568:17569 <> ct:71
+R17632:17643 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17618:17620 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17607:17615 PLF.Syntax <> SimplType def
+R17617:17617 PLF.Syntax <> T:68 var
+R17621:17628 PLF.Syntax <> STyClass constr
+R17630:17631 PLF.Syntax <> ct:71 var
+R17689:17700 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17658:17660 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17644:17645 PLF.Syntax <> ct:71 var
+R17647:17657 PLF.Syntax <> constructor def
+R17661:17664 Coq.Init.Datatypes <> Some constr
+R17668:17675 PLF.Syntax <> STyArrow constr
+R17677:17678 PLF.Syntax <> PT:70 var
+R17680:17686 PLF.Syntax <> STyVoid constr
+R17723:17734 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17706:17710 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17716:17720 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17701:17705 PLF.Syntax <> Gamma:67 var
+R17711:17715 PLF.Syntax <> param:69 var
+R17721:17722 PLF.Syntax <> PT:70 var
+R17740:17744 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17758:17763 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17775:17775 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17735:17739 PLF.Syntax <> Gamma:67 var
+R17745:17749 PLF.Syntax <> TmNew constr
+R17751:17751 PLF.Syntax <> T:68 var
+R17753:17757 PLF.Syntax <> param:69 var
+R17764:17772 PLF.Syntax <> SimplType def
+R17774:17774 PLF.Syntax <> T:68 var
+binder 17799:17803 <> Gamma:72
+binder 17805:17805 <> T:73
+binder 17807:17811 <> param:74
+binder 17813:17814 <> PT:75
+binder 17816:17817 <> ct:76
+R17880:17891 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17866:17868 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17855:17863 PLF.Syntax <> SimplType def
+R17865:17865 PLF.Syntax <> T:73 var
+R17869:17876 PLF.Syntax <> STyClass constr
+R17878:17879 PLF.Syntax <> ct:76 var
+R17913:17924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17906:17908 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17892:17893 PLF.Syntax <> ct:76 var
+R17895:17905 PLF.Syntax <> constructor def
+R17909:17912 Coq.Init.Datatypes <> None constr
+R17947:17958 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17930:17934 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17940:17944 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17925:17929 PLF.Syntax <> Gamma:72 var
+R17935:17939 PLF.Syntax <> param:74 var
+R17945:17946 PLF.Syntax <> PT:75 var
+R17964:17968 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17982:17987 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17999:17999 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R17959:17963 PLF.Syntax <> Gamma:72 var
+R17969:17973 PLF.Syntax <> TmNew constr
+R17975:17975 PLF.Syntax <> T:73 var
+R17977:17981 PLF.Syntax <> param:74 var
+R17988:17996 PLF.Syntax <> SimplType def
+R17998:17998 PLF.Syntax <> T:73 var
+binder 18033:18037 <> Gamma:77
+binder 18039:18039 <> T:78
+R18075:18079 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18104:18109 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18121:18121 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18070:18074 PLF.Syntax <> Gamma:77 var
+R18080:18095 PLF.Syntax <> TmNewArrayNoInit constr
+R18097:18097 PLF.Syntax <> T:78 var
+R18099:18103 PLF.Syntax <> TmNil constr
+R18110:18118 PLF.Syntax <> SimplType def
+R18120:18120 PLF.Syntax <> T:78 var
+binder 18156:18160 <> Gamma:79
+binder 18162:18162 <> T:80
+binder 18164:18166 <> tm1:81
+binder 18168:18170 <> tm2:82
+binder 18172:18173 <> T':83
+R18242:18253 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18219:18223 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18227:18231 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18214:18218 PLF.Syntax <> Gamma:79 var
+R18224:18226 PLF.Syntax <> tm1:81 var
+R18232:18241 PLF.Syntax <> STyNumeric constr
+R18293:18304 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18259:18263 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18286:18290 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18254:18258 PLF.Syntax <> Gamma:79 var
+R18264:18279 PLF.Syntax <> TmNewArrayNoInit constr
+R18281:18281 PLF.Syntax <> T:80 var
+R18283:18285 PLF.Syntax <> tm2:82 var
+R18291:18292 PLF.Syntax <> T':83 var
+R18310:18314 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18350:18355 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18367:18367 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18305:18309 PLF.Syntax <> Gamma:79 var
+R18315:18330 PLF.Syntax <> TmNewArrayNoInit constr
+R18332:18332 PLF.Syntax <> T:80 var
+R18335:18340 PLF.Syntax <> TmList constr
+R18342:18344 PLF.Syntax <> tm1:81 var
+R18346:18348 PLF.Syntax <> tm2:82 var
+R18356:18363 PLF.Syntax <> STyArray constr
+R18365:18366 PLF.Syntax <> T':83 var
+binder 18399:18403 <> Gamma:84
+binder 18405:18405 <> T:85
+binder 18407:18411 <> param:86
+binder 18413:18414 <> T':87
+R18482:18493 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18477:18479 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18466:18474 PLF.Syntax <> SimplType def
+R18476:18476 PLF.Syntax <> T:85 var
+R18480:18481 PLF.Syntax <> T':87 var
+R18516:18527 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18499:18503 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18509:18513 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18494:18498 PLF.Syntax <> Gamma:84 var
+R18504:18508 PLF.Syntax <> param:86 var
+R18514:18515 PLF.Syntax <> T':87 var
+R18533:18537 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18560:18564 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18528:18532 PLF.Syntax <> Gamma:84 var
+R18538:18551 PLF.Syntax <> TmNewArrayInit constr
+R18553:18553 PLF.Syntax <> T:85 var
+R18555:18559 PLF.Syntax <> param:86 var
+R18565:18566 PLF.Syntax <> T':87 var
+binder 18602:18606 <> Gamma:88
+binder 18608:18609 <> tm:89
+binder 18611:18611 <> m:90
+binder 18613:18617 <> param:91
+binder 18619:18620 <> ct:92
+binder 18622:18623 <> PT:93
+binder 18625:18626 <> RT:94
+R18695:18706 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18668:18672 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18675:18681 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18693:18694 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18663:18667 PLF.Syntax <> Gamma:88 var
+R18673:18674 PLF.Syntax <> tm:89 var
+R18682:18689 PLF.Syntax <> STyClass constr
+R18691:18692 PLF.Syntax <> ct:92 var
+R18737:18748 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18711:18713 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18707:18708 PLF.Syntax <> ct:92 var
+R18710:18710 PLF.Syntax <> m:90 var
+R18714:18717 Coq.Init.Datatypes <> Some constr
+R18721:18728 PLF.Syntax <> STyArrow constr
+R18730:18731 PLF.Syntax <> PT:93 var
+R18733:18734 PLF.Syntax <> RT:94 var
+R18771:18782 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18754:18758 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18764:18768 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18749:18753 PLF.Syntax <> Gamma:88 var
+R18759:18763 PLF.Syntax <> param:91 var
+R18769:18770 PLF.Syntax <> PT:93 var
+R18788:18792 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18822:18826 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18783:18787 PLF.Syntax <> Gamma:88 var
+R18793:18810 PLF.Syntax <> TmMethodInvocation constr
+R18812:18813 PLF.Syntax <> tm:89 var
+R18815:18815 PLF.Syntax <> m:90 var
+R18817:18821 PLF.Syntax <> param:91 var
+R18827:18828 PLF.Syntax <> RT:94 var
+binder 18865:18869 <> Gamma:95
+binder 18871:18872 <> tm:96
+binder 18874:18874 <> m:97
+binder 18876:18880 <> param:98
+binder 18882:18883 <> ct:99
+binder 18885:18886 <> PT:100
+binder 18888:18889 <> RT:101
+R18958:18969 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18931:18935 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18938:18944 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18956:18957 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18926:18930 PLF.Syntax <> Gamma:95 var
+R18936:18937 PLF.Syntax <> tm:96 var
+R18945:18952 PLF.Syntax <> STyClass constr
+R18954:18955 PLF.Syntax <> ct:99 var
+R18981:18992 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18974:18976 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18970:18971 PLF.Syntax <> ct:99 var
+R18973:18973 PLF.Syntax <> m:97 var
+R18977:18980 Coq.Init.Datatypes <> None constr
+R19015:19026 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18998:19002 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19008:19012 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R18993:18997 PLF.Syntax <> Gamma:95 var
+R19003:19007 PLF.Syntax <> param:98 var
+R19013:19014 PLF.Syntax <> PT:100 var
+R19032:19036 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19066:19070 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19027:19031 PLF.Syntax <> Gamma:95 var
+R19037:19054 PLF.Syntax <> TmMethodInvocation constr
+R19056:19057 PLF.Syntax <> tm:96 var
+R19059:19059 PLF.Syntax <> m:97 var
+R19061:19065 PLF.Syntax <> param:98 var
+R19071:19072 PLF.Syntax <> RT:101 var
+binder 19110:19114 <> Gamma:102
+binder 19116:19116 <> T:103
+binder 19118:19118 <> m:104
+binder 19120:19124 <> param:105
+binder 19126:19127 <> ct:106
+binder 19129:19130 <> PT:107
+binder 19132:19133 <> RT:108
+R19194:19205 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19180:19182 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19169:19177 PLF.Syntax <> SimplType def
+R19179:19179 PLF.Syntax <> T:103 var
+R19183:19190 PLF.Syntax <> STyClass constr
+R19192:19193 PLF.Syntax <> ct:106 var
+R19236:19247 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19210:19212 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19206:19207 PLF.Syntax <> ct:106 var
+R19209:19209 PLF.Syntax <> m:104 var
+R19213:19216 Coq.Init.Datatypes <> Some constr
+R19220:19227 PLF.Syntax <> STyArrow constr
+R19229:19230 PLF.Syntax <> PT:107 var
+R19232:19233 PLF.Syntax <> RT:108 var
+R19270:19281 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19253:19257 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19263:19267 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19248:19252 PLF.Syntax <> Gamma:102 var
+R19258:19262 PLF.Syntax <> param:105 var
+R19268:19269 PLF.Syntax <> PT:107 var
+R19287:19291 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19322:19326 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19282:19286 PLF.Syntax <> Gamma:102 var
+R19292:19311 PLF.Syntax <> TmTyMethodInvocation constr
+R19313:19313 PLF.Syntax <> T:103 var
+R19315:19315 PLF.Syntax <> m:104 var
+R19317:19321 PLF.Syntax <> param:105 var
+R19327:19328 PLF.Syntax <> RT:108 var
+binder 19367:19371 <> Gamma:109
+binder 19373:19373 <> T:110
+binder 19375:19375 <> m:111
+binder 19377:19381 <> param:112
+binder 19383:19384 <> ct:113
+binder 19386:19387 <> PT:114
+binder 19389:19390 <> RT:115
+R19451:19462 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19437:19439 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19426:19434 PLF.Syntax <> SimplType def
+R19436:19436 PLF.Syntax <> T:110 var
+R19440:19447 PLF.Syntax <> STyClass constr
+R19449:19450 PLF.Syntax <> ct:113 var
+R19474:19485 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19467:19469 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19463:19464 PLF.Syntax <> ct:113 var
+R19466:19466 PLF.Syntax <> m:111 var
+R19470:19473 Coq.Init.Datatypes <> None constr
+R19508:19519 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19491:19495 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19501:19505 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19486:19490 PLF.Syntax <> Gamma:109 var
+R19496:19500 PLF.Syntax <> param:112 var
+R19506:19507 PLF.Syntax <> PT:114 var
+R19525:19529 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19560:19564 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19520:19524 PLF.Syntax <> Gamma:109 var
+R19530:19549 PLF.Syntax <> TmTyMethodInvocation constr
+R19551:19551 PLF.Syntax <> T:110 var
+R19553:19553 PLF.Syntax <> m:111 var
+R19555:19559 PLF.Syntax <> param:112 var
+R19565:19566 PLF.Syntax <> RT:115 var
+binder 19607:19611 <> Gamma:116
+binder 19613:19613 <> m:117
+binder 19615:19619 <> param:118
+binder 19621:19622 <> PT:119
+binder 19624:19625 <> RT:120
+R19692:19703 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19666:19668 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19659:19663 PLF.Syntax <> Gamma:116 var
+R19665:19665 PLF.Syntax <> m:117 var
+R19669:19672 Coq.Init.Datatypes <> Some constr
+R19676:19683 PLF.Syntax <> STyArrow constr
+R19685:19686 PLF.Syntax <> PT:119 var
+R19688:19689 PLF.Syntax <> RT:120 var
+R19726:19737 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19709:19713 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19719:19723 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19704:19708 PLF.Syntax <> Gamma:116 var
+R19714:19718 PLF.Syntax <> param:118 var
+R19724:19725 PLF.Syntax <> PT:119 var
+R19743:19747 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19779:19783 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19738:19742 PLF.Syntax <> Gamma:116 var
+R19748:19770 PLF.Syntax <> TmMethodInvocationNoObj constr
+R19772:19772 PLF.Syntax <> m:117 var
+R19774:19778 PLF.Syntax <> param:118 var
+R19784:19785 PLF.Syntax <> RT:120 var
+binder 19808:19812 <> Gamma:121
+R19828:19832 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19838:19842 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19823:19827 PLF.Syntax <> Gamma:121 var
+R19833:19837 PLF.Syntax <> TmNil constr
+R19843:19849 PLF.Syntax <> STyVoid constr
+binder 19873:19877 <> Gamma:122
+binder 19879:19881 <> tm1:123
+binder 19883:19885 <> tm2:124
+binder 19887:19888 <> T1:125
+binder 19890:19891 <> T2:126
+R19947:19958 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19932:19936 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19940:19944 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19927:19931 PLF.Syntax <> Gamma:122 var
+R19937:19939 PLF.Syntax <> tm1:123 var
+R19945:19946 PLF.Syntax <> T1:125 var
+R19979:19990 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19964:19968 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19972:19976 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19959:19963 PLF.Syntax <> Gamma:122 var
+R19969:19971 PLF.Syntax <> tm2:124 var
+R19977:19978 PLF.Syntax <> T2:126 var
+R19996:20001 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20016:20022 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20036:20036 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R19991:19995 PLF.Syntax <> Gamma:122 var
+R20002:20007 PLF.Syntax <> TmList constr
+R20009:20011 PLF.Syntax <> tm1:123 var
+R20013:20015 PLF.Syntax <> tm2:124 var
+R20023:20029 PLF.Syntax <> STyList constr
+R20031:20032 PLF.Syntax <> T1:125 var
+R20034:20035 PLF.Syntax <> T2:126 var
+binder 20066:20070 <> Gamma:127
+binder 20072:20072 <> T:128
+R20105:20109 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20122:20127 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20138:20138 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20100:20104 PLF.Syntax <> Gamma:127 var
+R20110:20121 PLF.Syntax <> TmEmptyArray constr
+R20128:20135 PLF.Syntax <> STyArray constr
+R20137:20137 PLF.Syntax <> T:128 var
+binder 20169:20173 <> Gamma:129
+binder 20175:20177 <> tm1:130
+binder 20179:20181 <> tm2:131
+binder 20183:20183 <> T:132
+R20243:20254 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20229:20233 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20237:20241 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20224:20228 PLF.Syntax <> Gamma:129 var
+R20234:20236 PLF.Syntax <> tm1:130 var
+R20242:20242 PLF.Syntax <> T:132 var
+R20285:20296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20260:20264 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20268:20273 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20284:20284 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20255:20259 PLF.Syntax <> Gamma:129 var
+R20265:20267 PLF.Syntax <> tm2:131 var
+R20274:20281 PLF.Syntax <> STyArray constr
+R20283:20283 PLF.Syntax <> T:132 var
+R20302:20307 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20329:20335 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20346:20346 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20297:20301 PLF.Syntax <> Gamma:129 var
+R20308:20320 PLF.Syntax <> TmArrayConcat constr
+R20322:20324 PLF.Syntax <> tm1:130 var
+R20326:20328 PLF.Syntax <> tm2:131 var
+R20336:20343 PLF.Syntax <> STyArray constr
+R20345:20345 PLF.Syntax <> T:132 var
+binder 20393:20397 <> Gamma:133
+binder 20399:20401 <> tm1:134
+binder 20403:20405 <> tm2:135
+R20468:20479 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20445:20449 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20453:20457 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20440:20444 PLF.Syntax <> Gamma:133 var
+R20450:20452 PLF.Syntax <> tm1:134 var
+R20458:20467 PLF.Syntax <> STyNumeric constr
+R20508:20519 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20485:20489 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20493:20497 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20480:20484 PLF.Syntax <> Gamma:133 var
+R20490:20492 PLF.Syntax <> tm2:135 var
+R20498:20507 PLF.Syntax <> STyNumeric constr
+R20525:20530 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20544:20549 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20520:20524 PLF.Syntax <> Gamma:133 var
+R20531:20535 PLF.Syntax <> TmAdd constr
+R20537:20539 PLF.Syntax <> tm1:134 var
+R20541:20543 PLF.Syntax <> tm2:135 var
+R20550:20559 PLF.Syntax <> STyNumeric constr
+binder 20582:20586 <> Gamma:136
+binder 20588:20590 <> tm1:137
+binder 20592:20594 <> tm2:138
+R20657:20668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20634:20638 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20642:20646 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20629:20633 PLF.Syntax <> Gamma:136 var
+R20639:20641 PLF.Syntax <> tm1:137 var
+R20647:20656 PLF.Syntax <> STyNumeric constr
+R20697:20708 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20674:20678 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20682:20686 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20669:20673 PLF.Syntax <> Gamma:136 var
+R20679:20681 PLF.Syntax <> tm2:138 var
+R20687:20696 PLF.Syntax <> STyNumeric constr
+R20714:20719 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20733:20738 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20709:20713 PLF.Syntax <> Gamma:136 var
+R20720:20724 PLF.Syntax <> TmSub constr
+R20726:20728 PLF.Syntax <> tm1:137 var
+R20730:20732 PLF.Syntax <> tm2:138 var
+R20739:20748 PLF.Syntax <> STyNumeric constr
+binder 20771:20775 <> Gamma:139
+binder 20777:20779 <> tm1:140
+binder 20781:20783 <> tm2:141
+R20846:20857 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20823:20827 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20831:20835 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20818:20822 PLF.Syntax <> Gamma:139 var
+R20828:20830 PLF.Syntax <> tm1:140 var
+R20836:20845 PLF.Syntax <> STyNumeric constr
+R20886:20897 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20863:20867 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20871:20875 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20858:20862 PLF.Syntax <> Gamma:139 var
+R20868:20870 PLF.Syntax <> tm2:141 var
+R20876:20885 PLF.Syntax <> STyNumeric constr
+R20903:20908 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20922:20927 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R20898:20902 PLF.Syntax <> Gamma:139 var
+R20909:20913 PLF.Syntax <> TmMul constr
+R20915:20917 PLF.Syntax <> tm1:140 var
+R20919:20921 PLF.Syntax <> tm2:141 var
+R20928:20937 PLF.Syntax <> STyNumeric constr
+binder 20960:20964 <> Gamma:142
+binder 20966:20968 <> tm1:143
+binder 20970:20972 <> tm2:144
+R21035:21046 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21012:21016 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21020:21024 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21007:21011 PLF.Syntax <> Gamma:142 var
+R21017:21019 PLF.Syntax <> tm1:143 var
+R21025:21034 PLF.Syntax <> STyNumeric constr
+R21075:21086 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21052:21056 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21060:21064 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21047:21051 PLF.Syntax <> Gamma:142 var
+R21057:21059 PLF.Syntax <> tm2:144 var
+R21065:21074 PLF.Syntax <> STyNumeric constr
+R21092:21097 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21111:21116 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21087:21091 PLF.Syntax <> Gamma:142 var
+R21098:21102 PLF.Syntax <> TmDiv constr
+R21104:21106 PLF.Syntax <> tm1:143 var
+R21108:21110 PLF.Syntax <> tm2:144 var
+R21117:21126 PLF.Syntax <> STyNumeric constr
+binder 21149:21153 <> Gamma:145
+binder 21155:21157 <> tm1:146
+binder 21159:21161 <> tm2:147
+R21224:21235 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21201:21205 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21209:21213 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21196:21200 PLF.Syntax <> Gamma:145 var
+R21206:21208 PLF.Syntax <> tm1:146 var
+R21214:21223 PLF.Syntax <> STyNumeric constr
+R21264:21275 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21241:21245 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21249:21253 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21236:21240 PLF.Syntax <> Gamma:145 var
+R21246:21248 PLF.Syntax <> tm2:147 var
+R21254:21263 PLF.Syntax <> STyNumeric constr
+R21281:21286 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21300:21305 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21276:21280 PLF.Syntax <> Gamma:145 var
+R21287:21291 PLF.Syntax <> TmMod constr
+R21293:21295 PLF.Syntax <> tm1:146 var
+R21297:21299 PLF.Syntax <> tm2:147 var
+R21306:21315 PLF.Syntax <> STyNumeric constr
+binder 21338:21342 <> Gamma:148
+binder 21344:21345 <> tm:149
+R21401:21412 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21379:21383 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21386:21390 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21374:21378 PLF.Syntax <> Gamma:148 var
+R21384:21385 PLF.Syntax <> tm:149 var
+R21391:21400 PLF.Syntax <> STyNumeric constr
+R21418:21423 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21432:21437 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21413:21417 PLF.Syntax <> Gamma:148 var
+R21424:21428 PLF.Syntax <> TmNeg constr
+R21430:21431 PLF.Syntax <> tm:149 var
+R21438:21447 PLF.Syntax <> STyNumeric constr
+binder 21473:21477 <> Gamma:150
+binder 21479:21481 <> tm1:151
+binder 21483:21485 <> tm2:152
+R21549:21560 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21526:21530 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21534:21538 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21521:21525 PLF.Syntax <> Gamma:150 var
+R21531:21533 PLF.Syntax <> tm1:151 var
+R21539:21548 PLF.Syntax <> STyNumeric constr
+R21589:21600 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21566:21570 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21574:21578 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21561:21565 PLF.Syntax <> Gamma:150 var
+R21571:21573 PLF.Syntax <> tm2:152 var
+R21579:21588 PLF.Syntax <> STyNumeric constr
+R21606:21611 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21628:21633 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21601:21605 PLF.Syntax <> Gamma:150 var
+R21612:21619 PLF.Syntax <> TmShiftL constr
+R21621:21623 PLF.Syntax <> tm1:151 var
+R21625:21627 PLF.Syntax <> tm2:152 var
+R21634:21643 PLF.Syntax <> STyNumeric constr
+binder 21669:21673 <> Gamma:153
+binder 21675:21677 <> tm1:154
+binder 21679:21681 <> tm2:155
+R21745:21756 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21722:21726 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21730:21734 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21717:21721 PLF.Syntax <> Gamma:153 var
+R21727:21729 PLF.Syntax <> tm1:154 var
+R21735:21744 PLF.Syntax <> STyNumeric constr
+R21785:21796 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21762:21766 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21770:21774 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21757:21761 PLF.Syntax <> Gamma:153 var
+R21767:21769 PLF.Syntax <> tm2:155 var
+R21775:21784 PLF.Syntax <> STyNumeric constr
+R21802:21807 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21824:21829 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21797:21801 PLF.Syntax <> Gamma:153 var
+R21808:21815 PLF.Syntax <> TmShiftR constr
+R21817:21819 PLF.Syntax <> tm1:154 var
+R21821:21823 PLF.Syntax <> tm2:155 var
+R21830:21839 PLF.Syntax <> STyNumeric constr
+binder 21865:21869 <> Gamma:156
+binder 21871:21873 <> tm1:157
+binder 21875:21877 <> tm2:158
+R21940:21951 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21917:21921 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21925:21929 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21912:21916 PLF.Syntax <> Gamma:156 var
+R21922:21924 PLF.Syntax <> tm1:157 var
+R21930:21939 PLF.Syntax <> STyNumeric constr
+R21980:21991 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21957:21961 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21965:21969 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21952:21956 PLF.Syntax <> Gamma:156 var
+R21962:21964 PLF.Syntax <> tm2:158 var
+R21970:21979 PLF.Syntax <> STyNumeric constr
+R21997:22002 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22019:22024 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R21992:21996 PLF.Syntax <> Gamma:156 var
+R22003:22010 PLF.Syntax <> TmBitAnd constr
+R22012:22014 PLF.Syntax <> tm1:157 var
+R22016:22018 PLF.Syntax <> tm2:158 var
+R22025:22034 PLF.Syntax <> STyNumeric constr
+binder 22059:22063 <> Gamma:159
+binder 22065:22067 <> tm1:160
+binder 22069:22071 <> tm2:161
+R22134:22145 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22111:22115 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22119:22123 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22106:22110 PLF.Syntax <> Gamma:159 var
+R22116:22118 PLF.Syntax <> tm1:160 var
+R22124:22133 PLF.Syntax <> STyNumeric constr
+R22174:22185 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22151:22155 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22159:22163 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22146:22150 PLF.Syntax <> Gamma:159 var
+R22156:22158 PLF.Syntax <> tm2:161 var
+R22164:22173 PLF.Syntax <> STyNumeric constr
+R22191:22196 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22212:22217 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22186:22190 PLF.Syntax <> Gamma:159 var
+R22197:22203 PLF.Syntax <> TmBitOr constr
+R22205:22207 PLF.Syntax <> tm1:160 var
+R22209:22211 PLF.Syntax <> tm2:161 var
+R22218:22227 PLF.Syntax <> STyNumeric constr
+binder 22253:22257 <> Gamma:162
+binder 22259:22261 <> tm1:163
+binder 22263:22265 <> tm2:164
+R22328:22339 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22305:22309 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22313:22317 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22300:22304 PLF.Syntax <> Gamma:162 var
+R22310:22312 PLF.Syntax <> tm1:163 var
+R22318:22327 PLF.Syntax <> STyNumeric constr
+R22368:22379 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22345:22349 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22353:22357 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22340:22344 PLF.Syntax <> Gamma:162 var
+R22350:22352 PLF.Syntax <> tm2:164 var
+R22358:22367 PLF.Syntax <> STyNumeric constr
+R22385:22390 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22407:22412 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22380:22384 PLF.Syntax <> Gamma:162 var
+R22391:22398 PLF.Syntax <> TmBitXor constr
+R22400:22402 PLF.Syntax <> tm1:163 var
+R22404:22406 PLF.Syntax <> tm2:164 var
+R22413:22422 PLF.Syntax <> STyNumeric constr
+binder 22448:22452 <> Gamma:165
+binder 22454:22455 <> tm:166
+R22511:22522 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22489:22493 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22496:22500 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22484:22488 PLF.Syntax <> Gamma:165 var
+R22494:22495 PLF.Syntax <> tm:166 var
+R22501:22510 PLF.Syntax <> STyNumeric constr
+R22528:22533 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22545:22550 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22523:22527 PLF.Syntax <> Gamma:165 var
+R22534:22541 PLF.Syntax <> TmBitNot constr
+R22543:22544 PLF.Syntax <> tm:166 var
+R22551:22560 PLF.Syntax <> STyNumeric constr
+binder 22587:22591 <> Gamma:167
+binder 22593:22594 <> tm:168
+R22651:22662 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22629:22633 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22636:22640 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22624:22628 PLF.Syntax <> Gamma:167 var
+R22634:22635 PLF.Syntax <> tm:168 var
+R22641:22650 PLF.Syntax <> STyNumeric constr
+R22668:22673 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22686:22691 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22663:22667 PLF.Syntax <> Gamma:167 var
+R22674:22682 PLF.Syntax <> TmPostInc constr
+R22684:22685 PLF.Syntax <> tm:168 var
+R22692:22701 PLF.Syntax <> STyNumeric constr
+binder 22728:22732 <> Gamma:169
+binder 22734:22735 <> tm:170
+R22792:22803 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22770:22774 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22777:22781 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22765:22769 PLF.Syntax <> Gamma:169 var
+R22775:22776 PLF.Syntax <> tm:170 var
+R22782:22791 PLF.Syntax <> STyNumeric constr
+R22809:22814 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22827:22832 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22804:22808 PLF.Syntax <> Gamma:169 var
+R22815:22823 PLF.Syntax <> TmPostDec constr
+R22825:22826 PLF.Syntax <> tm:170 var
+R22833:22842 PLF.Syntax <> STyNumeric constr
+binder 22868:22872 <> Gamma:171
+binder 22874:22875 <> tm:172
+R22932:22943 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22910:22914 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22917:22921 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22905:22909 PLF.Syntax <> Gamma:171 var
+R22915:22916 PLF.Syntax <> tm:172 var
+R22922:22931 PLF.Syntax <> STyNumeric constr
+R22949:22954 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22966:22971 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R22944:22948 PLF.Syntax <> Gamma:171 var
+R22955:22962 PLF.Syntax <> TmPreInc constr
+R22964:22965 PLF.Syntax <> tm:172 var
+R22972:22981 PLF.Syntax <> STyNumeric constr
+binder 23007:23011 <> Gamma:173
+binder 23013:23014 <> tm:174
+R23071:23082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23049:23053 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23056:23060 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23044:23048 PLF.Syntax <> Gamma:173 var
+R23054:23055 PLF.Syntax <> tm:174 var
+R23061:23070 PLF.Syntax <> STyNumeric constr
+R23088:23093 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23105:23110 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23083:23087 PLF.Syntax <> Gamma:173 var
+R23094:23101 PLF.Syntax <> TmPreDec constr
+R23103:23104 PLF.Syntax <> tm:174 var
+R23111:23120 PLF.Syntax <> STyNumeric constr
+binder 23161:23165 <> Gamma:175
+binder 23167:23169 <> tm1:176
+binder 23171:23173 <> tm2:177
+binder 23175:23175 <> T:178
+R23230:23241 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23216:23220 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23224:23228 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23211:23215 PLF.Syntax <> Gamma:175 var
+R23221:23223 PLF.Syntax <> tm1:176 var
+R23229:23229 PLF.Syntax <> T:178 var
+R23261:23272 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23247:23251 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23255:23259 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23242:23246 PLF.Syntax <> Gamma:175 var
+R23252:23254 PLF.Syntax <> tm2:177 var
+R23260:23260 PLF.Syntax <> T:178 var
+R23278:23283 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23296:23301 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23273:23277 PLF.Syntax <> Gamma:175 var
+R23284:23287 PLF.Syntax <> TmEq constr
+R23289:23291 PLF.Syntax <> tm1:176 var
+R23293:23295 PLF.Syntax <> tm2:177 var
+R23302:23311 PLF.Syntax <> STyBoolean constr
+binder 23333:23337 <> Gamma:179
+binder 23339:23341 <> tm1:180
+binder 23343:23345 <> tm2:181
+binder 23347:23347 <> T:182
+R23402:23413 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23388:23392 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23396:23400 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23383:23387 PLF.Syntax <> Gamma:179 var
+R23393:23395 PLF.Syntax <> tm1:180 var
+R23401:23401 PLF.Syntax <> T:182 var
+R23433:23444 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23419:23423 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23427:23431 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23414:23418 PLF.Syntax <> Gamma:179 var
+R23424:23426 PLF.Syntax <> tm2:181 var
+R23432:23432 PLF.Syntax <> T:182 var
+R23450:23455 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23468:23473 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23445:23449 PLF.Syntax <> Gamma:179 var
+R23456:23459 PLF.Syntax <> TmNe constr
+R23461:23463 PLF.Syntax <> tm1:180 var
+R23465:23467 PLF.Syntax <> tm2:181 var
+R23474:23483 PLF.Syntax <> STyBoolean constr
+binder 23505:23509 <> Gamma:183
+binder 23511:23513 <> tm1:184
+binder 23515:23517 <> tm2:185
+R23580:23591 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23557:23561 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23565:23569 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23552:23556 PLF.Syntax <> Gamma:183 var
+R23562:23564 PLF.Syntax <> tm1:184 var
+R23570:23579 PLF.Syntax <> STyNumeric constr
+R23620:23631 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23597:23601 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23605:23609 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23592:23596 PLF.Syntax <> Gamma:183 var
+R23602:23604 PLF.Syntax <> tm2:185 var
+R23610:23619 PLF.Syntax <> STyNumeric constr
+R23637:23642 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23655:23660 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23632:23636 PLF.Syntax <> Gamma:183 var
+R23643:23646 PLF.Syntax <> TmLt constr
+R23648:23650 PLF.Syntax <> tm1:184 var
+R23652:23654 PLF.Syntax <> tm2:185 var
+R23661:23670 PLF.Syntax <> STyBoolean constr
+binder 23692:23696 <> Gamma:186
+binder 23698:23700 <> tm1:187
+binder 23702:23704 <> tm2:188
+R23768:23779 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23745:23749 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23753:23757 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23740:23744 PLF.Syntax <> Gamma:186 var
+R23750:23752 PLF.Syntax <> tm1:187 var
+R23758:23767 PLF.Syntax <> STyNumeric constr
+R23808:23819 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23785:23789 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23793:23797 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23780:23784 PLF.Syntax <> Gamma:186 var
+R23790:23792 PLF.Syntax <> tm2:188 var
+R23798:23807 PLF.Syntax <> STyNumeric constr
+R23825:23830 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23843:23848 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23820:23824 PLF.Syntax <> Gamma:186 var
+R23831:23834 PLF.Syntax <> TmLe constr
+R23836:23838 PLF.Syntax <> tm1:187 var
+R23840:23842 PLF.Syntax <> tm2:188 var
+R23849:23858 PLF.Syntax <> STyBoolean constr
+binder 23880:23884 <> Gamma:189
+binder 23886:23888 <> tm1:190
+binder 23890:23892 <> tm2:191
+R23955:23966 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23932:23936 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23940:23944 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23927:23931 PLF.Syntax <> Gamma:189 var
+R23937:23939 PLF.Syntax <> tm1:190 var
+R23945:23954 PLF.Syntax <> STyNumeric constr
+R23995:24006 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23972:23976 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23980:23984 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R23967:23971 PLF.Syntax <> Gamma:189 var
+R23977:23979 PLF.Syntax <> tm2:191 var
+R23985:23994 PLF.Syntax <> STyNumeric constr
+R24012:24017 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24030:24035 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24007:24011 PLF.Syntax <> Gamma:189 var
+R24018:24021 PLF.Syntax <> TmGt constr
+R24023:24025 PLF.Syntax <> tm1:190 var
+R24027:24029 PLF.Syntax <> tm2:191 var
+R24036:24045 PLF.Syntax <> STyBoolean constr
+binder 24067:24071 <> Gamma:192
+binder 24073:24075 <> tm1:193
+binder 24077:24079 <> tm2:194
+R24143:24154 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24120:24124 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24128:24132 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24115:24119 PLF.Syntax <> Gamma:192 var
+R24125:24127 PLF.Syntax <> tm1:193 var
+R24133:24142 PLF.Syntax <> STyNumeric constr
+R24183:24194 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24160:24164 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24168:24172 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24155:24159 PLF.Syntax <> Gamma:192 var
+R24165:24167 PLF.Syntax <> tm2:194 var
+R24173:24182 PLF.Syntax <> STyNumeric constr
+R24200:24205 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24218:24223 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24195:24199 PLF.Syntax <> Gamma:192 var
+R24206:24209 PLF.Syntax <> TmGe constr
+R24211:24213 PLF.Syntax <> tm1:193 var
+R24215:24217 PLF.Syntax <> tm2:194 var
+R24224:24233 PLF.Syntax <> STyBoolean constr
+binder 24256:24260 <> Gamma:195
+binder 24262:24264 <> tm1:196
+binder 24266:24268 <> tm2:197
+R24332:24343 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24309:24313 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24317:24321 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24304:24308 PLF.Syntax <> Gamma:195 var
+R24314:24316 PLF.Syntax <> tm1:196 var
+R24322:24331 PLF.Syntax <> STyBoolean constr
+R24372:24383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24349:24353 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24357:24361 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24344:24348 PLF.Syntax <> Gamma:195 var
+R24354:24356 PLF.Syntax <> tm2:197 var
+R24362:24371 PLF.Syntax <> STyBoolean constr
+R24389:24394 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24408:24413 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24384:24388 PLF.Syntax <> Gamma:195 var
+R24395:24399 PLF.Syntax <> TmAnd constr
+R24401:24403 PLF.Syntax <> tm1:196 var
+R24405:24407 PLF.Syntax <> tm2:197 var
+R24414:24423 PLF.Syntax <> STyBoolean constr
+binder 24445:24449 <> Gamma:198
+binder 24451:24453 <> tm1:199
+binder 24455:24457 <> tm2:200
+R24521:24532 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24498:24502 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24506:24510 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24493:24497 PLF.Syntax <> Gamma:198 var
+R24503:24505 PLF.Syntax <> tm1:199 var
+R24511:24520 PLF.Syntax <> STyBoolean constr
+R24561:24572 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24538:24542 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24546:24550 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24533:24537 PLF.Syntax <> Gamma:198 var
+R24543:24545 PLF.Syntax <> tm2:200 var
+R24551:24560 PLF.Syntax <> STyBoolean constr
+R24578:24583 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24596:24601 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24573:24577 PLF.Syntax <> Gamma:198 var
+R24584:24587 PLF.Syntax <> TmOr constr
+R24589:24591 PLF.Syntax <> tm1:199 var
+R24593:24595 PLF.Syntax <> tm2:200 var
+R24602:24611 PLF.Syntax <> STyBoolean constr
+binder 24634:24638 <> Gamma:201
+binder 24640:24641 <> tm:202
+R24697:24708 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24675:24679 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24682:24686 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24670:24674 PLF.Syntax <> Gamma:201 var
+R24680:24681 PLF.Syntax <> tm:202 var
+R24687:24696 PLF.Syntax <> STyBoolean constr
+R24714:24719 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24728:24733 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24709:24713 PLF.Syntax <> Gamma:201 var
+R24720:24724 PLF.Syntax <> TmNot constr
+R24726:24727 PLF.Syntax <> tm:202 var
+R24734:24743 PLF.Syntax <> STyBoolean constr
+binder 24769:24773 <> Gamma:203
+binder 24775:24777 <> tm1:204
+binder 24779:24781 <> tm2:205
+binder 24783:24785 <> tm3:206
+binder 24787:24787 <> T:207
+R24856:24867 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24833:24837 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24841:24845 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24828:24832 PLF.Syntax <> Gamma:203 var
+R24838:24840 PLF.Syntax <> tm1:204 var
+R24846:24855 PLF.Syntax <> STyBoolean constr
+R24887:24898 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24873:24877 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24881:24885 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24868:24872 PLF.Syntax <> Gamma:203 var
+R24878:24880 PLF.Syntax <> tm2:205 var
+R24886:24886 PLF.Syntax <> T:207 var
+R24918:24929 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24904:24908 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24912:24916 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24899:24903 PLF.Syntax <> Gamma:203 var
+R24909:24911 PLF.Syntax <> tm3:206 var
+R24917:24917 PLF.Syntax <> T:207 var
+R24935:24940 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24961:24966 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R24930:24934 PLF.Syntax <> Gamma:203 var
+R24941:24948 PLF.Syntax <> TmChoose constr
+R24950:24952 PLF.Syntax <> tm1:204 var
+R24954:24956 PLF.Syntax <> tm2:205 var
+R24958:24960 PLF.Syntax <> tm3:206 var
+R24967:24967 PLF.Syntax <> T:207 var
+scheme 15838:15845 <> has_type_ind
+scheme 15838:15845 <> has_type_sind
+R25003:25010 PLF.Syntax <> has_type ind
+not 24975:24975 <> :::x_'|--'_x_'\in'_x
+ind 25162:25180 <> well_type_statement
+constr 25227:25232 <> T_Skip
+constr 25292:25301 <> T_DeclInit
+constr 25473:25484 <> T_DeclNoInit
+constr 25616:25619 <> T_If
+constr 25832:25839 <> T_IfElse
+constr 26120:26126 <> T_While
+constr 26291:26299 <> T_DoWhile
+constr 26467:26471 <> T_For
+constr 26736:26744 <> T_Foreach
+constr 26973:26980 <> T_Return
+constr 27116:27125 <> T_Continue
+constr 27191:27197 <> T_Break
+constr 27260:27271 <> T_Expression
+constr 27366:27373 <> T_Concat
+R25191:25192 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25184:25190 PLF.Syntax <> Context def
+R25202:25203 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25193:25201 PLF.Syntax <> Statement ind
+R25211:25212 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25204:25210 PLF.Syntax <> Context def
+R27567:27585 PLF.Syntax <> well_type_statement:209 ind
+binder 25243:25247 <> Gamma:210
+R25263:25266 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25275:25279 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25258:25262 PLF.Syntax <> Gamma:210 var
+R25267:25268 PLF.Syntax <> :::'<|'_x_'|>' not
+R25273:25274 PLF.Syntax <> :::'<|'_x_'|>' not
+R25269:25272 PLF.Syntax <> :FJ::'skip' not
+R25280:25284 PLF.Syntax <> Gamma:210 var
+binder 25312:25316 <> Gamma:211
+binder 25318:25318 <> x:212
+binder 25320:25321 <> tm:213
+binder 25323:25323 <> T:214
+binder 25325:25326 <> T':215
+R25376:25387 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25371:25373 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25360:25368 PLF.Syntax <> SimplType def
+R25370:25370 PLF.Syntax <> T:214 var
+R25374:25375 PLF.Syntax <> T':215 var
+R25407:25418 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25393:25397 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R25400:25404 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R25388:25392 PLF.Syntax <> Gamma:211 var
+R25398:25399 PLF.Syntax <> tm:213 var
+R25405:25406 PLF.Syntax <> T':215 var
+R25424:25428 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25446:25452 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25465:25465 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25419:25423 PLF.Syntax <> Gamma:211 var
+R25429:25438 PLF.Syntax <> StDeclInit constr
+R25440:25440 PLF.Syntax <> T:214 var
+R25442:25442 PLF.Syntax <> x:212 var
+R25444:25445 PLF.Syntax <> tm:213 var
+R25454:25456 PLF.Maps <> :::x_'|->'_x_';'_x not
+R25459:25459 PLF.Maps <> :::x_'|->'_x_';'_x not
+R25460:25464 PLF.Syntax <> Gamma:211 var
+R25453:25453 PLF.Syntax <> x:212 var
+R25457:25458 PLF.Syntax <> T':215 var
+binder 25495:25499 <> Gamma:216
+binder 25501:25501 <> x:217
+binder 25503:25503 <> T:218
+binder 25505:25506 <> T':219
+R25551:25562 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25546:25548 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25535:25543 PLF.Syntax <> SimplType def
+R25545:25545 PLF.Syntax <> T:218 var
+R25549:25550 PLF.Syntax <> T':219 var
+R25568:25572 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25589:25595 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25608:25608 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25563:25567 PLF.Syntax <> Gamma:216 var
+R25573:25584 PLF.Syntax <> StDeclNoInit constr
+R25586:25586 PLF.Syntax <> T:218 var
+R25588:25588 PLF.Syntax <> x:217 var
+R25597:25599 PLF.Maps <> :::x_'|->'_x_';'_x not
+R25602:25602 PLF.Maps <> :::x_'|->'_x_';'_x not
+R25603:25607 PLF.Syntax <> Gamma:216 var
+R25596:25596 PLF.Syntax <> x:217 var
+R25600:25601 PLF.Syntax <> T':219 var
+binder 25630:25635 <> Gamma1:220
+binder 25637:25638 <> tm:221
+binder 25640:25640 <> s:222
+binder 25642:25647 <> Gamma2:223
+R25686:25697 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25664:25668 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R25671:25675 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R25658:25663 PLF.Syntax <> Gamma1:220 var
+R25669:25670 PLF.Syntax <> tm:221 var
+R25676:25685 PLF.Syntax <> STyBoolean constr
+R25720:25731 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25704:25707 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25709:25713 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25698:25703 PLF.Syntax <> Gamma1:220 var
+R25708:25708 PLF.Syntax <> s:222 var
+R25714:25719 PLF.Syntax <> Gamma2:223 var
+R25738:25741 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25763:25767 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25732:25737 PLF.Syntax <> Gamma1:220 var
+R25742:25744 PLF.Syntax <> :::'<|'_x_'|>' not
+R25760:25762 PLF.Syntax <> :::'<|'_x_'|>' not
+R25745:25749 PLF.Syntax <> :FJ::'if'_'('_x_')'_'{'_x_'}' not
+R25752:25756 PLF.Syntax <> :FJ::'if'_'('_x_')'_'{'_x_'}' not
+R25758:25759 PLF.Syntax <> :FJ::'if'_'('_x_')'_'{'_x_'}' not
+R25750:25751 PLF.Syntax <> tm:221 var
+R25757:25757 PLF.Syntax <> s:222 var
+R25768:25773 PLF.Syntax <> Gamma1:220 var
+binder 25850:25855 <> Gamma1:224
+binder 25857:25858 <> tm:225
+binder 25860:25861 <> s1:226
+binder 25863:25864 <> s2:227
+binder 25866:25871 <> Gamma2:228
+binder 25873:25878 <> Gamma3:229
+R25917:25928 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25895:25899 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R25902:25906 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R25889:25894 PLF.Syntax <> Gamma1:224 var
+R25900:25901 PLF.Syntax <> tm:225 var
+R25907:25916 PLF.Syntax <> STyBoolean constr
+R25952:25963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25935:25938 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25941:25945 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25929:25934 PLF.Syntax <> Gamma1:224 var
+R25939:25940 PLF.Syntax <> s1:226 var
+R25946:25951 PLF.Syntax <> Gamma2:228 var
+R25987:25998 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25970:25973 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25976:25980 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25964:25969 PLF.Syntax <> Gamma1:224 var
+R25974:25975 PLF.Syntax <> s2:227 var
+R25981:25986 PLF.Syntax <> Gamma3:229 var
+R26005:26008 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26043:26047 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R25999:26004 PLF.Syntax <> Gamma1:224 var
+R26009:26011 PLF.Syntax <> :::'<|'_x_'|>' not
+R26040:26042 PLF.Syntax <> :::'<|'_x_'|>' not
+R26012:26016 PLF.Syntax <> :FJ::'if'_'('_x_')'_'{'_x_'}'_'else'_'{'_x_'}' not
+R26019:26023 PLF.Syntax <> :FJ::'if'_'('_x_')'_'{'_x_'}'_'else'_'{'_x_'}' not
+R26026:26035 PLF.Syntax <> :FJ::'if'_'('_x_')'_'{'_x_'}'_'else'_'{'_x_'}' not
+R26038:26039 PLF.Syntax <> :FJ::'if'_'('_x_')'_'{'_x_'}'_'else'_'{'_x_'}' not
+R26017:26018 PLF.Syntax <> tm:225 var
+R26024:26025 PLF.Syntax <> s1:226 var
+R26036:26037 PLF.Syntax <> s2:227 var
+R26048:26053 PLF.Syntax <> Gamma1:224 var
+binder 26137:26142 <> Gamma1:230
+binder 26144:26145 <> tm:231
+binder 26147:26147 <> s:232
+binder 26149:26154 <> Gamma2:233
+R26193:26204 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26171:26175 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R26178:26182 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R26165:26170 PLF.Syntax <> Gamma1:230 var
+R26176:26177 PLF.Syntax <> tm:231 var
+R26183:26192 PLF.Syntax <> STyBoolean constr
+R26227:26238 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26211:26214 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26216:26220 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26205:26210 PLF.Syntax <> Gamma1:230 var
+R26215:26215 PLF.Syntax <> s:232 var
+R26221:26226 PLF.Syntax <> Gamma2:233 var
+R26245:26248 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26273:26277 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26239:26244 PLF.Syntax <> Gamma1:230 var
+R26249:26251 PLF.Syntax <> :::'<|'_x_'|>' not
+R26270:26272 PLF.Syntax <> :::'<|'_x_'|>' not
+R26252:26259 PLF.Syntax <> :FJ::'while'_'('_x_')'_'{'_x_'}' not
+R26262:26266 PLF.Syntax <> :FJ::'while'_'('_x_')'_'{'_x_'}' not
+R26268:26269 PLF.Syntax <> :FJ::'while'_'('_x_')'_'{'_x_'}' not
+R26260:26261 PLF.Syntax <> tm:231 var
+R26267:26267 PLF.Syntax <> s:232 var
+R26278:26283 PLF.Syntax <> Gamma1:230 var
+binder 26310:26315 <> Gamma1:234
+binder 26317:26317 <> s:235
+binder 26319:26320 <> tm:236
+binder 26322:26327 <> Gamma2:237
+R26360:26371 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26344:26347 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26349:26353 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26338:26343 PLF.Syntax <> Gamma1:234 var
+R26348:26348 PLF.Syntax <> s:235 var
+R26354:26359 PLF.Syntax <> Gamma2:237 var
+R26400:26411 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26378:26382 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R26385:26389 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R26372:26377 PLF.Syntax <> Gamma2:237 var
+R26383:26384 PLF.Syntax <> tm:236 var
+R26390:26399 PLF.Syntax <> STyBoolean constr
+R26418:26421 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26449:26453 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26412:26417 PLF.Syntax <> Gamma1:234 var
+R26422:26424 PLF.Syntax <> :::'<|'_x_'|>' not
+R26446:26448 PLF.Syntax <> :::'<|'_x_'|>' not
+R26425:26429 PLF.Syntax <> :FJ::'do'_'{'_x_'}'_'while'_'('_x_')' not
+R26431:26441 PLF.Syntax <> :FJ::'do'_'{'_x_'}'_'while'_'('_x_')' not
+R26444:26445 PLF.Syntax <> :FJ::'do'_'{'_x_'}'_'while'_'('_x_')' not
+R26430:26430 PLF.Syntax <> s:235 var
+R26442:26443 PLF.Syntax <> tm:236 var
+R26454:26459 PLF.Syntax <> Gamma1:234 var
+binder 26482:26487 <> Gamma1:238
+binder 26489:26490 <> s1:239
+binder 26492:26493 <> s2:240
+binder 26495:26497 <> tm1:241
+binder 26499:26501 <> tm2:242
+binder 26503:26503 <> T:243
+binder 26505:26510 <> Gamma2:244
+binder 26512:26517 <> Gamma3:245
+R26551:26562 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26534:26537 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26540:26544 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26528:26533 PLF.Syntax <> Gamma1:238 var
+R26538:26539 PLF.Syntax <> s1:239 var
+R26545:26550 PLF.Syntax <> Gamma2:244 var
+R26592:26603 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26569:26573 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R26577:26581 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R26563:26568 PLF.Syntax <> Gamma2:244 var
+R26574:26576 PLF.Syntax <> tm1:241 var
+R26582:26591 PLF.Syntax <> STyBoolean constr
+R26624:26635 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26610:26614 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R26618:26622 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R26604:26609 PLF.Syntax <> Gamma2:244 var
+R26615:26617 PLF.Syntax <> tm2:242 var
+R26623:26623 PLF.Syntax <> T:243 var
+R26659:26670 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26642:26645 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26648:26652 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26636:26641 PLF.Syntax <> Gamma2:244 var
+R26646:26647 PLF.Syntax <> s2:240 var
+R26653:26658 PLF.Syntax <> Gamma3:245 var
+R26677:26680 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26718:26722 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26671:26676 PLF.Syntax <> Gamma1:238 var
+R26681:26683 PLF.Syntax <> :::'<|'_x_'|>' not
+R26715:26717 PLF.Syntax <> :::'<|'_x_'|>' not
+R26684:26689 PLF.Syntax <> :FJ::'for'_'('_x_';;'_x_';;'_x_')'_'{'_x_'}' not
+R26692:26695 PLF.Syntax <> :FJ::'for'_'('_x_';;'_x_';;'_x_')'_'{'_x_'}' not
+R26699:26702 PLF.Syntax <> :FJ::'for'_'('_x_';;'_x_';;'_x_')'_'{'_x_'}' not
+R26706:26710 PLF.Syntax <> :FJ::'for'_'('_x_';;'_x_';;'_x_')'_'{'_x_'}' not
+R26713:26714 PLF.Syntax <> :FJ::'for'_'('_x_';;'_x_';;'_x_')'_'{'_x_'}' not
+R26690:26691 PLF.Syntax <> s1:239 var
+R26696:26698 PLF.Syntax <> tm1:241 var
+R26703:26705 PLF.Syntax <> tm2:242 var
+R26711:26712 PLF.Syntax <> s2:240 var
+R26723:26728 PLF.Syntax <> Gamma1:238 var
+binder 26755:26760 <> Gamma1:246
+binder 26762:26762 <> x:247
+binder 26764:26764 <> T:248
+binder 26766:26767 <> T':249
+binder 26769:26771 <> T'':250
+binder 26773:26774 <> tm:251
+binder 26776:26776 <> s:252
+binder 26778:26783 <> Gamma2:253
+R26810:26821 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26805:26807 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26794:26802 PLF.Syntax <> SimplType def
+R26804:26804 PLF.Syntax <> T:248 var
+R26808:26809 PLF.Syntax <> T':249 var
+R26843:26854 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26828:26832 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R26835:26839 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R26822:26827 PLF.Syntax <> Gamma1:246 var
+R26833:26834 PLF.Syntax <> tm:251 var
+R26840:26842 PLF.Syntax <> T'':250 var
+R26870:26881 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26855:26862 PLF.Syntax <> iterable def
+R26864:26865 PLF.Syntax <> T':249 var
+R26867:26869 PLF.Syntax <> T'':250 var
+R26913:26924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26882:26882 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26896:26900 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26902:26906 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26884:26886 PLF.Maps <> :::x_'|->'_x_';'_x not
+R26889:26889 PLF.Maps <> :::x_'|->'_x_';'_x not
+R26890:26895 PLF.Syntax <> Gamma1:246 var
+R26883:26883 PLF.Syntax <> x:247 var
+R26887:26888 PLF.Syntax <> T':249 var
+R26901:26901 PLF.Syntax <> s:252 var
+R26907:26912 PLF.Syntax <> Gamma2:253 var
+R26931:26935 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26954:26959 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R26925:26930 PLF.Syntax <> Gamma1:246 var
+R26936:26944 PLF.Syntax <> StForeach constr
+R26946:26946 PLF.Syntax <> T:248 var
+R26948:26948 PLF.Syntax <> x:247 var
+R26950:26951 PLF.Syntax <> tm:251 var
+R26953:26953 PLF.Syntax <> s:252 var
+R26960:26965 PLF.Syntax <> Gamma1:246 var
+binder 26991:26995 <> Gamma:254
+binder 26997:26998 <> tm:255
+binder 27000:27000 <> T:256
+R27029:27040 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27016:27020 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R27023:27027 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R27011:27015 PLF.Syntax <> Gamma:254 var
+R27021:27022 PLF.Syntax <> tm:255 var
+R27028:27028 PLF.Syntax <> T:256 var
+R27063:27074 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27054:27056 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27041:27045 PLF.Syntax <> Gamma:254 var
+R27047:27053 PLF.Syntax <> return' def
+R27057:27060 Coq.Init.Datatypes <> Some constr
+R27062:27062 PLF.Syntax <> T:256 var
+R27080:27083 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R27099:27103 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R27075:27079 PLF.Syntax <> Gamma:254 var
+R27084:27086 PLF.Syntax <> :::'<|'_x_'|>' not
+R27096:27098 PLF.Syntax <> :::'<|'_x_'|>' not
+R27087:27093 PLF.Syntax <> :FJ::'Return'_x not
+R27094:27095 PLF.Syntax <> tm:255 var
+R27104:27108 PLF.Syntax <> Gamma:254 var
+binder 27136:27140 <> Gamma:257
+R27156:27159 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R27174:27178 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R27151:27155 PLF.Syntax <> Gamma:257 var
+R27160:27162 PLF.Syntax <> :::'<|'_x_'|>' not
+R27171:27173 PLF.Syntax <> :::'<|'_x_'|>' not
+R27163:27170 PLF.Syntax <> :FJ::'continue' not
+R27179:27183 PLF.Syntax <> Gamma:257 var
+binder 27208:27212 <> Gamma:258
+R27228:27231 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R27243:27247 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R27223:27227 PLF.Syntax <> Gamma:258 var
+R27232:27234 PLF.Syntax <> :::'<|'_x_'|>' not
+R27240:27242 PLF.Syntax <> :::'<|'_x_'|>' not
+R27235:27239 PLF.Syntax <> :FJ::'break' not
+R27248:27252 PLF.Syntax <> Gamma:258 var
+binder 27282:27286 <> Gamma:259
+binder 27288:27289 <> tm:260
+binder 27291:27291 <> T:261
+R27320:27331 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27307:27311 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R27314:27318 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R27302:27306 PLF.Syntax <> Gamma:259 var
+R27312:27313 PLF.Syntax <> tm:260 var
+R27319:27319 PLF.Syntax <> T:261 var
+R27337:27340 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R27349:27353 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R27332:27336 PLF.Syntax <> Gamma:259 var
+R27341:27343 PLF.Syntax <> :::'<|'_x_'|>' not
+R27346:27348 PLF.Syntax <> :::'<|'_x_'|>' not
+R27344:27345 PLF.Syntax <> tm:260 var
+R27354:27358 PLF.Syntax <> Gamma:259 var
+binder 27384:27389 <> Gamma1:262
+binder 27391:27392 <> s1:263
+binder 27394:27399 <> Gamma2:264
+binder 27401:27402 <> s2:265
+binder 27404:27409 <> Gamma3:266
+R27443:27454 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27426:27429 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R27432:27436 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R27420:27425 PLF.Syntax <> Gamma1:262 var
+R27430:27431 PLF.Syntax <> s1:263 var
+R27437:27442 PLF.Syntax <> Gamma2:264 var
+R27478:27489 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27461:27464 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R27467:27471 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R27455:27460 PLF.Syntax <> Gamma2:264 var
+R27465:27466 PLF.Syntax <> s2:265 var
+R27472:27477 PLF.Syntax <> Gamma3:266 var
+R27496:27500 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R27515:27520 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R27490:27495 PLF.Syntax <> Gamma1:262 var
+R27501:27508 PLF.Syntax <> StConcat constr
+R27510:27511 PLF.Syntax <> s1:263 var
+R27513:27514 PLF.Syntax <> s2:265 var
+R27521:27526 PLF.Syntax <> Gamma3:266 var
+scheme 25162:25180 <> well_type_statement_ind
+scheme 25162:25180 <> well_type_statement_sind
+R27567:27585 PLF.Syntax <> well_type_statement ind
+not 27534:27534 <> :::x_'--'_x_'-->'_x
+def 27677:27693 <> DeclsInStatement'
+R27698:27706 PLF.Syntax <> Statement ind
+binder 27696:27696 <> s:267
+R27711:27714 Coq.Init.Datatypes <> list ind
+R27716:27718 PLF.Syntax <> STy ind
+R27733:27733 PLF.Syntax <> s:267 var
+R27746:27755 PLF.Syntax <> StDeclInit constr
+R27777:27780 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R27766:27774 PLF.Syntax <> SimplType def
+R27781:27783 Coq.Init.Datatypes <> nil constr
+R27792:27803 PLF.Syntax <> StDeclNoInit constr
+R27823:27826 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R27812:27820 PLF.Syntax <> SimplType def
+R27827:27829 Coq.Init.Datatypes <> nil constr
+R27837:27844 PLF.Syntax <> StConcat constr
+R27855:27855 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R27876:27881 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R27902:27902 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R27856:27872 PLF.Syntax <> DeclsInStatement':268 def
+R27882:27898 PLF.Syntax <> DeclsInStatement':268 def
+R27915:27917 Coq.Init.Datatypes <> nil constr
+def 27937:27949 <> listTy2TyList
+R27954:27957 Coq.Init.Datatypes <> list ind
+R27959:27961 PLF.Syntax <> STy ind
+binder 27952:27952 <> l:270
+R27966:27968 PLF.Syntax <> STy ind
+R27983:27983 PLF.Syntax <> l:270 var
+R27996:27998 Coq.Init.Datatypes <> nil constr
+R28003:28009 PLF.Syntax <> STyVoid constr
+R28018:28021 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R28028:28034 PLF.Syntax <> STyList constr
+R28039:28051 PLF.Syntax <> listTy2TyList:271 def
+def 28077:28092 <> DeclsInStatement
+R28097:28105 PLF.Syntax <> Statement ind
+binder 28095:28095 <> s:273
+R28110:28112 PLF.Syntax <> STy ind
+R28121:28133 PLF.Syntax <> listTy2TyList def
+R28136:28152 PLF.Syntax <> DeclsInStatement' def
+R28154:28154 PLF.Syntax <> s:273 var
+ind 28278:28301 <> has_type_class_component
+constr 28357:28373 <> T_FieldDeclNoInit
+constr 28530:28544 <> T_FieldDeclInit
+constr 28741:28757 <> T_ConstructorDecl
+constr 29028:29039 <> T_MethodDecl
+constr 29413:29429 <> T_ComponentConcat
+R28316:28317 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28309:28315 PLF.Syntax <> Context def
+R28332:28333 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28318:28331 PLF.Syntax <> ClassComponent ind
+R28341:28342 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28334:28340 PLF.Syntax <> Context def
+R29624:29647 PLF.Syntax <> has_type_class_component:275 ind
+binder 28384:28388 <> Gamma:276
+binder 28390:28390 <> T:277
+binder 28392:28393 <> T':278
+binder 28395:28395 <> x:279
+binder 28397:28401 <> modif:280
+R28456:28467 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28451:28453 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28440:28448 PLF.Syntax <> SimplType def
+R28450:28450 PLF.Syntax <> T:277 var
+R28454:28455 PLF.Syntax <> T':278 var
+R28473:28477 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R28503:28509 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R28522:28522 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R28468:28472 PLF.Syntax <> Gamma:276 var
+R28478:28492 PLF.Syntax <> FieldDeclNoInit constr
+R28494:28498 PLF.Syntax <> modif:280 var
+R28500:28500 PLF.Syntax <> T:277 var
+R28502:28502 PLF.Syntax <> x:279 var
+R28511:28513 PLF.Maps <> :::x_'|->'_x_';'_x not
+R28516:28516 PLF.Maps <> :::x_'|->'_x_';'_x not
+R28517:28521 PLF.Syntax <> Gamma:276 var
+R28510:28510 PLF.Syntax <> x:279 var
+R28514:28515 PLF.Syntax <> T':278 var
+binder 28555:28559 <> Gamma:281
+binder 28561:28561 <> T:282
+binder 28563:28564 <> T':283
+binder 28566:28566 <> x:284
+binder 28568:28572 <> modif:285
+binder 28574:28575 <> tm:286
+R28635:28646 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28630:28632 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28619:28627 PLF.Syntax <> SimplType def
+R28629:28629 PLF.Syntax <> T:282 var
+R28633:28634 PLF.Syntax <> T':283 var
+R28666:28677 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28652:28656 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R28659:28663 PLF.Syntax <> :::x_'|--'_x_'\in'_x not
+R28647:28651 PLF.Syntax <> Gamma:281 var
+R28657:28658 PLF.Syntax <> tm:286 var
+R28664:28665 PLF.Syntax <> T':283 var
+R28683:28687 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R28714:28720 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R28733:28733 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R28678:28682 PLF.Syntax <> Gamma:281 var
+R28688:28700 PLF.Syntax <> FieldDeclInit constr
+R28702:28706 PLF.Syntax <> modif:285 var
+R28708:28708 PLF.Syntax <> T:282 var
+R28710:28710 PLF.Syntax <> x:284 var
+R28712:28713 PLF.Syntax <> tm:286 var
+R28722:28724 PLF.Maps <> :::x_'|->'_x_';'_x not
+R28727:28727 PLF.Maps <> :::x_'|->'_x_';'_x not
+R28728:28732 PLF.Syntax <> Gamma:281 var
+R28721:28721 PLF.Syntax <> x:284 var
+R28725:28726 PLF.Syntax <> T':283 var
+binder 28768:28773 <> Gamma1:287
+binder 28775:28780 <> Gamma2:288
+binder 28782:28783 <> s1:289
+binder 28785:28786 <> s2:290
+binder 28788:28788 <> T:291
+R28858:28869 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28841:28844 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R28847:28851 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R28835:28840 PLF.Syntax <> Gamma1:287 var
+R28845:28846 PLF.Syntax <> s1:289 var
+R28852:28857 PLF.Syntax <> Gamma2:288 var
+R28893:28904 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28889:28891 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28870:28885 PLF.Syntax <> DeclsInStatement def
+R28887:28888 PLF.Syntax <> s1:289 var
+R28892:28892 PLF.Syntax <> T:291 var
+R28928:28939 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28911:28914 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R28917:28921 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R28905:28910 PLF.Syntax <> Gamma2:288 var
+R28915:28916 PLF.Syntax <> s2:290 var
+R28922:28927 PLF.Syntax <> Gamma2:288 var
+R28946:28950 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R28972:28978 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R29020:29020 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R28940:28945 PLF.Syntax <> Gamma1:287 var
+R28951:28965 PLF.Syntax <> ConstructorDecl constr
+R28967:28968 PLF.Syntax <> s1:289 var
+R28970:28971 PLF.Syntax <> s2:290 var
+R28990:28993 PLF.Maps <> :::x_'|->'_x_';'_x not
+R29012:29013 PLF.Maps <> :::x_'|->'_x_';'_x not
+R29014:29019 PLF.Syntax <> Gamma1:287 var
+R28979:28989 PLF.Syntax <> constructor def
+R28994:29001 PLF.Syntax <> STyArrow constr
+R29003:29003 PLF.Syntax <> T:291 var
+R29005:29011 PLF.Syntax <> STyVoid constr
+binder 29050:29055 <> Gamma1:292
+binder 29057:29062 <> Gamma2:293
+binder 29064:29069 <> Gamma3:294
+binder 29071:29071 <> T:295
+binder 29073:29074 <> PT:296
+binder 29076:29077 <> RT:297
+binder 29079:29083 <> param:298
+binder 29085:29085 <> s:299
+binder 29087:29091 <> modif:300
+binder 29093:29093 <> m:301
+R29159:29170 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29154:29156 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29143:29151 PLF.Syntax <> SimplType def
+R29153:29153 PLF.Syntax <> T:295 var
+R29157:29158 PLF.Syntax <> RT:297 var
+R29197:29208 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29177:29180 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R29186:29190 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R29171:29176 PLF.Syntax <> Gamma1:292 var
+R29181:29185 PLF.Syntax <> param:298 var
+R29191:29196 PLF.Syntax <> Gamma2:293 var
+R29236:29247 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29231:29233 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29209:29224 PLF.Syntax <> DeclsInStatement def
+R29226:29230 PLF.Syntax <> param:298 var
+R29234:29235 PLF.Syntax <> PT:296 var
+R29306:29331 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29248:29248 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R29289:29293 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R29295:29299 PLF.Syntax <> :::x_'--'_x_'-->'_x not
+R29250:29253 PLF.Maps <> :::x_'|->'_x_';'_x not
+R29268:29269 PLF.Maps <> :::x_'|->'_x_';'_x not
+R29277:29279 PLF.Maps <> :::x_'|->'_x_';'_x not
+R29282:29282 PLF.Maps <> :::x_'|->'_x_';'_x not
+R29283:29288 PLF.Syntax <> Gamma2:293 var
+R29270:29276 PLF.Syntax <> return' def
+R29280:29281 PLF.Syntax <> RT:297 var
+R29249:29249 PLF.Syntax <> m:301 var
+R29254:29261 PLF.Syntax <> STyArrow constr
+R29263:29264 PLF.Syntax <> PT:296 var
+R29266:29267 PLF.Syntax <> RT:297 var
+R29294:29294 PLF.Syntax <> s:299 var
+R29300:29305 PLF.Syntax <> Gamma3:294 var
+R29338:29342 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R29371:29377 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R29405:29405 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R29332:29337 PLF.Syntax <> Gamma1:292 var
+R29343:29352 PLF.Syntax <> MethodDecl constr
+R29354:29358 PLF.Syntax <> modif:300 var
+R29360:29360 PLF.Syntax <> T:295 var
+R29362:29362 PLF.Syntax <> m:301 var
+R29364:29368 PLF.Syntax <> param:298 var
+R29370:29370 PLF.Syntax <> s:299 var
+R29379:29382 PLF.Maps <> :::x_'|->'_x_';'_x not
+R29397:29398 PLF.Maps <> :::x_'|->'_x_';'_x not
+R29399:29404 PLF.Syntax <> Gamma1:292 var
+R29378:29378 PLF.Syntax <> m:301 var
+R29383:29390 PLF.Syntax <> STyArrow constr
+R29392:29393 PLF.Syntax <> PT:296 var
+R29395:29396 PLF.Syntax <> RT:297 var
+binder 29440:29445 <> Gamma1:302
+binder 29447:29452 <> Gamma2:303
+binder 29454:29459 <> Gamma3:304
+binder 29461:29462 <> c1:305
+binder 29464:29465 <> c2:306
+R29499:29510 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29482:29485 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R29488:29492 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R29476:29481 PLF.Syntax <> Gamma1:302 var
+R29486:29487 PLF.Syntax <> c1:305 var
+R29493:29498 PLF.Syntax <> Gamma2:303 var
+R29534:29545 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29517:29520 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R29523:29527 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R29511:29516 PLF.Syntax <> Gamma2:303 var
+R29521:29522 PLF.Syntax <> c2:306 var
+R29528:29533 PLF.Syntax <> Gamma3:304 var
+R29552:29556 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R29578:29583 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R29546:29551 PLF.Syntax <> Gamma1:302 var
+R29557:29571 PLF.Syntax <> ComponentConcat constr
+R29573:29574 PLF.Syntax <> c1:305 var
+R29576:29577 PLF.Syntax <> c2:306 var
+R29584:29589 PLF.Syntax <> Gamma3:304 var
+scheme 28278:28301 <> has_type_class_component_ind
+scheme 28278:28301 <> has_type_class_component_sind
+R29624:29647 PLF.Syntax <> has_type_class_component ind
+not 29597:29597 <> :::x_'|-'_x_'\in'_x
+def 29728:29749 <> DeclsInClassDefinition
+R29755:29768 PLF.Syntax <> ClassComponent ind
+binder 29752:29752 <> c:307
+R29773:29781 PLF.Syntax <> ClassType def
+R29796:29796 PLF.Syntax <> c:307 var
+R29809:29823 PLF.Syntax <> FieldDeclNoInit constr
+R29836:29838 PLF.Maps <> :::x_'|->'_x_';'_x not
+R29850:29850 PLF.Maps <> :::x_'|->'_x_';'_x not
+R29851:29855 PLF.Maps <> empty def
+R29839:29847 PLF.Syntax <> SimplType def
+R29864:29876 PLF.Syntax <> FieldDeclInit constr
+R29892:29894 PLF.Maps <> :::x_'|->'_x_';'_x not
+R29906:29906 PLF.Maps <> :::x_'|->'_x_';'_x not
+R29907:29911 PLF.Maps <> empty def
+R29895:29903 PLF.Syntax <> SimplType def
+R29920:29934 PLF.Syntax <> ConstructorDecl constr
+R29957:29960 PLF.Maps <> :::x_'|->'_x_';'_x not
+R29999:30000 PLF.Maps <> :::x_'|->'_x_';'_x not
+R30001:30005 PLF.Maps <> empty def
+R29946:29956 PLF.Syntax <> constructor def
+R29961:29968 PLF.Syntax <> STyArrow constr
+R29971:29986 PLF.Syntax <> DeclsInStatement def
+R29992:29998 PLF.Syntax <> STyVoid constr
+R30014:30023 PLF.Syntax <> MethodDecl constr
+R30043:30046 PLF.Maps <> :::x_'|->'_x_';'_x not
+R30092:30093 PLF.Maps <> :::x_'|->'_x_';'_x not
+R30094:30098 PLF.Maps <> empty def
+R30047:30054 PLF.Syntax <> STyArrow constr
+R30057:30072 PLF.Syntax <> DeclsInStatement def
+R30079:30087 PLF.Syntax <> SimplType def
+R30107:30121 PLF.Syntax <> ComponentConcat constr
+R30132:30142 PLF.Syntax <> updateMerge def
+R30173:30194 PLF.Syntax <> DeclsInClassDefinition:308 def
+R30145:30166 PLF.Syntax <> DeclsInClassDefinition:308 def
+ind 30344:30360 <> well_type_program
+constr 30405:30415 <> T_ClassDecl
+constr 30646:30657 <> T_ImportDecl
+constr 30762:30776 <> T_ProgramConcat
+R30371:30372 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30364:30370 PLF.Syntax <> Context def
+R30380:30381 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30373:30379 PLF.Syntax <> Program ind
+R30389:30390 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30382:30388 PLF.Syntax <> Context def
+R30971:30987 PLF.Syntax <> well_type_program:311 ind
+binder 30426:30431 <> Gamma1:312
+binder 30433:30438 <> Gamma2:313
+binder 30440:30443 <> name:314
+binder 30445:30445 <> c:315
+binder 30447:30447 <> T:316
+R30513:30524 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30509:30511 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30485:30506 PLF.Syntax <> DeclsInClassDefinition def
+R30508:30508 PLF.Syntax <> c:315 var
+R30512:30512 PLF.Syntax <> T:316 var
+R30569:30580 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30525:30525 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R30552:30556 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R30558:30562 PLF.Syntax <> :::x_'|-'_x_'\in'_x not
+R30530:30534 PLF.Maps <> :::x_'|->'_x_';'_x not
+R30545:30545 PLF.Maps <> :::x_'|->'_x_';'_x not
+R30546:30551 PLF.Syntax <> Gamma1:312 var
+R30526:30529 PLF.Syntax <> this def
+R30535:30542 PLF.Syntax <> STyClass constr
+R30544:30544 PLF.Syntax <> T:316 var
+R30557:30557 PLF.Syntax <> c:315 var
+R30563:30568 PLF.Syntax <> Gamma2:313 var
+R30587:30591 PLF.Syntax <> :::x_'--'_x_'->'_x not
+R30608:30612 PLF.Syntax <> :::x_'--'_x_'->'_x not
+R30638:30638 PLF.Syntax <> :::x_'--'_x_'->'_x not
+R30581:30586 PLF.Syntax <> Gamma1:312 var
+R30592:30600 PLF.Syntax <> ClassDecl constr
+R30602:30605 PLF.Syntax <> name:314 var
+R30607:30607 PLF.Syntax <> c:315 var
+R30617:30619 PLF.Maps <> :::x_'|->'_x_';'_x not
+R30630:30631 PLF.Maps <> :::x_'|->'_x_';'_x not
+R30632:30637 PLF.Syntax <> Gamma1:312 var
+R30613:30616 PLF.Syntax <> name:314 var
+R30620:30627 PLF.Syntax <> STyClass constr
+R30629:30629 PLF.Syntax <> T:316 var
+binder 30668:30673 <> Gamma1:317
+binder 30675:30676 <> n1:318
+binder 30678:30679 <> n2:319
+R30721:30725 PLF.Syntax <> :::x_'--'_x_'->'_x not
+R30742:30747 PLF.Syntax <> :::x_'--'_x_'->'_x not
+R30754:30754 PLF.Syntax <> :::x_'--'_x_'->'_x not
+R30715:30720 PLF.Syntax <> Gamma1:317 var
+R30726:30735 PLF.Syntax <> ImportDecl constr
+R30737:30738 PLF.Syntax <> n1:318 var
+R30740:30741 PLF.Syntax <> n2:319 var
+R30748:30753 PLF.Syntax <> Gamma1:317 var
+binder 30787:30792 <> Gamma1:320
+binder 30794:30795 <> p1:321
+binder 30797:30802 <> Gamma2:322
+binder 30804:30805 <> p2:323
+binder 30807:30812 <> Gamma3:324
+R30845:30856 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30829:30832 PLF.Syntax <> :::x_'--'_x_'->'_x not
+R30835:30838 PLF.Syntax <> :::x_'--'_x_'->'_x not
+R30823:30828 PLF.Syntax <> Gamma1:320 var
+R30833:30834 PLF.Syntax <> p1:321 var
+R30839:30844 PLF.Syntax <> Gamma2:322 var
+R30879:30890 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30863:30866 PLF.Syntax <> :::x_'--'_x_'->'_x not
+R30869:30872 PLF.Syntax <> :::x_'--'_x_'->'_x not
+R30857:30862 PLF.Syntax <> Gamma2:322 var
+R30867:30868 PLF.Syntax <> p2:323 var
+R30873:30878 PLF.Syntax <> Gamma3:324 var
+R30897:30901 PLF.Syntax <> :::x_'--'_x_'->'_x not
+R30921:30925 PLF.Syntax <> :::x_'--'_x_'->'_x not
+R30891:30896 PLF.Syntax <> Gamma1:320 var
+R30902:30914 PLF.Syntax <> ProgramConcat constr
+R30916:30917 PLF.Syntax <> p1:321 var
+R30919:30920 PLF.Syntax <> p2:323 var
+R30926:30931 PLF.Syntax <> Gamma3:324 var
+scheme 30344:30360 <> well_type_program_ind
+scheme 30344:30360 <> well_type_program_sind
+R30971:30987 PLF.Syntax <> well_type_program ind
+not 30939:30939 <> :::x_'--'_x_'->'_x
+def 31019:31036 <> program_well_typed
+R31041:31047 PLF.Syntax <> Program ind
+binder 31039:31039 <> p:325
+R31064:31070 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R31076:31077 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 31071:31075 <> Gamma:326
+R31083:31086 PLF.Syntax <> :::x_'--'_x_'->'_x not
+R31088:31091 PLF.Syntax <> :::x_'--'_x_'->'_x not
+R31078:31082 PLF.Maps <> empty def
+R31087:31087 PLF.Syntax <> p:325 var
+R31092:31096 PLF.Syntax <> Gamma:326 var
+R31189:31196 Coq.Init.Logic <> ex_intro constr
+R31189:31196 Coq.Init.Logic <> ex_intro constr
+not 31243:31243 <> :::'the_exists_term'_x
+mod 31501:31514 <> Syntax_Example
+def 31554:31554 Syntax_Example A
+R31558:31563 Coq.Strings.String <> string ind
+def 31584:31584 Syntax_Example B
+R31588:31593 Coq.Strings.String <> string ind
+def 31614:31614 Syntax_Example C
+R31618:31623 Coq.Strings.String <> string ind
+def 31644:31644 Syntax_Example X
+R31648:31653 Coq.Strings.String <> string ind
+def 31674:31674 Syntax_Example Y
+R31678:31683 Coq.Strings.String <> string ind
+def 31704:31704 Syntax_Example Z
+R31708:31713 Coq.Strings.String <> string ind
+R31760:31760 PLF.Syntax Syntax_Example X def
+R31782:31782 PLF.Syntax Syntax_Example Y def
+R31804:31804 PLF.Syntax Syntax_Example Z def
+def 31827:31834 Syntax_Example Program1
+R31839:31842 PLF.Syntax <> :::'<|'_x_'|>' not
+R31919:31923 PLF.Syntax <> :::'<|'_x_'|>' not
+R31843:31848 PLF.Syntax <> :FJ::'class'_x_'{'_x_'}' not
+R31850:31857 PLF.Syntax <> :FJ::'class'_x_'{'_x_'}' not
+R31913:31918 PLF.Syntax <> :FJ::'class'_x_'{'_x_'}' not
+R31849:31849 PLF.Syntax Syntax_Example Y def
+R31861:31861 PLF.Syntax <> :FJ_Class::x_x_'('_x_')'_'{'_x_'}' not
+R31866:31868 PLF.Syntax <> :FJ_Class::x_x_'('_x_')'_'{'_x_'}' not
+R31878:31890 PLF.Syntax <> :FJ_Class::x_x_'('_x_')'_'{'_x_'}' not
+R31903:31912 PLF.Syntax <> :FJ_Class::x_x_'('_x_')'_'{'_x_'}' not
+R31858:31860 PLF.Syntax <> :FJ_Type::'Int' not
+R31862:31865 PLF.Syntax <> main def
+R31872:31872 PLF.Syntax <> :FJ::x_x_'='_x not
+R31874:31876 PLF.Syntax <> :FJ::x_x_'='_x not
+R31869:31871 PLF.Syntax <> :FJ_Type::'Int' not
+R31873:31873 PLF.Syntax Syntax_Example X def
+R31891:31897 PLF.Syntax <> :FJ::'Return'_x not
+R31899:31901 PLF.Syntax <> :FJ::x_'+'_x not
+R31898:31898 PLF.Syntax Syntax_Example X def
+def 31934:31952 Syntax_Example program1_well_typed
+R31956:31973 PLF.Syntax <> program_well_typed def
+R31975:31982 PLF.Syntax Syntax_Example Program1 def
+R32003:32020 PLF.Syntax <> program_well_typed def
+R32044:32054 PLF.Syntax <> T_ClassDecl constr
+R32044:32054 PLF.Syntax <> T_ClassDecl constr
+R32081:32092 PLF.Syntax <> T_MethodDecl constr
+R32081:32092 PLF.Syntax <> T_MethodDecl constr
+R32126:32135 PLF.Syntax <> T_DeclInit constr
+R32126:32135 PLF.Syntax <> T_DeclInit constr
+R32157:32165 PLF.Syntax <> T_Integer constr
+R32157:32165 PLF.Syntax <> T_Integer constr
+R32214:32221 PLF.Syntax <> T_Return constr
+R32214:32221 PLF.Syntax <> T_Return constr
+R32241:32245 PLF.Syntax <> T_Add constr
+R32241:32245 PLF.Syntax <> T_Add constr
+R32254:32258 PLF.Syntax <> T_Var constr
+R32254:32258 PLF.Syntax <> T_Var constr
+R32280:32288 PLF.Syntax <> T_Integer constr
+R32280:32288 PLF.Syntax <> T_Integer constr
+def 32354:32373 Syntax_Example program1_well_typed'
+R32377:32383 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R32385:32386 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 32384:32384 <> p:327
+R32387:32404 PLF.Syntax <> program_well_typed def
+R32406:32406 PLF.Syntax <> p:327 var
+R32427:32444 PLF.Syntax <> program_well_typed def
+R32499:32499 PLF.Syntax Syntax_Example Y def
+R32476:32486 PLF.Syntax <> T_ClassDecl constr
+R32499:32499 PLF.Syntax Syntax_Example Y def
+R32476:32486 PLF.Syntax <> T_ClassDecl constr
+R32560:32564 PLF.Syntax <> TyInt constr
+R32570:32573 PLF.Syntax <> main def
+R32527:32538 PLF.Syntax <> T_MethodDecl constr
+R32560:32564 PLF.Syntax <> TyInt constr
+R32570:32573 PLF.Syntax <> main def
+R32527:32538 PLF.Syntax <> T_MethodDecl constr
+R32628:32632 PLF.Syntax <> TyInt constr
+R32638:32638 PLF.Syntax Syntax_Example X def
+R32609:32618 PLF.Syntax <> T_DeclInit constr
+R32628:32632 PLF.Syntax <> TyInt constr
+R32638:32638 PLF.Syntax Syntax_Example X def
+R32609:32618 PLF.Syntax <> T_DeclInit constr
+R32668:32676 PLF.Syntax <> T_Integer constr
+R32668:32676 PLF.Syntax <> T_Integer constr
+R32723:32730 PLF.Syntax <> T_Return constr
+R32723:32730 PLF.Syntax <> T_Return constr
+R32751:32755 PLF.Syntax <> T_Add constr
+R32751:32755 PLF.Syntax <> T_Add constr
+R32779:32779 PLF.Syntax Syntax_Example X def
+R32765:32769 PLF.Syntax <> T_Var constr
+R32779:32779 PLF.Syntax Syntax_Example X def
+R32765:32769 PLF.Syntax <> T_Var constr
+R32803:32811 PLF.Syntax <> T_Integer constr
+R32803:32811 PLF.Syntax <> T_Integer constr
+def 32869:32873 Syntax_Example prog1
+R32878:32894 PLF.Syntax <> :::'the_exists_term'_x not
+R32915:32915 PLF.Syntax <> :::'the_exists_term'_x not
+R32895:32914 PLF.Syntax Syntax_Example program1_well_typed' ex
+def 32943:32950 Syntax_Example program2
+R32955:32963 PLF.Syntax <> :::'<|'_x_'|>' not
+R33182:33184 PLF.Syntax <> :::'<|'_x_'|>' not
+R32993:33000 PLF.Syntax <> :FJ::x_'\n'_x not
+R32964:32970 PLF.Syntax <> :FJ::'Import'_x_'.'_x_';' not
+R32982:32984 PLF.Syntax <> :FJ::'Import'_x_'.'_x_';' not
+R32991:32992 PLF.Syntax <> :FJ::'Import'_x_'.'_x_';' not
+R33001:33006 PLF.Syntax <> :FJ::'class'_x_'{'_x_'}' not
+R33008:33018 PLF.Syntax <> :FJ::'class'_x_'{'_x_'}' not
+R33176:33181 PLF.Syntax <> :FJ::'class'_x_'{'_x_'}' not
+R33007:33007 PLF.Syntax Syntax_Example X def
+R33024:33033 PLF.Syntax <> :FJ_Class::x_';'_x not
+R33022:33022 PLF.Syntax <> :FJ_Class::x_x not
+R33019:33021 PLF.Syntax <> :FJ_Type::'Int' not
+R33023:33023 PLF.Syntax Syntax_Example Z def
+R33037:33037 PLF.Syntax <> :FJ_Class::x_x_'('_x_')'_'{'_x_'}' not
+R33042:33044 PLF.Syntax <> :FJ_Class::x_x_'('_x_')'_'{'_x_'}' not
+R33049:33066 PLF.Syntax <> :FJ_Class::x_x_'('_x_')'_'{'_x_'}' not
+R33166:33175 PLF.Syntax <> :FJ_Class::x_x_'('_x_')'_'{'_x_'}' not
+R33034:33036 PLF.Syntax <> :FJ_Type::'Int' not
+R33038:33041 PLF.Syntax <> main def
+R33045:33048 PLF.Syntax <> :FJ::'skip' not
+R33108:33121 PLF.Syntax <> :FJ::x_';'_x not
+R33081:33081 PLF.Syntax <> :FJ::x_x_'='_x not
+R33083:33085 PLF.Syntax <> :FJ::x_x_'='_x not
+R33067:33068 PLF.Syntax <> :FJ_Type::'G('_x_'<'_x_'>'_')' not
+R33075:33075 PLF.Syntax <> :FJ_Type::'G('_x_'<'_x_'>'_')' not
+R33079:33080 PLF.Syntax <> :FJ_Type::'G('_x_'<'_x_'>'_')' not
+R33076:33078 PLF.Syntax <> :FJ_Type::'Int' not
+R33082:33082 PLF.Syntax Syntax_Example A def
+R33086:33089 PLF.Syntax <> :FJ::'new'_x_'('_x_')' not
+R33104:33104 PLF.Syntax <> :FJ::'new'_x_'('_x_')' not
+R33107:33107 PLF.Syntax <> :FJ::'new'_x_'('_x_')' not
+R33090:33091 PLF.Syntax <> :FJ_Type::'G('_x_'<'_x_'>'_')' not
+R33098:33098 PLF.Syntax <> :FJ_Type::'G('_x_'<'_x_'>'_')' not
+R33102:33103 PLF.Syntax <> :FJ_Type::'G('_x_'<'_x_'>'_')' not
+R33099:33101 PLF.Syntax <> :FJ_Type::'Int' not
+R33105:33106 PLF.Syntax <> :FJ::'[]' not
+R33144:33157 PLF.Syntax <> :FJ::x_';'_x not
+R33123:33125 PLF.Syntax <> :FJ::x_'.'_x_'('_x_')' not
+R33131:33131 PLF.Syntax <> :FJ::x_'.'_x_'('_x_')' not
+R33143:33143 PLF.Syntax <> :FJ::x_'.'_x_'('_x_')' not
+R33122:33122 PLF.Syntax Syntax_Example A def
+R33132:33132 PLF.Syntax <> :FJ::'['_x_']' not
+R33142:33142 PLF.Syntax <> :FJ::'['_x_']' not
+R33137:33140 PLF.Syntax <> :FJ::x_'\.'_x not
+R33133:33136 PLF.Syntax <> this def
+R33141:33141 PLF.Syntax Syntax_Example Z def
+R33158:33164 PLF.Syntax <> :FJ::'Return'_x not
+R33165:33165 PLF.Syntax Syntax_Example Z def
+def 33197:33215 Syntax_Example program2_well_typed
+R33219:33236 PLF.Syntax <> program_well_typed def
+R33238:33245 PLF.Syntax Syntax_Example program2 def
+R33296:33313 PLF.Syntax <> program_well_typed def
+R33337:33351 PLF.Syntax <> T_ProgramConcat constr
+R33337:33351 PLF.Syntax <> T_ProgramConcat constr
+R33365:33376 PLF.Syntax <> T_ImportDecl constr
+R33365:33376 PLF.Syntax <> T_ImportDecl constr
+R33390:33400 PLF.Syntax <> T_ClassDecl constr
+R33390:33400 PLF.Syntax <> T_ClassDecl constr
+R33429:33445 PLF.Syntax <> T_ComponentConcat constr
+R33429:33445 PLF.Syntax <> T_ComponentConcat constr
+R33474:33490 PLF.Syntax <> T_FieldDeclNoInit constr
+R33474:33490 PLF.Syntax <> T_FieldDeclNoInit constr
+R33523:33534 PLF.Syntax <> T_MethodDecl constr
+R33523:33534 PLF.Syntax <> T_MethodDecl constr
+R33559:33564 PLF.Syntax <> T_Skip constr
+R33559:33564 PLF.Syntax <> T_Skip constr
+R33588:33595 PLF.Syntax <> T_Concat constr
+R33588:33595 PLF.Syntax <> T_Concat constr
+R33622:33631 PLF.Syntax <> T_DeclInit constr
+R33622:33631 PLF.Syntax <> T_DeclInit constr
+R33654:33659 PLF.Syntax <> T_New' constr
+R33654:33659 PLF.Syntax <> T_New' constr
+R33692:33696 PLF.Syntax <> T_Nil constr
+R33692:33696 PLF.Syntax <> T_Nil constr
+R33726:33733 PLF.Syntax <> T_Concat constr
+R33726:33733 PLF.Syntax <> T_Concat constr
+R33766:33777 PLF.Syntax <> T_Expression constr
+R33766:33777 PLF.Syntax <> T_Expression constr
+R33787:33804 PLF.Syntax <> T_MethodInvocation constr
+R33787:33804 PLF.Syntax <> T_MethodInvocation constr
+R33840:33844 PLF.Syntax <> T_Var constr
+R33840:33844 PLF.Syntax <> T_Var constr
+R33925:33930 PLF.Syntax <> T_List constr
+R33925:33930 PLF.Syntax <> T_List constr
+R33940:33952 PLF.Syntax <> T_FieldAccess constr
+R33940:33952 PLF.Syntax <> T_FieldAccess constr
+R33962:33966 PLF.Syntax <> T_Var constr
+R33962:33966 PLF.Syntax <> T_Var constr
+R34001:34005 PLF.Syntax <> T_Nil constr
+R34001:34005 PLF.Syntax <> T_Nil constr
+R34059:34066 PLF.Syntax <> T_Return constr
+R34059:34066 PLF.Syntax <> T_Return constr
+R34078:34082 PLF.Syntax <> T_Var constr
+R34078:34082 PLF.Syntax <> T_Var constr
+def 34112:34131 Syntax_Example program2_well_typed'
+R34135:34141 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R34143:34144 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 34142:34142 <> p:328
+R34145:34162 PLF.Syntax <> program_well_typed def
+R34164:34164 PLF.Syntax <> p:328 var
+R34215:34232 PLF.Syntax <> program_well_typed def
+R34264:34278 PLF.Syntax <> T_ProgramConcat constr
+R34264:34278 PLF.Syntax <> T_ProgramConcat constr
+R34292:34303 PLF.Syntax <> T_ImportDecl constr
+R34292:34303 PLF.Syntax <> T_ImportDecl constr
+R34374:34374 PLF.Syntax Syntax_Example X def
+R34351:34361 PLF.Syntax <> T_ClassDecl constr
+R34374:34374 PLF.Syntax Syntax_Example X def
+R34351:34361 PLF.Syntax <> T_ClassDecl constr
+R34411:34427 PLF.Syntax <> T_ComponentConcat constr
+R34411:34427 PLF.Syntax <> T_ComponentConcat constr
+R34490:34494 PLF.Syntax <> TyInt constr
+R34500:34500 PLF.Syntax Syntax_Example Z def
+R34447:34463 PLF.Syntax <> T_FieldDeclNoInit constr
+R34490:34494 PLF.Syntax <> TyInt constr
+R34500:34500 PLF.Syntax Syntax_Example Z def
+R34447:34463 PLF.Syntax <> T_FieldDeclNoInit constr
+R34561:34565 PLF.Syntax <> TyInt constr
+R34523:34534 PLF.Syntax <> T_MethodDecl constr
+R34561:34565 PLF.Syntax <> TyInt constr
+R34523:34534 PLF.Syntax <> T_MethodDecl constr
+R34604:34609 PLF.Syntax <> T_Skip constr
+R34604:34609 PLF.Syntax <> T_Skip constr
+R34635:34642 PLF.Syntax <> T_Concat constr
+R34635:34642 PLF.Syntax <> T_Concat constr
+R34688:34697 PLF.Syntax <> TyGeneric1 constr
+R34706:34710 PLF.Syntax <> TyInt constr
+R34716:34716 PLF.Syntax Syntax_Example A def
+R34669:34678 PLF.Syntax <> T_DeclInit constr
+R34688:34697 PLF.Syntax <> TyGeneric1 constr
+R34706:34710 PLF.Syntax <> TyInt constr
+R34716:34716 PLF.Syntax Syntax_Example A def
+R34669:34678 PLF.Syntax <> T_DeclInit constr
+R34763:34772 PLF.Syntax <> TyGeneric1 constr
+R34781:34785 PLF.Syntax <> TyInt constr
+R34748:34753 PLF.Syntax <> T_New' constr
+R34763:34772 PLF.Syntax <> TyGeneric1 constr
+R34781:34785 PLF.Syntax <> TyInt constr
+R34748:34753 PLF.Syntax <> T_New' constr
+R34797:34801 PLF.Syntax <> T_Nil constr
+R34797:34801 PLF.Syntax <> T_Nil constr
+R34830:34837 PLF.Syntax <> T_Concat constr
+R34830:34837 PLF.Syntax <> T_Concat constr
+R34870:34881 PLF.Syntax <> T_Expression constr
+R34870:34881 PLF.Syntax <> T_Expression constr
+R34944:34948 PLF.Syntax <> TmVar constr
+R34950:34950 PLF.Syntax Syntax_Example A def
+R34915:34932 PLF.Syntax <> T_MethodInvocation constr
+R34944:34948 PLF.Syntax <> TmVar constr
+R34950:34950 PLF.Syntax Syntax_Example A def
+R34915:34932 PLF.Syntax <> T_MethodInvocation constr
+R34997:35001 PLF.Syntax <> T_Var constr
+R34997:35001 PLF.Syntax <> T_Var constr
+R35082:35087 PLF.Syntax <> T_List constr
+R35082:35087 PLF.Syntax <> T_List constr
+R35120:35123 PLF.Syntax <> this def
+R35129:35129 PLF.Syntax Syntax_Example Z def
+R35097:35109 PLF.Syntax <> T_FieldAccess constr
+R35120:35123 PLF.Syntax <> this def
+R35129:35129 PLF.Syntax Syntax_Example Z def
+R35097:35109 PLF.Syntax <> T_FieldAccess constr
+R35140:35144 PLF.Syntax <> T_Var constr
+R35140:35144 PLF.Syntax <> T_Var constr
+R35179:35183 PLF.Syntax <> T_Nil constr
+R35179:35183 PLF.Syntax <> T_Nil constr
+R35234:35241 PLF.Syntax <> T_Return constr
+R35234:35241 PLF.Syntax <> T_Return constr
+R35267:35267 PLF.Syntax Syntax_Example Z def
+R35253:35257 PLF.Syntax <> T_Var constr
+R35267:35267 PLF.Syntax Syntax_Example Z def
+R35253:35257 PLF.Syntax <> T_Var constr
+def 35295:35299 Syntax_Example prog2
+R35304:35320 PLF.Syntax <> :::'the_exists_term'_x not
+R35341:35341 PLF.Syntax <> :::'the_exists_term'_x not
+R35321:35340 PLF.Syntax Syntax_Example program2_well_typed' ex
+def 35366:35382 Syntax_Example well_type_foreach
+R35386:35404 PLF.Syntax <> well_type_statement ind
+R35408:35410 PLF.Maps <> :::x_'|->'_x not
+R35407:35407 PLF.Syntax Syntax_Example Y def
+R35411:35418 PLF.Syntax <> STyClass constr
+R35431:35433 PLF.Maps <> :::x_'|->'_x not
+R35434:35443 PLF.Syntax <> STyNumeric constr
+R35449:35457 PLF.Syntax <> StForeach constr
+R35459:35463 PLF.Syntax <> TyInt constr
+R35466:35466 PLF.Syntax Syntax_Example X def
+R35469:35473 PLF.Syntax <> TmVar constr
+R35475:35475 PLF.Syntax Syntax_Example Y def
+R35478:35483 PLF.Syntax <> StSkip constr
+R35489:35491 PLF.Maps <> :::x_'|->'_x not
+R35488:35488 PLF.Syntax Syntax_Example Y def
+R35492:35499 PLF.Syntax <> STyClass constr
+R35512:35514 PLF.Maps <> :::x_'|->'_x not
+R35515:35524 PLF.Syntax <> STyNumeric constr
+R35578:35586 PLF.Syntax <> T_Foreach constr
+R35578:35586 PLF.Syntax <> T_Foreach constr
+R35604:35608 PLF.Syntax <> T_Var constr
+R35604:35608 PLF.Syntax <> T_Var constr
+R35643:35648 PLF.Syntax <> T_Skip constr
+R35643:35648 PLF.Syntax <> T_Skip constr
+R35691:35704 PLF.Syntax Syntax_Example <> mod

@@ -1,0 +1,28 @@
+DIGEST 3c62a447a3f57aab4183508d58c69689
+FPLF.test
+R24:29 PLF.Syntax <> <> lib
+def 66:81 <> prog3_well_typed
+R85:91 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R93:94 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 92:92 <> p:1
+R95:112 PLF.Syntax <> program_well_typed def
+R114:114 PLF.test <> p:1 var
+R131:148 PLF.Syntax <> program_well_typed def
+R176:186 PLF.Syntax <> T_ClassDecl constr
+R176:186 PLF.Syntax <> T_ClassDecl constr
+R270:274 PLF.Syntax <> TyInt constr
+R280:283 PLF.Syntax <> main def
+R238:249 PLF.Syntax <> T_MethodDecl constr
+R270:274 PLF.Syntax <> TyInt constr
+R280:283 PLF.Syntax <> main def
+R238:249 PLF.Syntax <> T_MethodDecl constr
+R317:322 PLF.Syntax <> T_Skip constr
+R317:322 PLF.Syntax <> T_Skip constr
+R357:364 PLF.Syntax <> T_Return constr
+R357:364 PLF.Syntax <> T_Return constr
+R380:388 PLF.Syntax <> T_Integer constr
+R380:388 PLF.Syntax <> T_Integer constr
+def 449:453 <> prog3
+R458:474 PLF.Syntax <> :::'the_exists_term'_x not
+R491:491 PLF.Syntax <> :::'the_exists_term'_x not
+R475:490 PLF.test <> prog3_well_typed ex
