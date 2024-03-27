@@ -1,3 +1,3 @@
--R demo PLF
-demo/Maps.v
-demo/Syntax.v
+-R coq_code PLF
+coq_code/Maps.v
+coq_code/Syntax.v

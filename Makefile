@@ -1,4 +1,4 @@
-COQFLAGS := -Q demo PLF 
+COQFLAGS := -Q coq_code PLF 
 
 ALLVFILES := Maps.v Syntax.v
 

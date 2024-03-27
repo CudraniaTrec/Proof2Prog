@@ -21,24 +21,6 @@ Inductive Ty : Type :=
     | TyGeneric2 : string->Ty->Ty->Ty (* s<T1,T2> *)
     | TyArray : Ty->Ty                (* T[] *)
     | TyVoid : Ty                     (* void *).
-Fixpoint TyName (T:Ty) : string :=
-    match T with
-    | TyByte => "byte"
-    | TyShort => "short"
-    | TyInt => "int"
-    | TyLong => "long"
-    | TyFloat => "float"
-    | TyDouble => "double"
-    | TyBool => "boolean"
-    | TyChar => "char"
-    | TyString => "String"
-    | TyExternal s => "E(" ++ s ++ ")"
-    | TyGeneric0 s => s++"<>"
-    | TyGeneric1 s T => s ++ "<" ++ TyName T ++ ">"
-    | TyGeneric2 s T1 T2 => s ++ "<" ++ TyName T1 ++ "," ++ TyName T2 ++ ">"
-    | TyArray T' => TyName T' ++ "[]"
-    | TyVoid => "void"
-    end.
 Inductive Term : Type :=
     (* basic data structure *)
     | TmVar : string->Term
@@ -319,31 +301,7 @@ Definition updateMerge {A:Type} (m1 m2:partial_map A) : partial_map A :=
             | Some v => Some v
             | None => m2 x
             end.
-(* f : PT->RT, PT is the parameter type with type template TT, RT is the return type
-   PT must be STyList or StyVoid
-   x : PT' is the argument passed to f *)
-Fixpoint calRT (RT TT:STy):STy:=
-match RT with
-| STyArrow PT RT' => STyArrow (calRT PT TT) (calRT RT' TT)
-| STyList T1 T2 => STyList (calRT T1 TT) (calRT T2 TT)
-| STyArray T => STyArray (calRT T TT)
-| STyTemplate => TT
-| T => T
-end.
-Fixpoint hasResultType (PT RT PT' TT:STy):STy:= 
-match PT with
-| STyList T1 T2 => match PT' with
-                    | STyList T1' T2' => match T1 with
-                                        | STyTemplate => hasResultType T2 RT T2' T1'
-                                        | T => hasResultType T2 RT T2' TT
-                                        end
-                    | _ => STyVoid
-                    end
-| STyVoid => calRT RT TT
-| _ => STyVoid                                
-end.
-Definition test_rt:=hasResultType <([TEM;TEM])> <([TEM])> <([Numeric;Numeric])> STyVoid.
-Compute test_rt.
+
 (*typing rules for terms*)
 Reserved Notation "Gamma '|--' t '\in' T" (at level 101, T at level 0).
 Inductive has_type : Context->Term->STy->Prop :=
@@ -356,7 +314,7 @@ Inductive has_type : Context->Term->STy->Prop :=
     | T_Float : forall Gamma f,
         Gamma |-- (TmFloat f) \in STyNumeric
     | T_Char : forall Gamma c,
-        Gamma |-- (TmChar c) \in STyString
+        Gamma |-- (TmChar c) \in STyNumeric
     | T_String : forall Gamma s,
         Gamma |--  (TmString s) \in STyString
     | T_True : forall Gamma,

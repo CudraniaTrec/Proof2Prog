@@ -1,0 +1,38 @@
+DIGEST 3d59343cc1ba48a908fc5e079752d9ba
+FPLF.test
+R24:29 PLF.Syntax <> <> lib
+def 66:80 <> prog_well_typed
+R84:90 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R92:93 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 91:91 <> p:1
+R94:111 PLF.Syntax <> program_well_typed def
+R113:113 PLF.test <> p:1 var
+R160:177 PLF.Syntax <> program_well_typed def
+R205:215 PLF.Syntax <> T_ClassDecl constr
+R205:215 PLF.Syntax <> T_ClassDecl constr
+R250:266 PLF.Syntax <> T_ComponentConcat constr
+R250:266 PLF.Syntax <> T_ComponentConcat constr
+R315:319 PLF.Syntax <> TyInt constr
+R280:294 PLF.Syntax <> T_FieldDeclInit constr
+R315:319 PLF.Syntax <> TyInt constr
+R280:294 PLF.Syntax <> T_FieldDeclInit constr
+R342:347 PLF.Syntax <> T_Char constr
+R342:347 PLF.Syntax <> T_Char constr
+R375:391 PLF.Syntax <> T_ComponentConcat constr
+R375:391 PLF.Syntax <> T_ComponentConcat constr
+R442:446 PLF.Syntax <> TyInt constr
+R407:421 PLF.Syntax <> T_FieldDeclInit constr
+R442:446 PLF.Syntax <> TyInt constr
+R407:421 PLF.Syntax <> T_FieldDeclInit constr
+R471:479 PLF.Syntax <> T_Integer constr
+R471:479 PLF.Syntax <> T_Integer constr
+R546:551 PLF.Syntax <> TyLong constr
+R511:525 PLF.Syntax <> T_FieldDeclInit constr
+R546:551 PLF.Syntax <> TyLong constr
+R511:525 PLF.Syntax <> T_FieldDeclInit constr
+R576:584 PLF.Syntax <> T_Integer constr
+R576:584 PLF.Syntax <> T_Integer constr
+def 624:627 <> prog
+R632:648 PLF.Syntax <> :::'the_exists_term'_x not
+R664:664 PLF.Syntax <> :::'the_exists_term'_x not
+R649:663 PLF.test <> prog_well_typed ex
