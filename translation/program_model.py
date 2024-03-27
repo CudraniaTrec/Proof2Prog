@@ -1,4 +1,6 @@
 # java program model
+
+
 class Ty:
     """
     match ty with
@@ -31,6 +33,15 @@ class Ty:
         self.ty2 = ty2
 
     def toString(self, printClass=False):
+        """
+        Returns java representation of the type.
+
+        Args:
+            printClass (bool): Whether to print the encapsulated class name for primitive types.
+
+        Returns:
+            str: The java representation of the type.
+        """
         if self.ty == "TyInt":
             if printClass:
                 return "Integer"
@@ -96,16 +107,22 @@ class Ty:
             assert False, "ty中有未知类型: " + self.ty
 
     def toCoq(self):
+        """
+        Returns the Coq representation of the type.
+
+        Returns:
+            str: The Coq representation of the type.
+        """
         if self.ty == "TyExternal":
-            return f"(Ty_External {self.string})"
+            return f'(TyExternal "{self.string}")'
         elif self.ty == "TyArray":
-            return f"(Ty_Array {self.ty1.toCoq()})"
+            return f"(TyArray {self.ty1.toCoq()})"
         elif self.ty == "TyGeneric0":
-            return f"(Ty_Generic0 {self.string})"
+            return f'(TyGeneric0 "{self.string}")'
         elif self.ty == "TyGeneric1":
-            return f"(Ty_Generic1 {self.string} {self.ty1.toCoq()})"
+            return f'(TyGeneric1 "{self.string}" {self.ty1.toCoq()})'
         elif self.ty == "TyGeneric2":
-            return f"(Ty_Generic2 {self.string} {self.ty1.toCoq()} {self.ty2.toCoq()})"
+            return f'(TyGeneric2 "{self.string}" {self.ty1.toCoq()} {self.ty2.toCoq()})'
         else:
             return self.ty
 
@@ -195,18 +212,46 @@ class Term:
         self.term3 = term3
 
     def lengthOfTermlist(self, term_list):
+        """
+        Calculates the length of a term_list(parameters).
+
+        Args:
+            term_list (TermList): The term_list standing for a bunch of parameters.
+
+        Returns:
+            int: The length of the term_list.
+        """
         if term_list.term == "TmList":
             return 1 + self.lengthOfTermlist(term_list.term2)
         else:
             return 0
 
     def lengthOfArray(self, array_list):
+        """
+        Calculates the length of an array_literal.
+
+        Parameters:
+        array_list: The array to calculate the length of.
+
+        Returns:
+        The length of the array.
+        """
         if array_list.term == "TmArrayConcat":
             return 1 + self.lengthOfArray(array_list.term2)
         else:
             return 0
 
     def printArrayLiteral(self, array_list):
+        """
+        Prints the array literal representation (in java) of the given array_list.
+
+        Args:
+            array_list: The array_list to be printed.
+
+        Returns:
+            The java representation of the array literal.
+            eg. {1,2}, {5,6}, {}
+        """
         if array_list.term == "TmEmptyArray":
             return ""
         elif array_list.term == "TmArrayConcat":
@@ -233,6 +278,15 @@ class Term:
             return array_list.toString()
 
     def toString(self, asArrayParam=False):
+        """
+        Converts the object to its string representation in java.
+
+        Args:
+            asArrayParam (bool, optional): Specifies whether the object(term_list) is being used as array-init parameters(or else parameters to method invocation).
+
+        Returns:
+            str: The java representation of the object.
+        """
         if self.term == "TmVar":
             return self.string
         elif self.term == "TmNull":
@@ -277,7 +331,7 @@ class Term:
         elif self.term == "TmNil":
             return ""
         elif self.term == "TmList":
-            if asArrayParam:  # new ing[1][2]
+            if asArrayParam:  # new int[1][2]
                 return (
                     "["
                     + self.term1.toString()
@@ -355,6 +409,15 @@ class Term:
             assert False, "term中有未知类型: " + self.term
 
     def toCoq(self):
+        """
+        Converts the current object to a CoqProof object based on the value of the 'term' attribute.
+
+        Returns:
+            CoqProof: The CoqProof object representing the current object.
+
+        Raises:
+            AssertionError: If the 'term' attribute has an unknown type.
+        """
         if self.term == "TmVar":
             return CoqProof(
                 "T_Var",
@@ -370,7 +433,7 @@ class Term:
         elif self.term == "TmFloat":
             return CoqProof(
                 "T_Float",
-                params={"f": self.float_literal},
+                params={"f": f"{self.float_literal}%float"},
             )
         elif self.term == "TmString":
             return CoqProof(
@@ -389,14 +452,14 @@ class Term:
         elif self.term == "TmFieldAccess":
             proof1 = self.term1.toCoq()
             return CoqProof(
-                "T_FieldAccess",
+                "T_FieldAccess'",
                 params={"f": f'"{self.string}"'},
-                children=[proof1, CoqProof("reflexivity")],
+                children=[proof1],
             )
         elif self.term == "TmNew":
             proof1 = self.term1.toCoq()
             return CoqProof(
-                "T_New",
+                "T_New'",
                 params={"T": self.ty.toCoq()},
                 children=[proof1],
             )
@@ -408,11 +471,11 @@ class Term:
                     params={"T": self.ty.toCoq()},
                 )
             else:  # new int a[1][2]
-                tm1, tm2 = self.term.term1, self.term.term2
+                tm1, tm2 = self.term1.term1, self.term1.term2
                 proof1 = tm1.toCoq()
-                proof2 = Term("TmNewArrayNoInit", term1=tm2).toCoq()
+                proof2 = Term("TmNewArrayNoInit", term1=tm2, ty=self.ty).toCoq()
                 return CoqProof(
-                    "T_NewArrayNoInit",
+                    "T_NewArrayNoInit'",
                     params={"T": self.ty.toCoq()},
                     children=[proof1, proof2],
                 )
@@ -431,24 +494,36 @@ class Term:
                 children=[proof1],
             )
         elif self.term == "TmArrayAccess":
-            proof1 = self.term1
-            proof2 = self.term2
+            proof1 = self.term1.toCoq()
+            proof2 = self.term2.toCoq()
             return CoqProof(
                 "T_ArrayAccess",
                 children=[proof1, proof2],
             )
         elif self.term == "TmMethodInvocation":
+            # is actually a method invocation by type name (Math.max(1, 2))
+            if self.term1.term == "TmVar" and self.term1.string in [
+                "Math",
+                "Arrays",
+                "Integer",
+            ]:
+                TyObject = Ty("TyExternal", self.term1.string)
+                return CoqProof(
+                    "T_TyMethodInvocation'",
+                    params={"m": f'"{self.string}"', "T": TyObject.toCoq()},
+                    children=[self.term2.toCoq()],
+                )
             proof1 = self.term1.toCoq()
             proof2 = self.term2.toCoq()
             return CoqProof(
-                "T_MethodInvocation",
+                "T_MethodInvocation'",
                 params={"m": f'"{self.string}"'},
                 children=[proof1, proof2],
             )
         elif self.term == "TmMethodInvocationNoObject":
             proof1 = self.term1.toCoq()
             return CoqProof(
-                "T_MethodInvocationNoObject",
+                "T_MethodInvocationNoObj",
                 params={"m": f'"{self.string}"'},
                 children=[proof1],
             )
@@ -985,15 +1060,13 @@ class CoqProof:
     tactic = ""
     params = {}
     children = []
-    sibling = None
 
-    def __init__(self, tactic, params={}, children=[], sibling=None):
+    def __init__(self, tactic, params={}, children=[]):
         if tactic[:2] == "T_":  # tactic starts with T_
             self.isEapply = True
         self.tactic = tactic
         self.params = params
         self.children = children
-        self.sibling = sibling
 
     def toString(self, indent=0):
         proof_str = "  " * indent
@@ -1023,9 +1096,6 @@ class CoqProof:
                 child_proof = child.toString(indent + 1)[indent_len + 2 :]
                 proof_str += f"\n{' '*indent_len}{{ {child_proof} }}"
 
-        # append proof of sibling
-        if self.sibling is not None:
-            proof_str += "\n" + self.sibling.toString(indent)
         return proof_str
 
 

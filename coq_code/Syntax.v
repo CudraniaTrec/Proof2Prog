@@ -262,7 +262,7 @@ Fixpoint SimplType (T:Ty) : STy :=
     | TyArray T' => STyArray (SimplType T')
     | TyVoid => STyVoid
     | TyExternal s => match s with
-                    | "Integer" => STyClass ("name"|->(S (TyName T));"MAX_VALUE"|->STyNumeric;"MIN_VALUE"|->STyNumeric)
+                    | "Integer" => STyClass ("MAX_VALUE"|->STyNumeric;"MIN_VALUE"|->STyNumeric)
                     | "Math" => STyClass ("min"|-> <([Numeric;Numeric]->Numeric)> ; "max"|-><([Numeric;Numeric]->Numeric)> )
                     | _ => STyClass (empty)
                     end
@@ -340,10 +340,9 @@ Inductive has_type : Context->Term->STy->Prop :=
         Gamma |-- tm \in ( STyClass ct ) ->
         ct f = Some T ->
         Gamma |-- TmFieldAccess tm f \in T
-    | T_FieldAccess' : forall Gamma tm f ct T,
+    | T_FieldAccess' : forall Gamma tm f T T',
         (* tm.f *)
-        Gamma |-- tm \in ( STyClass ct ) ->
-        ct f = None ->
+        Gamma |-- tm \in T' ->
         Gamma |-- TmFieldAccess tm f \in T
     | T_ArrayAccess : forall Gamma tm1 tm2 T, 
         (* tm1[tm2] *)
@@ -356,12 +355,11 @@ Inductive has_type : Context->Term->STy->Prop :=
         ct constructor = Some ( STyArrow PT STyVoid ) ->
         Gamma |-- param \in PT ->
         Gamma |-- TmNew T param \in (SimplType T)
-    | T_New' : forall Gamma T param PT ct,
+    | T_New' : forall Gamma T param PT ct RT,
         (* new T(param) *)
         SimplType T = STyClass ct ->
-        ct constructor = None ->
         Gamma |-- param \in PT ->
-        Gamma |-- TmNew T param \in (SimplType T)
+        Gamma |-- TmNew T param \in RT
     | T_NewArrayNoInit : forall Gamma T,
         (* new T *)
         Gamma |-- TmNewArrayNoInit T TmNil \in (SimplType T)
@@ -384,7 +382,6 @@ Inductive has_type : Context->Term->STy->Prop :=
     | T_MethodInvocation' : forall Gamma tm m param ct PT RT,
         (* tm.m(param) *)
         Gamma |-- tm \in ( STyClass ct ) ->
-        ct m = None ->
         Gamma |-- param \in PT ->
         Gamma |-- TmMethodInvocation tm m param \in RT
     | T_TyMethodInvocation : forall Gamma T m param ct PT RT,
@@ -396,7 +393,6 @@ Inductive has_type : Context->Term->STy->Prop :=
     | T_TyMethodInvocation' : forall Gamma T m param ct PT RT,
         (* T.m(param) *)
         SimplType T = STyClass ct ->
-        ct m = None ->
         Gamma |-- param \in PT ->
         Gamma |-- TmTyMethodInvocation T m param \in RT
     | T_MethodInvocationNoObj : forall Gamma m param PT RT,

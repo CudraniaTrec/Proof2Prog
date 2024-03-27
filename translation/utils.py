@@ -1006,8 +1006,7 @@ def visit_unary_expression(node):
 def visit_assignment_expression(node):
     if node.child_count == 3:
         if node.children[0].type in primary_type_list:
-            string1 = getcode_from_node(source_code_line, node.children[0])
-            term1 = Term("TmVar", string=string1)
+            term1 = visit_primary_expression(node.children[0])
             term2 = visit_expression(node.children[2])
             string2 = getcode_from_node(source_code_line, node.children[1])
         else:
