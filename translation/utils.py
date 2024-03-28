@@ -228,23 +228,30 @@ def visit_classcomponent(node):
             return -1
         elif c2.classcomponent == "FieldDeclInit":
             return 1
-        elif c1.classcomponent == "ConstructorDecl":
-            return -1
-        elif c2.classcomponent == "ConstructorDecl":
-            return 1
         else:
-            c1_name, c2_name = c1.string2, c2.string2
-            if c2_name in c1.toString():
-                return 1
-            elif c1_name in c2.toString():
+            c1_name, c2_name = c1.string2 + "(", c2.string2 + "("
+            if c1.classcomponent == "MethodDecl" and c1_name in c2.toString():
                 return -1
+            elif c2.classcomponent == "MethodDecl" and c2_name in c1.toString():
+                return 1
             else:
                 return 0
 
-    from functools import cmp_to_key
-
-    component_list = sorted(component_list, key=cmp_to_key(cmp))
-    for component in reversed(component_list):
+    new_list = []
+    while len(component_list) > 0:
+        success = False
+        for i in range(len(component_list)):
+            comp = component_list[i]
+            # no component else that should be swaped with comp
+            if len([comp2 for comp2 in component_list if cmp(comp, comp2) == 1]) == 0:
+                new_list.append(comp)
+                component_list.remove(comp)
+                success = True
+                # print(comp.string2)
+                break
+        if not success:
+            assert False, "cyclic dependency in class components"
+    for component in reversed(new_list):
         if classcomponent_return is None:
             classcomponent_return = component
         else:
@@ -454,6 +461,12 @@ def visit_type(node):
             return Ty("TyFloat")
         elif string1 == "double":
             return Ty("TyFloat")
+        elif string1 == "Float":
+            return Ty("TyFloat")
+        elif string1 == "Long":
+            return Ty("TyLong")
+        elif string1 == "Boolean":
+            return Ty("TyBool")
         else:
             return Ty("TyExternal", string=string1)
     elif node.type == "array_type":

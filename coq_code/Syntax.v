@@ -248,6 +248,7 @@ Notation "[ T ]" := (STyList T STyVoid) (in custom FJ_STy at level 10).
 Notation "[ T1 ; T2 ; .. ; Tn ]" := (STyList T1 (STyList T2 .. (STyList Tn STyVoid) ..)) (in custom FJ_STy at level 10).
 Notation "T []" := (STyArray T) (in custom FJ_STy at level 10).
 Notation "'TEM'" := STyTemplate (in custom FJ_STy at level 10).
+
 (* translate types in java normal grammar into the simplified tpe system*)
 Fixpoint SimplType (T:Ty) : STy :=
     match T with
@@ -258,26 +259,22 @@ Fixpoint SimplType (T:Ty) : STy :=
     | TyLong => STyNumeric
     | TyFloat => STyNumeric
     | TyDouble => STyNumeric
-    | TyChar => STyNumeric
+    | TyChar => STyString
     | TyString => STyString
     | TyArray T' => STyArray (SimplType T')
     | TyVoid => STyVoid
     | TyExternal s => match s with
-                    | "Integer" => STyClass ("MAX_VALUE"|->STyNumeric;"MIN_VALUE"|->STyNumeric)
-                    | "Math" => STyClass ("min"|-> <([Numeric;Numeric]->Numeric)> ; "max"|-><([Numeric;Numeric]->Numeric)> )
                     | _ => STyClass (empty)
                     end
     | TyGeneric0 s => STyClass (empty)
     | TyGeneric1 s T' =>let ST := SimplType T' in 
                         match s with
-                        | "List" => STyClass("add"|-><([ST]->[])>; "remove"|-><([Numeric]->[])>; "get"|-><([Numeric]->ST)>;"iterator"|->ST)
-                        | "Set" => STyClass("add"|-><([ST]->[])>; "remove"|-><([ST]->[])>; "contains"|-><([ST]->Bool)>;"iterator"|->ST)
+                        | "List1" => STyClass("add"|-><([ST]->[])>; "remove"|-><([Numeric]->[])>; "get"|-><([Numeric]->ST)>;"iterator"|->ST)
                         | _ => STyClass ("iterator"|->ST)
                         end
     | TyGeneric2 s T1 T2 => let ST1 := SimplType T1 in
                             let ST2 := SimplType T2 in
                             match s with
-                            | "Map" => STyClass("put"|-><([ST1;ST2]->[])>; "get"|-><([ST1]->ST2)>)
                             | _ => STyClass (empty)
                             end
     end.
@@ -347,9 +344,9 @@ Inductive has_type : Context->Term->STy->Prop :=
         SimplType T = STyClass ct ->
         ct f = Some T' ->
         Gamma |-- TmTyFieldAccess T f \in T'
-    | T_TyFieldAccess' : forall Gamma T f ct T',
+    | T_TyFieldAccess' : forall Gamma T f T' T'',
         (* T.f *)
-        SimplType T = STyClass ct ->
+        SimplType T = T'' ->
         Gamma |-- TmTyFieldAccess T f \in T'
     | T_ArrayAccess : forall Gamma tm1 tm2 T, 
         (* tm1[tm2] *)
@@ -423,11 +420,11 @@ Inductive has_type : Context->Term->STy->Prop :=
         Gamma |-- tm2 \in (STyArray T) ->
         Gamma |-- (TmArrayConcat tm1 tm2) \in (STyArray T)
     (*arithmetic term*)
-    | T_Add : forall Gamma tm1 tm2,
+    | T_Add : forall Gamma tm1 tm2 T,
         (* tm1 + tm2 *)
-        Gamma |-- tm1 \in STyNumeric ->
-        Gamma |-- tm2 \in STyNumeric ->
-        Gamma |-- (TmAdd tm1 tm2) \in STyNumeric
+        Gamma |-- tm1 \in T ->
+        Gamma |-- tm2 \in T ->
+        Gamma |-- (TmAdd tm1 tm2) \in T
     | T_Sub : forall Gamma tm1 tm2,
         (* tm1 - tm2 *)
         Gamma |-- tm1 \in STyNumeric ->
@@ -639,11 +636,11 @@ Inductive has_type_class_component :
         SimplType T = T' ->
         Gamma |-- tm \in T' ->
         Gamma |- (FieldDeclInit modif T x tm) \in (x|->T';Gamma)
-    | T_ConstructorDecl : forall Gamma1 Gamma2 s1 s2 T,
+    | T_ConstructorDecl : forall Gamma1 Gamma2 Gamma3 s1 s2 T,
         (* Constructor (s1) {s2} *)
         Gamma1 -- s1 --> Gamma2 ->
         DeclsInStatement s1 = T ->
-        Gamma2 -- s2 --> Gamma2 ->
+        Gamma2 -- s2 --> Gamma3 ->
         Gamma1 |- (ConstructorDecl s1 s2) \in (constructor|->(STyArrow T STyVoid);Gamma1)
     | T_MethodDecl : forall Gamma1 Gamma2 Gamma3 T PT RT param s modif m,
         (* modifier T m (param) {s} *)
@@ -763,7 +760,7 @@ Definition program2 := <|
     class X {
         Int Z;
         Int main ( skip ) { 
-            G("List"<Int>) A = new G("List"<Int>)([]);
+            G("List1"<Int>) A = new G("List1"<Int>)([]);
             A . "add"([this \. Z]);
             Return Z
         }
@@ -805,8 +802,8 @@ Proof with (simpl;try(reflexivity)).
         - eapply T_MethodDecl with(modif:="public")(T:=TyInt)(m:="main") ...
             ++ apply T_Skip. 
             ++ eapply T_Concat.
-                * apply T_DeclInit with(T:=TyGeneric1 "List" TyInt)(x:=A)... 
-                  eapply T_New' with(T:=TyGeneric1 "List" TyInt)... apply T_Nil. 
+                * apply T_DeclInit with(T:=TyGeneric1 "List1" TyInt)(x:=A)... 
+                  eapply T_New' with(T:=TyGeneric1 "List1" TyInt)... apply T_Nil. 
                 * eapply T_Concat.
                     -- eapply T_Expression. 
                        eapply T_MethodInvocation with (tm:=TmVar A)(m:="add").

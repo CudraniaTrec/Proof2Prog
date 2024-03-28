@@ -455,6 +455,9 @@ class Term:
                 "Arrays",
                 "Integer",
                 "Collections",
+                "Character",
+                "String",
+                "System",
             ]:
                 TyObject = Ty("TyExternal", self.term1.string)
                 return CoqProof(
@@ -519,6 +522,9 @@ class Term:
                 "Arrays",
                 "Integer",
                 "Collections",
+                "Character",
+                "String",
+                "System",
             ]:
                 TyObject = Ty("TyExternal", self.term1.string)
                 return CoqProof(

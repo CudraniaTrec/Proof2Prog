@@ -1,11 +1,11 @@
 /.vscode/
 /translation/__pycache__/
 /translation/tmp/
-*.vo
-*.vok
-*.vos
-*.aux
-*.glob
+**/*.vo
+**/*.vok
+**/*.vos
+**/*.aux
+**/*.glob
 .Makefile.coq.d
 Makefile.coq
 Makefile.coq.conf
