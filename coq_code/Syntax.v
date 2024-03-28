@@ -35,6 +35,7 @@ Inductive Term : Type :=
     | TmAssign : Term->Term->Term                   (* tm1 = tm2 *)
     | TmConversion : Ty->Term->Term                 (* (T)tm / (float)10 *)
     | TmFieldAccess : Term->string->Term            (* tm.f *)
+    | TmTyFieldAccess : Ty->string->Term            (* T.f *)
     | TmArrayAccess : Term->Term->Term              (* tm1[tm2] *)
     | TmNew : Ty->Term->Term                        (* new T(tm) *)
     | TmNewArrayNoInit : Ty->Term->Term             (* new T[tm] / new int[2][2] *)
@@ -284,10 +285,7 @@ Fixpoint SimplType (T:Ty) : STy :=
 Definition iterable (T1 T2: STy):=
     match T2 with
     | STyArray T3 => T1=T3
-    | STyClass ct => match ct "iterator" with
-                    | Some T3 => T1=T3
-                    | None => False
-                    end
+    | STyClass ct => True
     | _ => False
     end.
 
@@ -344,6 +342,15 @@ Inductive has_type : Context->Term->STy->Prop :=
         (* tm.f *)
         Gamma |-- tm \in T' ->
         Gamma |-- TmFieldAccess tm f \in T
+    | T_TyFieldAccess : forall Gamma T f ct T',
+        (* T.f *)
+        SimplType T = STyClass ct ->
+        ct f = Some T' ->
+        Gamma |-- TmTyFieldAccess T f \in T'
+    | T_TyFieldAccess' : forall Gamma T f ct T',
+        (* T.f *)
+        SimplType T = STyClass ct ->
+        Gamma |-- TmTyFieldAccess T f \in T'
     | T_ArrayAccess : forall Gamma tm1 tm2 T, 
         (* tm1[tm2] *)
         Gamma |-- tm1 \in ( STyArray T ) ->
@@ -379,9 +386,9 @@ Inductive has_type : Context->Term->STy->Prop :=
         ct m = Some ( STyArrow PT RT ) ->
         Gamma |-- param \in PT ->
         Gamma |-- TmMethodInvocation tm m param \in RT
-    | T_MethodInvocation' : forall Gamma tm m param ct PT RT,
+    | T_MethodInvocation' : forall Gamma tm m param T PT RT,
         (* tm.m(param) *)
-        Gamma |-- tm \in ( STyClass ct ) ->
+        Gamma |-- tm \in T ->
         Gamma |-- param \in PT ->
         Gamma |-- TmMethodInvocation tm m param \in RT
     | T_TyMethodInvocation : forall Gamma T m param ct PT RT,
@@ -584,7 +591,6 @@ Inductive well_type_statement : Context->Statement->Context->Prop :=
     | T_Foreach : forall Gamma1 x T T' T'' tm s Gamma2,
         SimplType T = T' ->
         Gamma1 |-- tm \in T'' ->
-        iterable T' T'' ->
         (x|->T';Gamma1) -- s --> Gamma2 ->
         Gamma1 -- (StForeach T x tm s) --> Gamma1
     | T_Return : forall Gamma tm T,
@@ -817,7 +823,6 @@ Example well_type_foreach : well_type_statement (Y|->STyClass ("iterator"|->STyN
 Proof with (simpl;try(reflexivity)).
     eapply T_Foreach...  
     eapply T_Var... 
-    reflexivity. 
     eapply T_Skip.
 Defined.
 Close Scope string_scope.

@@ -194,6 +194,7 @@ def visit_class_declaration(node):
 def visit_classcomponent(node):
     named_child_count = node.named_child_count
     classcomponent_return = None
+    component_list = []
     for i in range(named_child_count - 1, -1, -1):
         child = node.named_child(i)
         if child.type == "line_comment":
@@ -213,14 +214,44 @@ def visit_classcomponent(node):
                 + " "
                 + getcode_from_node(source_code_line, child)
             )
+        component_list.append(classcomponent_get)
 
+    # change the order of the components
+    # fields -> constructors -> methods
+    # if method m1 uses method m2, then m2 should be defined before m1
+    def cmp(c1, c2):
+        if c1.classcomponent == "FieldDeclNoInit":
+            return -1
+        elif c2.classcomponent == "FieldDeclNoInit":
+            return 1
+        elif c1.classcomponent == "FieldDeclInit":
+            return -1
+        elif c2.classcomponent == "FieldDeclInit":
+            return 1
+        elif c1.classcomponent == "ConstructorDecl":
+            return -1
+        elif c2.classcomponent == "ConstructorDecl":
+            return 1
+        else:
+            c1_name, c2_name = c1.string2, c2.string2
+            if c2_name in c1.toString():
+                return 1
+            elif c1_name in c2.toString():
+                return -1
+            else:
+                return 0
+
+    from functools import cmp_to_key
+
+    component_list = sorted(component_list, key=cmp_to_key(cmp))
+    for component in reversed(component_list):
         if classcomponent_return is None:
-            classcomponent_return = classcomponent_get
+            classcomponent_return = component
         else:
             classcomponent_return = ClassComponent(
                 "ComponentConcat",
-                classcomponet1=classcomponent_get,
-                classcomponet2=classcomponent_return,
+                classcomponent1=component,
+                classcomponent2=classcomponent_return,
             )
 
     return classcomponent_return
@@ -285,18 +316,19 @@ def visit_field_declaration(node):
         elif node.named_children[i].type in type_list:
             ty = visit_type(node.named_children[i])
         elif node.named_children[i].type == "variable_declarator":
+            # a[]={}
             field_name = getcode_from_node(
                 source_code_line, node.named_children[i].named_children[0]
             )
-            if node.named_children[i].named_child_count == 2:
-                if node.named_children[i].named_children[1].type == "dimensions":
-                    # int a[][];
-                    for child in node.named_children[i].named_children[1].children:
+            for child_varDecl in node.named_children[i].named_children[1:]:
+                if child_varDecl.type == "dimensions":
+                    # a[][];
+                    for child in child_varDecl.children:
                         if child.type == "]":
                             ty = Ty("TyArray", ty1=ty)
                 else:
-                    # int a = 1;
-                    term = visit_expression(node.named_children[i].named_children[1])
+                    # a = 1;
+                    term = visit_expression(child_varDecl)
         else:
             assert False, "fielddecl中有未知类型"
     if term:
@@ -613,12 +645,19 @@ def visit_local_variable_declaration(node):
                 source_code_line, named_children[i].named_children[0]
             )
             tmp_ty = ty
+            # int a;
             if named_children[i].named_child_count == 1:
                 term = None
+            # int a=1; / int a[];
             elif named_children[i].named_child_count == 2:
-                term = visit_expression(named_children[i].named_children[1])
+                if named_children[i].named_children[1].type == "dimensions":
+                    for child in named_children[i].named_children[1].children:
+                        if child.type == "]":
+                            tmp_ty = Ty("TyArray", ty1=tmp_ty)
+                else:
+                    term = visit_expression(named_children[i].named_children[1])
+            # int a[] = {1,2,3};
             elif named_children[i].named_child_count == 3:
-                # int a[] = {1,2,3};
                 for child in named_children[i].named_children[1].children:
                     if child.type == "]":
                         tmp_ty = Ty("TyArray", ty1=tmp_ty)

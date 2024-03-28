@@ -10,6 +10,7 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
+        "**/Thumbs.db": true,
         ".Makefile.coq.d": true,
         "Makefile.coq": true,
         "Makefile.coq.conf": true

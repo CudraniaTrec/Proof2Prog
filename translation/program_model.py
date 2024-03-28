@@ -450,12 +450,24 @@ class Term:
         elif self.term == "TmFalse":
             return CoqProof("T_False")
         elif self.term == "TmFieldAccess":
-            proof1 = self.term1.toCoq()
-            return CoqProof(
-                "T_FieldAccess'",
-                params={"f": f'"{self.string}"'},
-                children=[proof1],
-            )
+            if self.term1.term == "TmVar" and self.term1.string in [
+                "Math",
+                "Arrays",
+                "Integer",
+                "Collections",
+            ]:
+                TyObject = Ty("TyExternal", self.term1.string)
+                return CoqProof(
+                    "T_TyFieldAccess'",
+                    params={"f": f'"{self.string}"', "T": TyObject.toCoq()},
+                )
+            else:
+                proof1 = self.term1.toCoq()
+                return CoqProof(
+                    "T_FieldAccess'",
+                    params={"f": f'"{self.string}"'},
+                    children=[proof1],
+                )
         elif self.term == "TmNew":
             proof1 = self.term1.toCoq()
             return CoqProof(
@@ -506,6 +518,7 @@ class Term:
                 "Math",
                 "Arrays",
                 "Integer",
+                "Collections",
             ]:
                 TyObject = Ty("TyExternal", self.term1.string)
                 return CoqProof(
@@ -513,13 +526,14 @@ class Term:
                     params={"m": f'"{self.string}"', "T": TyObject.toCoq()},
                     children=[self.term2.toCoq()],
                 )
-            proof1 = self.term1.toCoq()
-            proof2 = self.term2.toCoq()
-            return CoqProof(
-                "T_MethodInvocation'",
-                params={"m": f'"{self.string}"'},
-                children=[proof1, proof2],
-            )
+            else:
+                proof1 = self.term1.toCoq()
+                proof2 = self.term2.toCoq()
+                return CoqProof(
+                    "T_MethodInvocation'",
+                    params={"m": f'"{self.string}"'},
+                    children=[proof1, proof2],
+                )
         elif self.term == "TmMethodInvocationNoObject":
             proof1 = self.term1.toCoq()
             return CoqProof(
@@ -817,7 +831,6 @@ class Statement:
                 params={"T": self.ty.toCoq(), "x": f'"{self.string}"'},
                 children=[
                     self.term.toCoq(),
-                    CoqProof("reflexivity"),
                     self.statement1.toCoq(),
                 ],
             )
@@ -843,43 +856,43 @@ class ClassComponent:
     | FieldDeclNoInit -> string1 ty string2;
     | FieldDeclInit -> string1 ty string2 = term;
     | ConstructorDecl -> Constructor( statement1 ) { statement2 }
-    | ComponentConcat -> classcomponet1 classcomponet2
+    | ComponentConcat -> classcomponent1 classcomponent2
     """
 
-    classcomponet = ""
+    classcomponent = ""
     string1 = ""
     ty = None
     string2 = ""
     term = None
     statement1 = None
     statement2 = None
-    classcomponet1 = None
-    classcomponet2 = None
+    classcomponent1 = None
+    classcomponent2 = None
 
     def __init__(
         self,
-        classcomponet,
+        classcomponent,
         string1="",
         ty=None,
         string2="",
         term=None,
         statement1=None,
         statement2=None,
-        classcomponet1=None,
-        classcomponet2=None,
+        classcomponent1=None,
+        classcomponent2=None,
     ):
-        self.classcomponet = classcomponet
+        self.classcomponent = classcomponent
         self.string1 = string1
         self.ty = ty
         self.string2 = string2
         self.term = term
         self.statement1 = statement1
         self.statement2 = statement2
-        self.classcomponet1 = classcomponet1
-        self.classcomponet2 = classcomponet2
+        self.classcomponent1 = classcomponent1
+        self.classcomponent2 = classcomponent2
 
     def toString(self, class_name="Solution"):
-        if self.classcomponet == "MethodDecl":
+        if self.classcomponent == "MethodDecl":
             return (
                 self.string1
                 + " "
@@ -892,14 +905,14 @@ class ClassComponent:
                 + self.statement2.toString()
                 + "\n}"
             )
-        elif self.classcomponet == "FieldDeclNoInit":
+        elif self.classcomponent == "FieldDeclNoInit":
             if self.string1 == "":  # no modifier
                 return self.ty.toString() + " " + self.string2 + ";"
             else:
                 return (
                     self.string1 + " " + self.ty.toString() + " " + self.string2 + ";"
                 )
-        elif self.classcomponet == "FieldDeclInit":
+        elif self.classcomponent == "FieldDeclInit":
             if self.string1 == "":  # no modifier
                 return (
                     self.ty.toString()
@@ -920,7 +933,7 @@ class ClassComponent:
                     + self.term.toString()
                     + ";"
                 )
-        elif self.classcomponet == "ConstructorDecl":
+        elif self.classcomponent == "ConstructorDecl":
             return (
                 class_name
                 + "("
@@ -929,17 +942,17 @@ class ClassComponent:
                 + self.statement2.toString()
                 + "\n}"
             )
-        elif self.classcomponet == "ComponentConcat":
+        elif self.classcomponent == "ComponentConcat":
             return (
-                self.classcomponet1.toString(class_name=class_name)
+                self.classcomponent1.toString(class_name=class_name)
                 + "\n"
-                + self.classcomponet2.toString(class_name=class_name)
+                + self.classcomponent2.toString(class_name=class_name)
             )
         else:
-            assert False, "classcomponent中有未知类型: " + self.classcomponet
+            assert False, "classcomponent中有未知类型: " + self.classcomponent
 
     def toCoq(self):
-        if self.classcomponet == "MethodDecl":
+        if self.classcomponent == "MethodDecl":
             proof1 = CoqProof(
                 "T_MethodDecl",
                 params={
@@ -950,7 +963,7 @@ class ClassComponent:
                 children=[self.statement1.toCoq(), self.statement2.toCoq()],
             )
             return proof1
-        elif self.classcomponet == "FieldDeclNoInit":
+        elif self.classcomponent == "FieldDeclNoInit":
             return CoqProof(
                 "T_FieldDeclNoInit",
                 params={
@@ -959,7 +972,7 @@ class ClassComponent:
                     "x": f'"{self.string2}"',
                 },
             )
-        elif self.classcomponet == "FieldDeclInit":
+        elif self.classcomponent == "FieldDeclInit":
             return CoqProof(
                 "T_FieldDeclInit",
                 params={
@@ -969,14 +982,14 @@ class ClassComponent:
                 },
                 children=[self.term.toCoq()],
             )
-        elif self.classcomponet == "ConstructorDecl":
+        elif self.classcomponent == "ConstructorDecl":
             return CoqProof(
                 "T_ConstructorDecl",
                 children=[self.statement1.toCoq(), self.statement2.toCoq()],
             )
-        elif self.classcomponet == "ComponentConcat":
-            proof1 = self.classcomponet1.toCoq()
-            proof2 = self.classcomponet2.toCoq()
+        elif self.classcomponent == "ComponentConcat":
+            proof1 = self.classcomponent1.toCoq()
+            proof2 = self.classcomponent2.toCoq()
             return CoqProof("T_ComponentConcat", children=[proof1, proof2])
 
 
