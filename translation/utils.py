@@ -436,6 +436,8 @@ def visit_type(node):
             return Ty("TyByte")
         elif type_name == "short":
             return Ty("TyShort")
+        elif type_name == "char":
+            return Ty("TyChar")
         else:
             return Ty("TyInt")
     elif node.type == "floating_point_type":

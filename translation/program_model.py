@@ -461,15 +461,16 @@ class Term:
             ]:
                 TyObject = Ty("TyExternal", self.term1.string)
                 return CoqProof(
-                    "T_TyFieldAccess'",
+                    "T_TyFieldAccess",
                     params={"f": f'"{self.string}"', "T": TyObject.toCoq()},
                 )
             else:
                 proof1 = self.term1.toCoq()
+                proof2 = CoqProof("simpl..")
                 return CoqProof(
-                    "T_FieldAccess'",
+                    "T_FieldAccess",
                     params={"f": f'"{self.string}"'},
-                    children=[proof1],
+                    children=[proof1, proof2, proof2],
                 )
         elif self.term == "TmNew":
             proof1 = self.term1.toCoq()
@@ -528,17 +529,17 @@ class Term:
             ]:
                 TyObject = Ty("TyExternal", self.term1.string)
                 return CoqProof(
-                    "T_TyMethodInvocation'",
+                    "T_TyMethodInvocation",
                     params={"m": f'"{self.string}"', "T": TyObject.toCoq()},
-                    children=[self.term2.toCoq()],
+                    children=[self.term2.toCoq(), CoqProof("simpl..")],
                 )
             else:
                 proof1 = self.term1.toCoq()
                 proof2 = self.term2.toCoq()
                 return CoqProof(
-                    "T_MethodInvocation'",
+                    "T_MethodInvocation",
                     params={"m": f'"{self.string}"'},
-                    children=[proof1, proof2],
+                    children=[proof1,CoqProof("simpl.."),CoqProof("simpl.."), proof2,CoqProof("simpl..")],
                 )
         elif self.term == "TmMethodInvocationNoObject":
             proof1 = self.term1.toCoq()
@@ -572,9 +573,15 @@ class Term:
                 "T_ArrayConcat",
                 children=[proof1, proof2],
             )
+        elif self.term == "TmSub":
+            proof1 = self.term1.toCoq()
+            proof2 = self.term2.toCoq()
+            return CoqProof(
+                "T_Sub",
+                children=[proof1, proof2, CoqProof("simpl..")],
+            )
         elif self.term in [
             "TmAdd",
-            "TmSub",
             "TmMul",
             "TmDiv",
             "TmMod",
@@ -793,7 +800,7 @@ class Statement:
             return CoqProof(
                 "T_DeclInit",
                 params={"T": self.ty.toCoq(), "x": f'"{self.string}"'},
-                children=[self.term.toCoq()],
+                children=[self.term.toCoq(), CoqProof("simpl..")],
             )
         elif self.statement == "StExpression":
             return CoqProof("T_Expression", children=[self.term.toCoq()])
@@ -837,13 +844,14 @@ class Statement:
                 params={"T": self.ty.toCoq(), "x": f'"{self.string}"'},
                 children=[
                     self.term.toCoq(),
+                    CoqProof("simpl.."),
                     self.statement1.toCoq(),
                 ],
             )
         elif self.statement == "StReturn":
             return CoqProof(
                 "T_Return",
-                children=[self.term.toCoq()],
+                children=[self.term.toCoq(), CoqProof("simpl..")],
             )
         elif self.statement == "StContinue":
             return CoqProof("T_Continue")
@@ -986,7 +994,7 @@ class ClassComponent:
                     "T": self.ty.toCoq(),
                     "x": f'"{self.string2}"',
                 },
-                children=[self.term.toCoq()],
+                children=[self.term.toCoq(), CoqProof("simpl..")],
             )
         elif self.classcomponent == "ConstructorDecl":
             return CoqProof(
