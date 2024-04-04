@@ -206,7 +206,6 @@ Notation "a ; b" := (ComponentConcat a b)
 (in custom FJ_Class at level 80, b at level 80).
 
 (*WholeProgram*)
-Notation " 'Import' a . b ;" := (ImportDecl a b) (in custom FJ at level 90, a at level 5, b at level 5).
 Notation "'class' a '{' b '}' " := (ClassDecl a b ) (in custom FJ at level 90, a at level 0, b custom FJ_Class at level 90).
 Notation "a '\n' b" := (ProgramConcat a b) (in custom FJ at level 95, b at level 95).
 
@@ -225,7 +224,8 @@ Inductive STy : Type :=
     (*basic*)
     | STyBoolean : STy                   (* bool *)
     | STyNumeric : STy                   (* int, long, float...*)
-    | STyString : STy                    (* string, char *)
+    | STyChar : STy                      (* char *)
+    | STyString : STy                    (* string*)
     (*method and parameters*)
     | STyArrow : STy->STy->STy           (* T1->T2 *)
     | STyVoid : STy                      (* void *)
@@ -238,7 +238,8 @@ Inductive STy : Type :=
     | STyGeneric0: string->STy           (* s<> *)
     | STyGeneric1: string->STy->STy      (* s<T> *)
     | STyGeneric2: string->STy->STy->STy (* s<T1,T2> *)
-    | STyTemplate: STy.                  (* T *)
+    | STyTemplate: STy                  (* T *)
+    | STyNull: STy.                      (* null *)
 
     
 
@@ -248,6 +249,7 @@ Notation "( x )" := x (in custom FJ_STy, x constr at level 99).
 Notation "x" := x (in custom FJ_STy at level 0, x constr at level 0).
 Notation "'Bool'" := STyBoolean (in custom FJ_STy at level 0).
 Notation "'Numeric'" := STyNumeric (in custom FJ_STy at level 0).
+Notation "'Char'" := STyChar (in custom FJ_STy at level 0).
 Notation "'String'" := STyString (in custom FJ_STy at level 0).
 Notation "T1 '->' T2" := (STyArrow T1 T2) (in custom FJ_STy at level 10,T2 at level 10).
 Notation "'[]'" := STyVoid (in custom FJ_STy at level 0).
@@ -270,12 +272,19 @@ Fixpoint SimplType (T:Ty) : STy :=
     | TyLong => STyNumeric
     | TyFloat => STyNumeric
     | TyDouble => STyNumeric
-    | TyChar => STyNumeric
+    | TyChar => STyChar
     | TyString => STyString
     | TyArray T' => STyArray (SimplType T')
     | TyVoid => STyVoid
     | TyExternal s => match s with 
                         | "ArrayList" => STyGeneric1 "ArrayList" STyTemplate
+                        | "HashMap" => STyGeneric2 "HashMap" STyTemplate STyTemplate
+                        | "HashSet" => STyGeneric1 "HashSet" STyTemplate
+                        | "LinkedList" => STyGeneric1 "LinkedList" STyTemplate
+                        | "Map" => STyGeneric2 "Map" STyTemplate STyTemplate
+                        | "Stack" => STyGeneric1 "Stack" STyTemplate
+                        | "ArrayDeque" => STyGeneric1 "ArrayDeque" STyTemplate
+                        | "Comparator" => STyGeneric1 "Comparator" STyTemplate
                         |_ => STyExternal s
                         end
     | TyGeneric0 s => match s with
@@ -284,6 +293,8 @@ Fixpoint SimplType (T:Ty) : STy :=
                         | "HashMap" => STyGeneric2 "HashMap" STyTemplate STyTemplate
                         | "LinkedList" => STyGeneric1 "LinkedList" STyTemplate
                         | "Stack" => STyGeneric1 "Stack" STyTemplate
+                        | "ArrayDeque" => STyGeneric1 "ArrayDeque" STyTemplate
+                        | "PriorityQueue" => STyGeneric1 "PriorityQueue" STyTemplate
                         | _ => STyGeneric0 s
                         end
     | TyGeneric1 s T' => STyGeneric1 s (SimplType T')
@@ -294,6 +305,13 @@ Definition iterable (T1 T2: STy):=
     | STyArray T3 => T1=T3
     | STyGeneric1 "List" T3 => T1=T3
     | STyGeneric1 "Set" T3 => T1=T3
+    | STyGeneric1 "Queue" T3 => T1=T3
+    | STyGeneric1 "Deque" T3 => T1=T3
+    | STyGeneric1 "Stack" T3 => T1=T3
+    | STyGeneric1 "ArrayList" T3 => T1=T3
+    | STyGeneric1 "LinkedList" T3 => T1=T3
+    | STyGeneric1 "HashSet" T3 => T1=T3
+    | STyGeneric1 "ArrayDeque" T3 => T1=T3
     | STyClass ct => match ct "iterator" with
                     | Some T3 => T1=T3
                     | None => False
@@ -317,6 +335,186 @@ Notation "'TEM'" := STyTemplate (in custom FJ_STy at level 10).
 (* f : PT->RT, PT is the parameter type with type template TT, RT is the return type
    PT must be STyList or StyVoid
    x : PT' is the argument passed to f *)
+
+
+
+Fixpoint have_same_sty (T1 T2: STy) : bool :=
+    match T1 with
+    | STyBoolean => match T2 with
+                    | STyBoolean => true
+                    | STyNull => true
+                    | STyTemplate => true
+                    | _ => false
+                    end
+    | STyNumeric => match T2 with
+                    | STyNumeric => true
+                    | STyNull => true
+                    | STyTemplate => true
+                    | _ => false
+                    end
+    | STyString => match T2 with
+                    | STyString => true
+                    | STyTemplate => true
+                    | STyNull => true
+                    | _ => false
+                    end
+    | STyChar => match T2 with
+                | STyChar => true
+                | STyNull => true
+                | STyTemplate => true
+                | _ => false
+                end                    
+    | STyArrow PT1 RT1 => match T2 with
+                        | STyNull => true
+                        | STyArrow PT2 RT2 => (have_same_sty PT1 PT2) && (have_same_sty RT1 RT2)
+                        | _ => false
+                        end
+    | STyVoid => match T2 with
+                | STyVoid => true
+                | STyNull => true
+                | STyTemplate => true
+                | _ => false
+                end
+    | STyList ST1 ST2 => match T2 with
+                    | STyList ST1' ST2' => (have_same_sty ST1 ST1') && (have_same_sty ST2 ST2')
+                    | STyNull => true
+                    | _ => false
+                    end
+    | STyArray T => match T2 with
+                    | STyArray T' => have_same_sty T T'
+                    | STyNull => true
+                    | STyTemplate => true
+                    | _ => false
+                    end
+    | STyExternal s1 => match T2 with
+                        | STyExternal s2 => (s1 =? s2) %string
+                        | STyTemplate => true
+                        | STyNull => true
+                        | _ => false
+                        end
+    | STyGeneric0 s1 => match T2 with
+                        | STyGeneric0 s2 => (s1 =? s2)%string
+                        | STyTemplate => true
+                        | STyNull => true
+                        | _ => false
+                        end
+    | STyGeneric1 s1 ST1 => match T2 with
+                        | STyGeneric1 s2 ST2 => (s1 =? s2)%string && (have_same_sty ST1 ST2)
+                        | STyTemplate => true
+                        | STyNull => true
+                        | _ => false
+                        end
+    | STyGeneric2 s1 ST1 ST2 => match T2 with
+                            | STyGeneric2 s2 ST1' ST2' => (s1 =? s2)%string && (have_same_sty ST1 ST1') && (have_same_sty ST2 ST2')
+                            | STyTemplate => true
+                            | STyNull => true
+                            | _ => false
+                            end 
+    | STyTemplate => true
+    | STyClass _ => true
+    | STyNull => true
+    end.
+Open Scope string_scope.
+
+Fixpoint have_son_sty (T1 T2: STy) : bool := 
+    match T1 with
+    | STyBoolean => match T2 with
+                    | STyBoolean => true
+                    | STyNull => true
+                    | _ => false
+                    end
+    | STyNumeric => match T2 with
+                    | STyNumeric => true
+                    | STyNull => true
+                    | STyChar => true
+                    | _ => false
+                    end
+    | STyString => match T2 with
+                    | STyString => true
+                    | STyNull => true
+                    | _ => false
+                    end
+    | STyChar => match T2 with
+                | STyChar => true
+                | STyNull => true
+                | _ => false
+                end
+    | STyArrow PT1 RT1 => match T2 with
+                        | STyArrow PT2 RT2 => (have_same_sty PT1 PT2) && (have_same_sty RT1 RT2)
+                        | STyNull => true
+                        | _ => false
+                        end
+    | STyVoid => match T2 with
+                | STyVoid => true
+                | STyNull => true
+                | _ => false
+                end
+    | STyList ST1 ST2 => match T2 with
+                    | STyList ST1' ST2' => (have_same_sty ST1 ST1') && (have_same_sty ST2 ST2')
+                    | STyNull => true
+                    | _ => false
+                    end 
+    | STyArray ST => match T2 with
+                    | STyArray ST' => have_son_sty ST ST'
+                    | STyNull => true
+                    | _ => false
+                    end
+    | STyExternal s1 => match s1 with
+                        | "Object"%string => true
+                        | "Character"%string => match T2 with
+                                                | STyChar => true
+                                                | _ => false
+                                                end
+                        | "Number"%string => match T2 with
+                                            | STyNumeric => true
+                                            | STyExternal s2 => match s2 with
+                                                                | "Integer"%string => true
+                                                                | "Long"%string => true
+                                                                | "Float"%string => true
+                                                                | "Double"%string => true
+                                                                | "BigInteger"%string => true
+                                                                | _ => false
+                                                                end
+                                            | _ => false
+                                            end
+                        | _ => match T2 with
+                                | STyExternal s2 => (s1 =? s2) %string
+                                | STyNull => true
+                                | _ => false
+                                end
+                        end
+    | STyGeneric0 s1 => match T2 with
+                        | STyGeneric0 s2 => (s1 =? s2)%string
+                        | STyNull => true
+                        | _ => false
+                        end
+    | STyGeneric1 s1 ST1 => match T2 with
+                        | STyGeneric1 s2 ST2 => match s2 with
+                                                  | "LinkedList"%string => ((s1 =? "List") || (s1 =? "Queue") || (s1 =? "Deque") || (s1 =? "LinkedList")) && (have_same_sty ST1 ST2)
+                                                  | "ArrayList"%string => ((s1 =? "List") || (s1 =? "ArrayList")) && (have_same_sty ST1 ST2)
+                                                  | "HashSet"%string => ((s1 =? "Set") || (s1 =? "HashSet")) && (have_same_sty ST1 ST2)                                        
+                                                  | "ArrayDeque"%string => ((s1 =? "Deque") || (s1 =? "ArrayDeque")) && (have_same_sty ST1 ST2)
+                                                  | "PriorityQueue"%string => ((s1 =? "Queue") || (s1 =? "PriorityQueue")) && (have_same_sty ST1 ST2)
+                                                  | _ => (s1 =? s2)%string
+                                                  end 
+                        | STyNull => true
+                        | _ => false
+                        end
+    | STyGeneric2 s1 ST1 ST2 => match T2 with
+                            | STyGeneric2 s2 ST1' ST2' => match s2 with
+                                                      | "HashMap"%string => ((s1=?"HashMap")||(s1 =? "Map"))&& (have_same_sty ST1 ST1') && (have_same_sty ST2 ST2')
+                                                      | _ => (s1 =? s2)%string && (have_same_sty ST1 ST1') && (have_same_sty ST2 ST2')
+                                                      end
+                            | STyNull => true
+                            | _ => false  
+                            end
+    | STyTemplate => true
+    | STyClass _ => true
+    | STyNull => false
+    end.
+
+
+Close Scope string_scope.
 Fixpoint calRT (RT TT:STy):STy:=
     match RT with
     | STyArrow PT RT' => STyArrow (calRT PT TT) (calRT RT' TT)
@@ -325,129 +523,6 @@ Fixpoint calRT (RT TT:STy):STy:=
     | STyTemplate => TT
     | T => T
     end.
-
-
-Fixpoint have_same_sty (T1 T2: STy) : bool :=
-    match T1 with
-    | STyBoolean => match T2 with
-                    | STyBoolean => true
-                    | STyTemplate => true
-                    | _ => false
-                    end
-    | STyNumeric => match T2 with
-                    | STyNumeric => true
-                    | STyTemplate => true
-                    | _ => false
-                    end
-    | STyString => match T2 with
-                    | STyString => true
-                    | STyTemplate => true
-                    | _ => false
-                    end
-    | STyArrow PT1 RT1 => match T2 with
-                        | STyArrow PT2 RT2 => (have_same_sty PT1 PT2) && (have_same_sty RT1 RT2)
-                        | _ => false
-                        end
-    | STyVoid => match T2 with
-                | STyVoid => true
-                | STyTemplate => true
-                | _ => false
-                end
-    | STyList ST1 ST2 => match T2 with
-                    | STyList ST1' ST2' => (have_same_sty ST1 ST1') && (have_same_sty ST2 ST2')
-                    | _ => false
-                    end
-    | STyArray T => match T2 with
-                    | STyArray T' => have_same_sty T T'
-                    | STyTemplate => true
-                    | _ => false
-                    end
-    | STyExternal s1 => match T2 with
-                        | STyExternal s2 => (s1 =? s2) %string
-                        | STyTemplate => true
-                        | _ => false
-                        end
-    | STyGeneric0 s1 => match T2 with
-                        | STyGeneric0 s2 => (s1 =? s2)%string
-                        | STyTemplate => true
-                        | _ => false
-                        end
-    | STyGeneric1 s1 ST1 => match T2 with
-                        | STyGeneric1 s2 ST2 => (s1 =? s2)%string && (have_same_sty ST1 ST2)
-                        | STyTemplate => true
-                        | _ => false
-                        end
-    | STyGeneric2 s1 ST1 ST2 => match T2 with
-                            | STyGeneric2 s2 ST1' ST2' => (s1 =? s2)%string && (have_same_sty ST1 ST1') && (have_same_sty ST2 ST2')
-                            | STyTemplate => true
-                            | _ => false
-                            end 
-    | STyTemplate => true
-    | STyClass _ => true
-    end.
-Open Scope string_scope.
-
-Definition have_son_sty (T1 T2: STy) : bool := 
-    match T1 with
-    | STyBoolean => match T2 with
-                    | STyBoolean => true
-                    | _ => false
-                    end
-    | STyNumeric => match T2 with
-                    | STyNumeric => true
-                    | _ => false
-                    end
-    | STyString => match T2 with
-                    | STyString => true
-                    | _ => false
-                    end
-    | STyArrow PT1 RT1 => match T2 with
-                        | STyArrow PT2 RT2 => (have_same_sty PT1 PT2) && (have_same_sty RT1 RT2)
-                        | _ => false
-                        end
-    | STyVoid => match T2 with
-                | STyVoid => true
-                | _ => false
-                end
-    | STyList ST1 ST2 => match T2 with
-                    | STyList ST1' ST2' => (have_same_sty ST1 ST1') && (have_same_sty ST2 ST2')
-                    | _ => false
-                    end 
-    | STyArray ST => match T2 with
-                    | STyArray ST' => have_same_sty ST ST'
-                    | _ => false
-                    end
-    | STyExternal s1 => match T2 with
-                        | STyExternal s2 => (s1 =? s2) %string
-                        | _ => false
-                        end
-    | STyGeneric0 s1 => match T2 with
-                        | STyGeneric0 s2 => (s1 =? s2)%string
-                        | _ => false
-                        end
-    | STyGeneric1 s1 ST1 => match T2 with
-                        | STyGeneric1 s2 ST2 => match s2 with
-                                                  | "LinkedList"%string => ((s1 =? "List") || (s1 =? "Queue")) && (have_same_sty ST1 ST2)
-                                                  | "ArrayList"%string => (s1 =? "List")%string && (have_same_sty ST1 ST2)
-                                                  | "HashSet"%string => ((s1 =? "Set") || (s1 =? "HashSet")) && (have_same_sty ST1 ST2)                                        
-                                                  | _ => (s1 =? s2)%string
-                                                  end 
-                        | _ => false
-                        end
-    | STyGeneric2 s1 ST1 ST2 => match T2 with
-                            | STyGeneric2 s2 ST1' ST2' => match s2 with
-                                                      | "HashMap"%string => (s1 =? "Map")%string && (have_same_sty ST1 ST1') && (have_same_sty ST2 ST2')
-                                                      | _ => (s1 =? s2)%string && (have_same_sty ST1 ST1') && (have_same_sty ST2 ST2')
-                                                      end
-                            | _ => false  
-                            end
-    | STyTemplate => true
-    | STyClass _ => true
-    end.
-
-
-Close Scope string_scope.
-
 (* 处理不了T以其他形式出现的情况 *)
 Fixpoint hasResultType (PT RT PT' TT:STy): option(STy):= 
     match PT with
@@ -465,35 +540,199 @@ Fixpoint hasResultType (PT RT PT' TT:STy): option(STy):=
                                             | _ => if (have_son_sty T1 T1') then hasResultType T2 RT T2' TT else None
                                             end
                                             
-                        | _ => None
+                        | _ => match T1 with
+                                | STyList STyTemplate STyVoid => match TT with
+                                                                    | STyVoid => Some(calRT RT T2)
+                                                                    | _ => None
+                                                                    end
+                                | _ => None
+                                end
                         end
     | STyVoid => Some(calRT RT TT)
     | _ => None                                 
     end.
-Definition have_right_sub (STy1 STy2: STy) :=
+
+
+Definition have_right_add_sub (STy1 STy2: STy) :=
     match STy1 with
     | STyNumeric => match STy2 with
-                    | STyNumeric => true
-                    | _ => false
+                    | STyNumeric => Some(STyNumeric)
+                    | STyChar => Some(STyNumeric)
+                    | STyString => Some(STyString)
+                    | _ => None
                     end
     | STyString => match STy2 with
-                    | STyString => true
-                    | _ => false
+                    | STyString => Some(STyString)
+                    | STyNumeric => Some(STyString)
+                    | STyChar => Some(STyString)
+                    | STyGeneric1 "List" _ => Some(STyString)
+                    | _ => None
                     end
-    | _ => false
+    | STyChar => match STy2 with
+                    | STyNumeric => Some(STyNumeric)
+                    | STyString => Some(STyString)
+                    | STyChar => Some(STyNumeric)
+                    | _ => None
+                    end
+    | _ => None
+    end.
+Definition have_right_eq_ne (STy1 STy2: STy) :=
+    match STy1 with
+    | STyNumeric => match STy2 with
+                    | STyNumeric => True
+                    | STyNull => True
+                    | _ => False
+                    end
+    | STyString => match STy2 with
+                    | STyString => True
+                    | STyNull => True
+                    | _ => False
+                    end
+    | STyChar => match STy2 with
+                    | STyChar => True
+                    | STyNull => True
+                    | _ => False
+                    end
+    | STyBoolean => match STy2 with
+                    | STyBoolean => True
+                    | STyNull => True
+                    | _ => False
+                    end
+    | STyExternal s1 => match STy2 with
+          | STyExternal s2 => if (s1 =? s2)%string then True else False
+          | STyNull => True
+          | _ => False
+          end
+    | STyNull => True
+    | _ => match STy2 with
+            | STyNull => True
+            | _ => False
+            end
     end.
 
-
+Definition have_right_ge_le_gt_lt (STy1 STy2: STy) :=
+    match STy1 with
+    | STyNumeric => match STy2 with
+                    | STyNumeric => True
+                    | STyNull => True
+                    | STyChar => True
+                    | _ => False
+                    end
+    | STyString => match STy2 with
+                    | STyString => True
+                    | STyNull => True
+                    | _ => False
+                    end
+    | STyChar   => match STy2 with
+                    | STyChar => True
+                    | STyNull => True
+                    | STyNumeric => True
+                    | _ => False
+                    end
+    | STyBoolean => match STy2 with
+                    | STyBoolean => True
+                    | STyNull => True
+                    | _ => False
+                    end
+    | STyExternal s1 => match STy2 with
+                        | STyExternal s2 => if (s1 =? s2)%string then True else False
+                        | STyNull => True
+                        | _ => False
+                        end
+    | STyNull => True
+    | _ => match STy2 with
+            | STyNull => True
+            | _ => False
+            end
+    end.
+Definition have_right_bit_and_or_xor (STy1 STy2: STy) :=
+    match STy1 with
+    | STyNumeric => match STy2 with
+                    | STyNumeric => Some(STyNumeric)
+                    | STyNull => Some(STyNumeric)
+                    | _ => None
+                    end
+    | STyBoolean => match STy2 with
+                    | STyBoolean => Some(STyBoolean)
+                    | STyNull => Some(STyBoolean)
+                    | _ => None
+                    end
+    | _ => None
+    end.
+Definition have_right_conversion (Ty1 : Ty)(STy1 : STy) :=
+    match Ty1 with
+    | TyByte => match STy1 with
+                    | STyNumeric => Some(STyNumeric)
+                    | STyNull => Some(STyNumeric)
+                    | STyExternal "Object" => Some(STyNumeric)
+                    | _ => None
+                    end
+    | TyShort => match STy1 with
+                    | STyNumeric => Some(STyNumeric)
+                    | STyNull => Some(STyNumeric)
+                    | STyExternal "Object" => Some(STyNumeric)
+                    | _ => None
+                    end
+    | TyInt => match STy1 with
+                    | STyNumeric => Some(STyNumeric)
+                    | STyString => Some(STyNumeric)
+                    | STyNull => Some(STyNumeric)
+                    | STyExternal "Object" => Some(STyNumeric)
+                    | _ => None
+                    end
+    | TyLong => match STy1 with
+                    | STyNumeric => Some(STyNumeric)
+                    | STyNull => Some(STyNumeric)
+                    | STyExternal "Object" => Some(STyNumeric)
+                    | _ => None
+                    end
+    | TyFloat => match STy1 with
+                    | STyNumeric => Some(STyNumeric)
+                    | STyNull => Some(STyNumeric)
+                    | STyExternal "Object" => Some(STyNumeric)
+                    | _ => None
+                    end
+    | TyDouble => match STy1 with
+                    | STyNumeric => Some(STyNumeric)
+                    | STyNull => Some(STyNumeric)
+                    | STyExternal "Object" => Some(STyNumeric)
+                    | _ => None
+                    end
+    | TyChar => match STy1 with
+                    | STyChar => Some(STyChar)
+                    | STyString => Some(STyChar)
+                    | STyNumeric => Some(STyChar)
+                    | STyNull => Some(STyChar)
+                    | STyExternal "Object" => Some(STyChar)
+                    | _ => None
+                    end
+    | TyString => match STy1 with
+                    | STyString => Some(STyString)
+                    | STyNull => Some(STyString)
+                    | STyExternal "Object" => Some(STyString)
+                    | _ => None
+                    end
+    | _ => None
+    end.
+Definition CObject : partial_map STy := (
+                                        "toString" |-> <([]->STyString)>).
 Definition CCollections : partial_map STy := (
                                         "sort"|-><([(STyGeneric1 "List" STyTemplate)]->STyVoid)>;
+                                        "min"|-><([(STyList STyTemplate STyVoid)]->STyTemplate)>;
+                                        "reverseOrder" |-> <([]-> STyNull)>;
+                                        "singletonList"|-><([STyTemplate]->(STyGeneric1 "List" STyTemplate))>;
+                                        "emptyList" |-> <([]->(STyGeneric1 "List" STyTemplate))>;
+                                        "swap"|-><([(STyList STyTemplate STyVoid); STyNumeric; STyNumeric]->STyVoid)>;
                                         "reverse"|-><([(STyGeneric1 "List" STyTemplate)]->STyVoid)>).
                                         
 Definition CArrays : partial_map STy := (
                                         "binarySearch"|-> <([(STyArray STyNumeric); STyNumeric; STyNumeric; STyNumeric]-> STyNumeric)>; 
-                                        "sort"|-><([(STyArray STyNumeric)]->STyVoid)>; 
-                                        "fill"|-><([(STyArray STyNumeric); STyNumeric]->STyVoid)>; 
+                                        "sort"|-><([(STyArray STyTemplate)]->STyVoid)>; 
+                                        "fill"|-><([(STyArray STyTemplate); STyTemplate]->STyVoid)>; 
                                         "copyOf"|-><([(STyArray STyNumeric); STyNumeric]->(STyArray STyNumeric))>; 
+                                        "equals"|-><([(STyArray STyTemplate); (STyArray STyTemplate)]->STyBoolean)>;
                                         "copyOfRange"|-><([(STyArray STyNumeric); STyNumeric; STyNumeric]->(STyArray STyNumeric))>;
+                                        "stream"|-><([(STyArray STyNumeric)]->(STyExternal "IntStream"))>;
                                         "asList"|-> <([(STyList STyTemplate STyVoid)]-> (STyGeneric1 "List" STyTemplate))>).
 Definition CBigInteger : partial_map STy := ( "compareTo"|-><([(STyExternal "BigInteger")]-> STyNumeric)>;
                                               "xor"|-> <([(STyExternal "BigInteger")]-> (STyExternal "BigInteger"))>;
@@ -501,24 +740,33 @@ Definition CBigInteger : partial_map STy := ( "compareTo"|-><([(STyExternal "Big
                                               "or"|-> <([(STyExternal "BigInteger")]-> (STyExternal "BigInteger"))>;
                                               "not"|-> <([(STyExternal "BigInteger")]-> (STyExternal "BigInteger"))>;
                                               "shiftLeft"|-> <([STyNumeric]->(STyExternal "BigInteger"))>;
-                                              "toString"|-> <([STyNumeric]->STyString)>).
+                                              "valueOf"|-> <([(STyList STyTemplate STyVoid)]->(STyExternal "BigInteger"))>;
+                                              "pow"|-> <([STyNumeric]->(STyExternal "BigInteger"))>;
+                                              "toString"|-> <([]->STyString)>).
 
                                         
 Definition CInteger : partial_map STy:= (
                                         "MAX_VALUE"|->STyNumeric;
                                         "MIN_VALUE"|->STyNumeric;
-                                        "parseInt"|-><([STyString; STyNumeric]->STyNumeric)>; 
+                                        "parseInt"|-><([STyString]->STyNumeric)>;
+                                        "toString"|-><([(STyList STyTemplate STyVoid)]->STyString)>; 
+                                        "toOctalString"|-><([STyNumeric]->STyString)>;
                                         "toBinaryString"|-><([STyNumeric]->STyString)>;
+                                        "doubleValue"|-><([]->STyNumeric)>;
                                         "equals"|-><([STyNumeric]->STyBoolean)>; 
                                         "highestOneBit"|-><([STyNumeric]->STyNumeric)>; 
                                         "bitCount"|-><([STyNumeric]->STyNumeric)>; 
                                         "compare"|-><([STyNumeric;STyNumeric]->STyNumeric)>; 
+                                        "compareTo"|-><([STyNumeric]->STyNumeric)>;
                                         "intValue"|-><([]->STyNumeric)>; 
                                         "lowestOneBit"|-><([STyNumeric]->STyNumeric)>; 
+                                        "valueOf"|-><([(STyList STyTemplate STyVoid)]->STyNumeric)>;
                                         "numberOfLeadingZeros"|-><([STyNumeric]->STyNumeric)>).
 Definition CMath : partial_map STy := (
                                       "min"|-> <([STyNumeric;STyNumeric]->STyNumeric)> ; 
                                       "max"|-><([STyNumeric;STyNumeric]->STyNumeric)> ; 
+                                      "PI"|->STyNumeric;
+                                      "E"|->STyNumeric;
                                       "abs"|-><([STyNumeric]->STyNumeric)>; 
                                       "pow"|-><([STyNumeric;STyNumeric]->STyNumeric)>; 
                                       "log10"|-><([STyNumeric]->STyNumeric)>; 
@@ -531,44 +779,81 @@ Definition CMath : partial_map STy := (
                                       "cos"|-><([STyNumeric]->STyNumeric)>; 
                                       "sin"|-><([STyNumeric]->STyNumeric)>; 
                                       "tan"|-><([STyNumeric]->STyNumeric)>; 
+                                      "toRadians"|-><([STyNumeric]->STyNumeric)>;
                                       "floorDiv"|-><([STyNumeric;STyNumeric]->STyNumeric)>; 
                                       "floorMod"|-><([STyNumeric;STyNumeric]->STyNumeric)>).
 Definition CStringBuilder : partial_map STy := (
                                                "append"|-><([STyTemplate]->[])>; 
                                                "reverse"|-><([]->(STyExternal "StringBuilder"))>; 
                                                "toString"|-><([]->STyString)>; 
-                                               "setLength"|-><([STyNumeric]->STyVoid)>).
+                                               "setLength"|-><([STyNumeric]->STyVoid)>;
+                                               "charAt"|-><([STyNumeric]->STyChar)>;
+                                               "deletecharAt"|-><([STyNumeric]->(STyExternal "StringBuilder"))>;
+                                               "substring"|-><([STyNumeric;STyNumeric]->STyString)>;
+                                               "deleteCharAt"|-><([STyNumeric]->(STyExternal "StringBuilder"))>;
+                                               "length"|-><([]->STyNumeric)>).
 Definition CString : partial_map STy := (
                                         "length"|-><([]->STyNumeric)>;
-                                        "charAt"|-><([STyNumeric]->STyString)>; 
-                                        "indexOf"|-><([STyString]->STyNumeric)>; 
-                                        "toCharArray"|-><([]->(STyArray STyString))>; 
+                                        "contains"|-><([STyString]->STyBoolean)>;
+                                        "join"|-><([(STyList STyTemplate STyVoid)]->STyString)>;
+                                        "substring"|-><([(STyList STyTemplate STyVoid)]->STyString)>;
+                                        "isEmpty"|-><([]->STyBoolean)>;
+                                        "charAt"|-><([STyNumeric]->STyChar)>; 
+                                        "indexOf"|-><([(STyList STyTemplate STyVoid)]->STyNumeric)>; 
+                                        "toCharArray"|-><([]->(STyArray STyChar))>; 
+                                        "toLowerCase"|-><([]->STyString)>;
+                                        "toUpperCase"|-><([]->STyString)>;
+                                        "toCharArray"|-><([]->(STyArray STyChar))>;
                                         "startsWith"|-><([STyString]->STyBoolean)>; 
                                         "endsWith"|-><([STyString]->STyBoolean)>; 
-                                        "valueOf"|-><([STyNumeric]->STyString)>; 
-                                        "lastIndexOf"|-><([STyString]->STyNumeric)>; 
+                                        "valueOf"|-><((STyList STyTemplate STyVoid)->STyString)>; 
+                                        "lastIndexOf"|-><([(STyList STyTemplate STyVoid)]->STyNumeric)>; 
                                         "trim"|-><([]->STyString)>; 
+                                        "concat"|-><([STyString]->STyString)>;
+                                        "matches"|-><([STyString]->STyBoolean)>;
+                                        "format"|-><([(STyList STyTemplate STyVoid)]->STyString)>;
                                         "replaceFirst"|-><([STyString;STyString]->STyString)>; 
                                         "replaceAll"|-><([STyString;STyString]->STyString)>; 
+                                        "replace"|-><([(STyList STyTemplate STyVoid)]->STyString)>;
+                                        "equals"|-><([(STyList STyTemplate STyVoid)]->STyBoolean)>;
                                         "split"|-><([STyString]->(STyArray STyString))>).
 Definition CCharacter : partial_map STy := (
-                                            "isDigit"|-><([STyNumeric]->STyBoolean)>;
-                                            "isWhitespace"|-><([STyNumeric]->STyBoolean)>; 
-                                            "getNumericValue"|-><([STyNumeric]->STyNumeric)>; 
-                                            "isLetter"|-><([STyNumeric]->STyBoolean)>; 
-                                            "isLowerCase"|-><([STyNumeric]->STyBoolean)>; 
-                                            "isUpperCase"|-><([STyNumeric]->STyBoolean)>; 
-                                            "matches"|-><([STyString]->STyBoolean)>; 
-                                            "hashCode"|-><([]->STyNumeric)>; 
-                                            "toLowerCase"|-><([STyNumeric]->STyNumeric)>; 
-                                            "toUpperCase"|-><([STyNumeric]->STyNumeric)>; 
-                                            "charValue"|-><([]->STyNumeric)>; 
-                                            "isLetterOrDigit"|-><([STyNumeric]->STyBoolean)>).
+                                            "isDigit"|-><([STyChar]->STyBoolean)>;
+                                            "isWhitespace"|-><([STyChar]->STyBoolean)>; 
+                                            "getNumericValue"|-><([STyChar]->STyNumeric)>; 
+                                            "isLetter"|-><([STyChar]->STyBoolean)>; 
+                                            "isLowerCase"|-><([STyChar]->STyBoolean)>; 
+                                            "isUpperCase"|-><([STyChar]->STyBoolean)>; 
+                                            "isAlphabetic"|-><([STyChar]->STyBoolean)>;
+                                            "matches"|-><([STyChar]->STyBoolean)>; 
+                                            (* "hashCode"|-><([]->STyNumeric)>;  *)
+                                            "toLowerCase"|-><([STyChar]->STyChar)>; 
+                                            "toUpperCase"|-><([STyChar]->STyChar)>; 
+                                            (* "charValue"|-><([]->STyNumeric)>;  *)
+                                            "toString"|-><([STyChar]->STyString)>;
+                                            "isLetterOrDigit"|-><([STyChar]->STyBoolean)>).
+Definition CStringTokenizer : partial_map STy := (
+                                                "nextToken"|-><([]->STyString)>;
+                                                "hasMoreTokens"|-><([]->STyBoolean)>).
+Definition CStringBuffer : partial_map STy := (
+                                                "append"|-><([STyTemplate]->[])>;
+                                                "reverse"|-><([]->(STyExternal "StringBuffer"))>;
+                                                "toString"|-><([]->STyString)>).   
+Definition CScanner : partial_map STy := (
+                                        "hasNextLine"|-><([]->STyBoolean)>;
+                                        "nextLine"|-><([]->STyString)>).                                                                                                                                       
 Definition CPrintStream : partial_map STy := (
                                              "println"|-><([STyString]->STyVoid)>).
+Definition CIntStream : partial_map STy := (
+                                             "min" |-> <([]->(STyExternal "OptionalInt"))>;
+                                             "max" |-> <([]->(STyExternal "OptionalInt"))>;
+                                             "sum" |-> <([]->STyNumeric)>).
+Definition COptionalInt : partial_map STy := ( "getAsInt"|-><([]->STyNumeric)>).                                             
+
 Definition CSystem: partial_map STy := (
                                        "arraycopy"|-><([STyTemplate;STyNumeric;STyTemplate;STyNumeric;STyNumeric]->STyVoid)>; 
-                                       "out"|->(STyExternal "CPrintStream")).
+                                       "exit"|-><([STyNumeric]->STyVoid)>;
+                                       "out"|->(STyExternal "PrintStream")).
 Definition CRandom : partial_map STy := (
                                          "nextInt"|-><([STyNumeric]->STyNumeric)>).
 Definition CMatcher : partial_map STy := (
@@ -576,54 +861,110 @@ Definition CMatcher : partial_map STy := (
 Definition CPattern : partial_map STy := (
                                          "matcher"|-><([STyString]->(STyExternal "CMatcher"))>).
 Definition CLong: partial_map STy := (
+                                     "MIN_VALUE" |-> STyNumeric;
+                                     "MAX_VALUE" |-> STyNumeric;
                                      "parselong"|-><([STyString]->STyNumeric)>).
+Definition CDouble: partial_map STy := (
+                                       "MIN_VALUE" |-> STyNumeric;
+                                       "MAX_VALUE" |-> STyNumeric;
+                                       "valueOf" |-> <([STyString]->STyNumeric)>;
+                                       "parseDouble"|-><([STyString]->STyNumeric)>).                                     
 Definition COptionLong: partial_map STy := (
                                            "getAsLong"|-><([]->STyNumeric)>).
 Definition CList (ST:STy) : partial_map STy := (     "isEmpty"|-><([]->STyBoolean)>;
                                                      "add"|-><([(STyList STyTemplate STyVoid)]->[])>; 
-                                                     "remove"|-><([STyNumeric]->[])>; 
+                                                     "remove"|-><([ST]->[])>; 
+                                                     "removeAll"|-><([(STyList STyTemplate STyVoid)]->STyBoolean)>;
                                                      "get"|-><([STyNumeric]->ST)>;
-                                                     "iterator"|->ST; 
                                                      "size"|-><([]->STyNumeric)>;
+                                                     "sort"|-><([(STyGeneric1 "Comparator" ST)]->STyVoid)>;
                                                      "addAll"|-><([STyTemplate]->STyBoolean)>; 
                                                      "toArray"|-><([]->(STyArray ST))>; 
                                                      "set"|-><([STyNumeric;ST]->ST)>;  
-                                                     "subList"|-><([STyNumeric;STyNumeric]->(STyGeneric1 "List" ST))>).                                                 
-Definition CLinkedList (ST:STy) : partial_map STy := (
+                                                     "contains"|-><([ST]->STyBoolean)>;
+                                                     "containsAll"|-><([(STyList STyTemplate STyVoid)]->STyBoolean)>;
+                                                     "clear"|-><([]->STyVoid)>;
+                                                     "retainAll"|-><([(STyList STyTemplate STyVoid)]->STyBoolean)>;
+                                                     "equals"|-><([(STyList STyTemplate STyVoid)]->STyBoolean)>;
+                                                     "indexOf"|-><([ST]->STyNumeric)>;
+                                                     "iterator"|-><([]->(STyGeneric1 "Iterator" ST))>;
+                                                     "subList"|-><([STyNumeric;STyNumeric]->(STyGeneric1 "List" ST))>). 
+Definition CIterator (ST:STy) : partial_map STy := (     "hasNext"|-><([]->STyBoolean)>;
+                                                         "next"|-><([]->ST)>).                                                                                             
+Definition CLinkedList (ST:STy) : partial_map STy := (     "isEmpty"|-><([]->STyBoolean)>;
+                                                           "size"|-><([]->STyNumeric)>;
+                                                           "get"|-><([STyNumeric]->ST)>;
+                                                           "add"|-><([(STyList STyTemplate STyVoid)]->[])>; 
                                                            "addFirst"|-><([ST]->STyVoid)>; 
                                                            "addLast"|-><([ST]->STyVoid)>; 
                                                            "removeFirst"|-><([]->ST)>; 
+                                                           "get"|-><([STyNumeric]->ST)>;
                                                            "removeLast"|-><([]->ST)>; 
                                                            "pollLast"|-><([]->ST)>; 
                                                            "pollFirst"|-><([]->ST)>; 
                                                            "getFirst"|-><([]->ST)>; 
                                                            "getLast"|-><([]->ST)>).
-Definition CArrayList (ST:STy) : partial_map STy := (
+Definition CArrayList (ST:STy) : partial_map STy := ( 
+                                                      "remove"|-><([STyNumeric]->[])>; 
+                                                      "size"|-><([]->STyNumeric)>;
+                                                      "add"|-><([(STyList STyTemplate STyVoid)]->[])>; 
+                                                      "get"|-><([STyNumeric]->ST)>;
+                                                      "addAll"|-><([STyTemplate]->STyBoolean)>; 
+                                                      "contains"|-><([ST]->STyBoolean)>;
                                                       "trimToSize"|-><([]->STyVoid)>; 
                                                       "ensureCapacity"|-><([STyNumeric]->STyVoid)>).                                                           
 Definition CSet (ST:STy) : partial_map STy := (
                                                     "add"|-><([ST]->STyBoolean)>; 
+                                                    "addAll"|-><([STyTemplate]->STyBoolean)>;
                                                     "remove"|-><([ST]->[])>; 
+                                                    "size"|-><([]->STyNumeric)>;
                                                     "contains"|-><([ST]->STyBoolean)>;
+                                                    "retainAll"|-><([(STyList STyTemplate STyVoid)]->STyBoolean)>;
+                                                    "equals" |-> <([(STyList STyTemplate STyVoid)]->STyBoolean)>;
                                                     "iterator"|->ST).
 Definition CHashSet(ST:STy) : partial_map STy := (  "contains"|-><([ST]->STyBoolean)>;
+                                                    "remove"|-><([ST]->STyBoolean)>;
                                                     "add"|-><([ST]->STyBoolean)>).
 Definition CStack (ST:STy) : partial_map STy := (
-                                                      "push"|-><([ST]->[])>; 
-                                                      "pop"|-><([]->[ST])>; 
+                                                      "push"|-><([ST]->[])>;
+                                                      "add"|-><([ST]->STyBoolean)>;
+                                                      "size"|-><([]->STyNumeric)>; 
+                                                      "pop"|-><([]->ST)>; 
                                                       "isEmpty"|-><([]->STyBoolean)>; 
                                                       "peek"|-><([]->ST)>; 
+                                                      "clear"|-><([]->STyVoid)>;
                                                       "empty"|-><([]->STyBoolean)>).
+Definition CPriorityQueue (ST:STy) : partial_map STy := (
+                                                      "add"|-><([ST]->STyBoolean)>;
+                                                      "remove"|-><([]->ST)>;
+                                                      "isEmpty"|-><([]->STyBoolean)>;
+                                                      "poll"|-><([]->ST)>;
+                                                      "offer"|-><([ST]->STyBoolean)>;
+                                                      "contains"|-><([ST]->STyBoolean)>;
+                                                      "element"|-><([]->ST)>).                                                   
 Definition CQueue (ST:STy) : partial_map STy := (
-                                                      "poll"|-><([]->(STyArray ST))>;
+                                                      "size"|-><([]->STyNumeric)>; 
+                                                      "poll"|-><([]->ST)>;
                                                       "isEmpty"|-><([]->STyBoolean)>;
                                                       "remove"|-><([]->ST)>;
+                                                      "offer"|-><([ST]->STyBoolean)>;
                                                       "add" |-> <([ST]->STyBoolean)>).
-Definition CArrayDeque (ST:STy) : partial_map STy := (
+Definition CArrayDeque (ST:STy) : partial_map STy := (     "peek"|-><([]->ST)>; 
+                                                           "size"|-><([]->STyNumeric)>;  
+                                                           "poll"|-><([]->ST)>;
                                                            "clear"|-><([]->STyVoid)>; 
+                                                           "isEmpty"|-><([]->STyBoolean)>;
                                                            "offer"|-><([ST]->STyBoolean)>; 
+                                                           "clone"|-><([]->(STyGeneric1 "ArrayDeque" ST))>;
                                                            "getLast"|-><([]->ST)>).
-Definition CDeque (ST:STy) : partial_map STy := (
+Definition CDeque (ST:STy) : partial_map STy := (     "add"|-><([ST]->STyBoolean)>;
+                                                      "peek"|-><([]->ST)>;
+                                                      "push"|-><([ST]->STyVoid)>;
+                                                      "poll"|-><([]->ST)>;
+                                                      "offer"|-><([ST]->STyBoolean)>; 
+                                                      "pop"|-><([]->ST)>;
+                                                      "size"|-><([]->STyNumeric)>;
+                                                      "isEmpty"|-><([]->STyBoolean)>;
                                                       "peekFirst"|-><([]->ST)>; 
                                                       "peekLast"|-><([]->ST)>; 
                                                       "removeFirst"|-><([]->ST)>; 
@@ -632,28 +973,49 @@ Definition CDeque (ST:STy) : partial_map STy := (
                                                       "pollLast"|-><([]->ST)>; 
                                                       "offerLast"|-><([ST]->STyBoolean)>; 
                                                       "offerFirst"|-><([ST]->STyBoolean)>).
+Definition CComparator (ST:STy) : partial_map STy := (    "compare"|-><([ST;ST]->STyNumeric)>;
+                                                          "naturalOrder"|-><([]->(STyGeneric1 "Comparator" ST))>).
+                                                                                                            
 Definition CMap (ST1 ST2:STy) : partial_map STy := (
                                                              "put"|-><([ST1;ST2]->[])>; 
                                                              "get"|-><([ST1]->ST2)>; 
                                                              "containsKey"|-><([ST1]->STyBoolean)>; 
                                                              "getOrDefault"|-><([ST1;ST2]->ST2)>;
+                                                             "values"|-><([]->(STyGeneric1 "Collection" ST2))>;
                                                              "keySet"|-><([]->(STyGeneric1 "Set" ST1))>; 
-                                                             "putIfAbsent"|-> <([ST1;ST2]->ST2)>).
-Definition CHashMap (ST1 ST2:STy) : partial_map STy := (
+                                                             "putIfAbsent"|-> <([ST1;ST2]->ST2)>;
+                                                             "remove"|-><([ST1]->ST2)>;
+                                                             "size"|-><([]->STyNumeric)>).
+Definition CHashMap (ST1 ST2:STy) : partial_map STy := (     "containsKey"|-><([ST1]->STyBoolean)>;
+                                                             "values"|-><([]->(STyGeneric1 "Collection" ST2))>;
+                                                             "getOrDefault"|-><([ST1;ST2]->ST2)>;
+                                                             "keySet"|-><([]->(STyGeneric1 "Set" ST1))>;
+                                                             "get"|-><([ST1]->ST2)>; 
+                                                             "putAll"|-><([(STyGeneric2 "Map" ST1 ST2)]->STyVoid)>;
                                                              "put"|-><([ST1;ST2]->[])>).
-Definition CBuiltInArray : partial_map STy := (
-                                                "length"|->STyNumeric ).
+Definition CLinkedHashMap (ST1 ST2:STy) : partial_map STy := ( "putIfAbsent"|-><([ST1;ST2]->ST2)>;
+                                                               "get"|-><([ST1]->ST2)>;
+                                                               "keySet"|-><([]->(STyGeneric1 "Set" ST1))>).
+
+
+Definition CBuiltInArray (ST:STy) : partial_map STy := (
+                                                        "length"|->STyNumeric;
+                                                        "clone"|-><([]->(STyArray ST))>).
 Open Scope string_scope.
 
 Definition getClassMap (sty:STy)(Gamma: partial_map STy) : option(partial_map STy) :=
     match sty with
+    | STyNumeric => Some CInteger
     | STyString => Some CString
     | STyExternal s => match s with
                         | "Arrays" => Some CArrays
                         | "Integer" => Some CInteger
                         | "BigInteger" => Some CBigInteger
+                        | "Double" => Some CDouble
                         | "Math" => Some CMath
                         | "StringBuilder" => Some CStringBuilder
+                        | "StringTokenizer" => Some CStringTokenizer
+                        | "StringBuffer" => Some CStringBuffer
                         | "String" => Some CString
                         | "Character" => Some CCharacter
                         | "PrintStream" => Some CPrintStream
@@ -663,6 +1025,10 @@ Definition getClassMap (sty:STy)(Gamma: partial_map STy) : option(partial_map ST
                         | "Pattern" => Some CPattern
                         | "Long" => Some CLong
                         | "Collections" => Some CCollections
+                        | "IntStream" => Some CIntStream
+                        | "OptionalInt" => Some COptionalInt
+                        | "Scanner" => Some CScanner
+                        | "Object" => Some CObject
                         | _ => match Gamma s with
                                 | Some (STyClass ct) => Some (ct)
                                 | _ => None
@@ -674,18 +1040,22 @@ Definition getClassMap (sty:STy)(Gamma: partial_map STy) : option(partial_map ST
                         | "Set" => Some (CSet T)
                         | "Stack" => Some (CStack T)
                         | "Queue" => Some (CQueue T)
+                        | "PriorityQueue" => Some (CPriorityQueue T)
                         | "Deque" => Some (CDeque T)
                         | "ArrayDeque" => Some (CArrayDeque T)
                         | "ArrayList" => Some (CArrayList T)
                         | "HashSet" => Some (CHashSet T)
+                        | "Comparator" => Some (CComparator T)
+                        | "Iterator" => Some (CIterator T)
                         | _ => None
                         end
     | STyGeneric2 s T1 T2 => match s with
                             | "Map" => Some (CMap T1 T2)
                             | "HashMap" => Some (CHashMap T1 T2)
+                            | "LinkedHashMap" => Some (CLinkedHashMap T1 T2)
                             | _ => None
                             end
-    | STyArray T => Some CBuiltInArray
+    | STyArray T => Some (CBuiltInArray T)
     | STyClass ct => Some ct
     | _ => None
     end.
@@ -704,26 +1074,27 @@ Inductive has_type : Context->Term->STy->Prop :=
     | T_Float : forall Gamma f,
         Gamma |-- (TmFloat f) \in STyNumeric
     | T_Char : forall Gamma c,
-        Gamma |-- (TmChar c) \in STyString
+        Gamma |-- (TmChar c) \in STyChar
     | T_String : forall Gamma s,
         Gamma |--  (TmString s) \in STyString
     | T_True : forall Gamma,
         Gamma |-- TmTrue \in STyBoolean
     | T_False : forall Gamma,
         Gamma |-- TmFalse \in STyBoolean
-    | T_Null : forall Gamma T,
-        Gamma |-- TmNull \in T (*null can have any type*)
+    | T_Null : forall Gamma,
+        Gamma |-- TmNull \in STyNull (*null can have any type*)
     (*advanced data structure*)
-    | T_Assign : forall Gamma x T t,
+    | T_Assign : forall Gamma x T T' t,
         (* x = t *)
         Gamma |-- x \in T ->
-        Gamma |-- t \in T ->
+        Gamma |-- t \in T' ->
+        have_son_sty T T' = true ->
         Gamma |-- (TmAssign x t) \in T
-    | T_Conversion : forall Gamma T t, 
+    | T_Conversion : forall Gamma T t STy STy', 
         (* (T)t *)
-        Gamma |-- t \in STyNumeric ->
-        SimplType T = STyNumeric ->
-        Gamma |-- (TmConversion T t) \in STyNumeric
+        Gamma |-- t \in STy ->
+        have_right_conversion T STy = Some(STy')->
+        Gamma |-- (TmConversion T t) \in STy'
         (*only the conversions within numeric types are allowed*)
     | T_FieldAccess : forall Gamma tm f ct T sty,
         (* tm.f *)
@@ -800,11 +1171,12 @@ Inductive has_type : Context->Term->STy->Prop :=
         ct m = None ->
         Gamma |-- param \in PT ->
         Gamma |-- TmTyMethodInvocation T m param \in RT
-    | T_MethodInvocationNoObj : forall Gamma m param PT RT,
+    | T_MethodInvocationNoObj : forall Gamma m param PT PT' RT RT',
         (* m(param) *)
         Gamma m = Some ( STyArrow PT RT ) ->
-        Gamma |-- param \in PT ->
-        Gamma |-- TmMethodInvocationNoObj m param \in RT
+        Gamma |-- param \in PT' ->
+        hasResultType PT RT PT' STyVoid = Some RT' ->
+        Gamma |-- TmMethodInvocationNoObj m param \in RT'
     | T_Nil : forall Gamma,
         Gamma |-- TmNil \in STyVoid
     | T_List : forall Gamma tm1 tm2 T1 T2,
@@ -821,17 +1193,18 @@ Inductive has_type : Context->Term->STy->Prop :=
         Gamma |-- tm2 \in (STyArray T) ->
         Gamma |-- (TmArrayConcat tm1 tm2) \in (STyArray T)
     (*arithmetic term*)
-    | T_Add : forall Gamma tm1 tm2,
+    | T_Add : forall Gamma tm1 tm2 STy1 STy2 STy3,
         (* tm1 + tm2 *)
-        Gamma |-- tm1 \in STyNumeric ->
-        Gamma |-- tm2 \in STyNumeric ->
-        Gamma |-- (TmAdd tm1 tm2) \in STyNumeric
-    | T_Sub : forall Gamma tm1 tm2 STy1 STy2,
+        Gamma |-- tm1 \in STy1 ->
+        Gamma |-- tm2 \in STy2 ->
+        have_right_add_sub STy1 STy2 = Some(STy3) ->
+        Gamma |-- (TmAdd tm1 tm2) \in STy3
+    | T_Sub : forall Gamma tm1 tm2 STy1 STy2 STy3,
         (* tm1 - tm2 *)
         Gamma |-- tm1 \in STy1 ->
         Gamma |-- tm2 \in STy2 ->
-        have_right_sub STy1 STy2 = true ->
-        Gamma |-- (TmSub tm1 tm2) \in STyNumeric
+        have_right_add_sub STy1 STy2 = Some(STy3) ->
+        Gamma |-- (TmSub tm1 tm2) \in STy3
     | T_Mul : forall Gamma tm1 tm2,
         (* tm1 * tm2 *)
         Gamma |-- tm1 \in STyNumeric ->
@@ -861,21 +1234,24 @@ Inductive has_type : Context->Term->STy->Prop :=
         Gamma |-- tm1 \in STyNumeric ->
         Gamma |-- tm2 \in STyNumeric ->
         Gamma |-- (TmShiftR tm1 tm2) \in STyNumeric
-    | T_BitAnd : forall Gamma tm1 tm2,
+    | T_BitAnd : forall Gamma tm1 tm2 ST1 ST2 ST3,
         (* tm1 & tm2 *)
-        Gamma |-- tm1 \in STyNumeric ->
-        Gamma |-- tm2 \in STyNumeric ->
-        Gamma |-- (TmBitAnd tm1 tm2) \in STyNumeric
-    | T_BitOr : forall Gamma tm1 tm2,
+        Gamma |-- tm1 \in ST1 ->
+        Gamma |-- tm2 \in ST2 ->
+        have_right_bit_and_or_xor ST1 ST2 = Some ST3 ->
+        Gamma |-- (TmBitAnd tm1 tm2) \in ST3
+    | T_BitOr : forall Gamma tm1 tm2 ST1 ST2 ST3,
         (* tm1 | tm2 *)
-        Gamma |-- tm1 \in STyNumeric ->
-        Gamma |-- tm2 \in STyNumeric ->
-        Gamma |-- (TmBitOr tm1 tm2) \in STyNumeric
-    | T_BitXor : forall Gamma tm1 tm2,
+        Gamma |-- tm1 \in ST1 ->
+        Gamma |-- tm2 \in ST2 ->
+        have_right_bit_and_or_xor ST1 ST2 = Some ST3 ->
+        Gamma |-- (TmBitOr tm1 tm2) \in ST3
+    | T_BitXor : forall Gamma tm1 tm2 ST1 ST2 ST3,
         (* tm1 ^ tm2 *)
-        Gamma |-- tm1 \in STyNumeric ->
-        Gamma |-- tm2 \in STyNumeric ->
-        Gamma |-- (TmBitXor tm1 tm2) \in STyNumeric
+        Gamma |-- tm1 \in ST1 ->
+        Gamma |-- tm2 \in ST2 ->
+        have_right_bit_and_or_xor ST1 ST2 = Some ST3 ->
+        Gamma |-- (TmBitXor tm1 tm2) \in ST3
     | T_BitNot : forall Gamma tm,
         (* ~tm *)
         Gamma |-- tm \in STyNumeric ->
@@ -897,35 +1273,41 @@ Inductive has_type : Context->Term->STy->Prop :=
         Gamma |-- tm \in STyNumeric ->
         Gamma |-- (TmPreDec tm) \in STyNumeric
     (*logic term*)
-    | T_Eq : forall Gamma tm1 tm2 T,
+    | T_Eq : forall Gamma tm1 tm2 T T',
         (* tm1 == tm2 *)
         Gamma |-- tm1 \in T ->
-        Gamma |-- tm2 \in T ->
+        Gamma |-- tm2 \in T' ->
+        have_right_eq_ne T T' = True ->
         Gamma |-- (TmEq tm1 tm2) \in STyBoolean
-    | T_Ne : forall Gamma tm1 tm2 T,
+    | T_Ne : forall Gamma tm1 tm2 T T',
         (* tm1 != tm2 *)
         Gamma |-- tm1 \in T ->
-        Gamma |-- tm2 \in T ->
+        Gamma |-- tm2 \in T' ->
+        have_right_eq_ne T T' = True ->
         Gamma |-- (TmNe tm1 tm2) \in STyBoolean
-    | T_Lt : forall Gamma tm1 tm2,
+    | T_Lt : forall Gamma tm1 tm2 T T',
         (* tm1 < tm2 *)
-        Gamma |-- tm1 \in STyNumeric ->
-        Gamma |-- tm2 \in STyNumeric ->
+        Gamma |-- tm1 \in T ->
+        Gamma |-- tm2 \in T' ->
+        have_right_ge_le_gt_lt T T' = True ->
         Gamma |-- (TmLt tm1 tm2) \in STyBoolean
-    | T_Le : forall Gamma tm1 tm2,
+    | T_Le : forall Gamma tm1 tm2 T T',
         (* tm1 <= tm2 *)
-        Gamma |-- tm1 \in STyNumeric ->
-        Gamma |-- tm2 \in STyNumeric ->
+        Gamma |-- tm1 \in T ->
+        Gamma |-- tm2 \in T' ->
+        have_right_ge_le_gt_lt T T' = True ->
         Gamma |-- (TmLe tm1 tm2) \in STyBoolean
-    | T_Gt : forall Gamma tm1 tm2,
+    | T_Gt : forall Gamma tm1 tm2 T T',
         (* tm1 > tm2 *)
-        Gamma |-- tm1 \in STyNumeric ->
-        Gamma |-- tm2 \in STyNumeric ->
+        Gamma |-- tm1 \in T ->
+        Gamma |-- tm2 \in T' ->
+        have_right_ge_le_gt_lt T T' = True ->
         Gamma |-- (TmGt tm1 tm2) \in STyBoolean
-    | T_Ge : forall Gamma tm1 tm2,
+    | T_Ge : forall Gamma tm1 tm2 T T',
         (* tm1 >= tm2 *)
-        Gamma |-- tm1 \in STyNumeric ->
-        Gamma |-- tm2 \in STyNumeric ->
+        Gamma |-- tm1 \in T ->
+        Gamma |-- tm2 \in T' ->
+        have_right_ge_le_gt_lt T T' = True ->
         Gamma |-- (TmGe tm1 tm2) \in STyBoolean
     | T_And : forall Gamma tm1 tm2,
         (* tm1 && tm2 *)
@@ -941,11 +1323,12 @@ Inductive has_type : Context->Term->STy->Prop :=
         (* !tm *)
         Gamma |-- tm \in STyBoolean ->
         Gamma |-- (TmNot tm) \in STyBoolean
-    | T_Choose : forall Gamma tm1 tm2 tm3 T,
+    | T_Choose : forall Gamma tm1 tm2 tm3 T T',
         (* tm1 ? tm2 : tm3 *)
         Gamma |-- tm1 \in STyBoolean ->
         Gamma |-- tm2 \in T ->
-        Gamma |-- tm3 \in T ->
+        Gamma |-- tm3 \in T' ->
+        have_same_sty T T' = true ->
         Gamma |-- (TmChoose tm1 tm2 tm3) \in T
 where "Gamma '|--' t '\in' T" := (has_type Gamma t T).
 (*typing rules for statements*)
@@ -1080,7 +1463,6 @@ Inductive well_type_program : Context->Program->Context->Prop :=
         (this |-> STyClass T;Gamma1) |- c \in Gamma2 ->
         Gamma1 -- (ClassDecl name c) ->(name|->STyClass T; Gamma1)
     | T_ImportDecl : forall Gamma1 n1 n2,
-        (*Import n1.n2*)
         Gamma1 -- (ImportDecl n1 n2) -> (Gamma1)
     | T_ProgramConcat : forall Gamma1 p1 Gamma2 p2 Gamma3,
         Gamma1 -- p1 -> Gamma2 ->
@@ -1088,8 +1470,15 @@ Inductive well_type_program : Context->Program->Context->Prop :=
         Gamma1 -- (ProgramConcat p1 p2) -> Gamma3
 where "Gamma1 '--' p '->' Gamma2" := (well_type_program Gamma1 p Gamma2).
 
-Definition program_well_typed (p:Program) : Prop :=
-    exists Gamma, empty -- p -> Gamma.
+(* Fixpoint DeclsInProgram (p:Program) :=
+    match p with
+    | ClassDecl name c => (name|-> STyClass (DeclsInClassDefinition c))
+    | ImportDecl n1 n2 => empty
+    | ProgramConcat p1 p2 => updateMerge (DeclsInProgram p1) (DeclsInProgram p2)
+    end. *)
+
+Definition program_well_typed (p:Program) : Prop := 
+    exists Gamma, empty-- p -> Gamma.
 
 (*extract the well-typed program*)
 Ltac get_the_exists_term_tac H :=
@@ -1125,114 +1514,150 @@ Hint Unfold Y : core.
 Hint Unfold Z : core.
 
 
-(* Definition Program1 :=
-<|  class Y { 
-    Int main ( Int X = 0) { 
-        Return X + 1
-        }
-    }   |>.
-Example program1_well_typed : program_well_typed Program1.
-Proof.
-    unfold program_well_typed. eexists. 
-    eapply T_ClassDecl. reflexivity.
-    eapply T_MethodDecl.
-    - reflexivity.
-    - apply T_DeclInit. reflexivity. apply T_Integer.
-    - simpl. reflexivity.
-    - simpl. eapply T_Return. 
-        * apply T_Add. apply T_Var. reflexivity. apply T_Integer. 
-        * reflexivity.
-Qed.
-
-Open Scope string_scope.
-Example program1_well_typed' : exists p, program_well_typed p.
-Proof.
-    unfold program_well_typed. eexists. eexists.
-    eapply T_ClassDecl with(name:=Y). reflexivity.
-    eapply T_MethodDecl with (modif:="")(T:=TyInt)(m:=main).
-    - reflexivity.
-    - eapply T_DeclInit with(T:=TyInt)(x:=X). reflexivity. 
-      apply T_Integer with (n:=0).
-    - reflexivity.
-    - eapply T_Return. 
-        * eapply T_Add. eapply T_Var with(x:=X). reflexivity. eapply T_Integer with(n:=1).
-        * reflexivity.
-Defined.
-
-Definition prog1 := the_exists_term (program1_well_typed').
-Print prog1.
-
-Definition program2 := <|  
-
-    class X {
-        Int Z;
-        Int main ( skip ) { 
-            G("List"<Int>) A = new G("List"<Int>)([]);
-            A . "add"([this \. Z]);
-            Return Z
-        }
-    } |>.
-
-
-Example program2_well_typed : program_well_typed program2.
-Proof with (simpl;try(reflexivity)).
-    unfold program_well_typed. eexists. 
-
-    eapply T_ClassDecl. reflexivity.
-    { eapply T_ComponentConcat.
-        
-        - eapply T_FieldDeclNoInit. reflexivity.
-        - eapply T_MethodDecl...
-            + apply T_Skip.
-            + eapply T_Concat.
-                * apply T_DeclInit. reflexivity. eapply T_New'...
-                    { apply T_Nil. }
-                * eapply T_Concat.
-                    -- eapply T_Expression. eapply T_MethodInvocation.
-                        { eapply T_Var... }
-                        { reflexivity. }
-                        { reflexivity. }
-                        { eapply T_List. eapply T_FieldAccess. eapply T_Var. reflexivity. reflexivity. reflexivity.  apply T_Nil. }        
-                        { reflexivity. }           
-                    -- eapply T_Return... eapply T_Var... 
-    }
-Defined.
-
-Example program2_well_typed' : exists p, program_well_typed p.
-Proof with (simpl;try(reflexivity)).
-    unfold program_well_typed. eexists. eexists.
-    eapply T_ProgramConcat.
-    eapply T_ImportDecl with(n1:="Java.util")(n2:="List").
-    eapply T_ClassDecl with(name:=X). 
-    + reflexivity.
-    + eapply T_ComponentConcat.
-        - eapply T_FieldDeclNoInit with(modif:="public")(T:=TyInt)(x:=Z)...
-        - eapply T_MethodDecl with(modif:="public")(T:=TyInt)(m:="main") ...
-            ++ apply T_Skip. 
-            ++ eapply T_Concat.
-                * apply T_DeclInit with(T:=TyGeneric1 "List" TyInt)(x:=A)... 
-                  eapply T_New' with(T:=TyGeneric1 "List" TyInt)... apply T_Nil. 
-                * eapply T_Concat.
-                    -- eapply T_Expression. 
-                       eapply T_MethodInvocation with (tm:=TmVar A)(m:="add").
-                        { eapply T_Var... }
-                        { reflexivity. }
-                        { reflexivity. }
-                        { eapply T_List. eapply T_FieldAccess with(tm:=this)(f:=Z). eapply T_Var. reflexivity. reflexivity. reflexivity. apply T_Nil. }   
-                        { reflexivity. }             
-                    -- eapply T_Return... eapply T_Var with(x:=Z)... 
-Defined.
-
-Definition prog2 := the_exists_term (program2_well_typed').
-Print prog2.
-
-Example well_type_foreach : well_type_statement (Y|->STyClass ("iterator"|->STyNumeric) ) (StForeach(TyInt) X (TmVar Y) StSkip ) (Y|->STyClass ("iterator"|->STyNumeric) ).
-Proof with (simpl;try(reflexivity)).
-    eapply T_Foreach...  
-    eapply T_Var... 
-    reflexivity. 
-    eapply T_Skip.
-Defined. *)
 Close Scope string_scope.
 
 End Syntax_Example.
+
+Open Scope string_scope.
+
+Example prog_well_typed : exists p, program_well_typed p.
+Proof with (simpl;try(reflexivity)).
+unfold program_well_typed.
+eexists.
+eexists.
+eapply T_ProgramConcat.
+{ eapply T_ImportDecl with(n1:="java.io")(n2:="*"). }
+{ eapply T_ProgramConcat.
+  { eapply T_ImportDecl with(n1:="java.lang")(n2:="*"). }
+  { eapply T_ProgramConcat.
+    { eapply T_ImportDecl with(n1:="java.util")(n2:="*"). }
+    { eapply T_ProgramConcat.
+      { eapply T_ImportDecl with(n1:="java.math")(n2:="*"). }
+      { eapply T_ClassDecl with(name:="ExtractMinMax").
+        { simpl. try reflexivity. }
+        { eapply T_MethodDecl with(modif:="public static")(T:=(TyGeneric1 "List" TyInt))(m:="extractMinMax").
+          { simpl. try reflexivity. }
+          { eapply T_Concat.
+            { eapply T_DeclNoInit with(T:=(TyGeneric1 "List" TyInt))(x:="testTup").
+              simpl. try reflexivity. }
+            { eapply T_Concat.
+              { eapply T_DeclNoInit with(T:=TyInt)(x:="k").
+                simpl. try reflexivity. }
+              { eapply T_Skip. } } }
+          { simpl. try reflexivity. }
+          { eapply T_Concat.
+            { eapply T_Concat.
+              { eapply T_DeclInit with(T:=(TyGeneric1 "List" TyInt))(x:="res").
+                { simpl. try reflexivity. }
+                { eapply T_New' with(T:=(TyGeneric1 "ArrayList" TyInt)).
+                  { simpl. try reflexivity. }
+                  { eapply T_Nil. } }
+                { simpl. try reflexivity. } }
+              { eapply T_Skip. } }
+            { eapply T_Concat.
+              { eapply T_Concat.
+                { eapply T_DeclInit with(T:=(TyGeneric1 "List" TyInt))(x:="temp").
+                  { simpl. try reflexivity. }
+                  { eapply T_New' with(T:=(TyGeneric1 "ArrayList" TyInt)).
+                    { simpl. try reflexivity. }
+                    { eapply T_List.
+                      { eapply T_Var with(x:="testTup").
+                        simpl. try reflexivity. }
+                      { eapply T_Nil. } } }
+                  { simpl. try reflexivity. } }
+                { eapply T_Skip. } }
+              { eapply T_Concat.
+                { eapply T_Expression.
+                  eapply T_MethodInvocation with(m:="sort").
+                  { eapply T_Var with(x:="temp").
+                    simpl. try reflexivity. }
+                  { simpl. try reflexivity. }
+                  { simpl. try reflexivity. }
+                  { eapply T_List.
+                    { eapply T_TyMethodInvocation with(m:="naturalOrder")(T:=(TyExternal "Comparator")).
+                      { simpl. try reflexivity. }
+                      { simpl. try reflexivity. }
+                      { eapply T_Nil. }
+                      { simpl. try reflexivity. } }
+                    { eapply T_Nil. } }
+                  { simpl. try reflexivity. } }
+                { eapply T_Concat.
+                  { eapply T_For.
+                    { eapply T_Concat.
+                      { eapply T_DeclInit with(T:=TyInt)(x:="i").
+                        { simpl. try reflexivity. }
+                        { eapply T_Integer with(n:=0). }
+                        { simpl. try reflexivity. } }
+                      { eapply T_Skip. } }
+                    { eapply T_Lt.
+                      { eapply T_Var with(x:="i").
+                        simpl. try reflexivity. }
+                      { eapply T_MethodInvocation with(m:="size").
+                        { eapply T_Var with(x:="temp").
+                          simpl. try reflexivity. }
+                        { simpl. try reflexivity. }
+                        { simpl. try reflexivity. }
+                        { eapply T_Nil. }
+                        { simpl. try reflexivity. } }
+                      { simpl. try reflexivity. } }
+                    { eapply T_PostInc.
+                      eapply T_Var with(x:="i").
+                      simpl. try reflexivity. }
+                    { eapply T_Concat.
+                      { eapply T_If.
+                        { eapply T_Or.
+                          { eapply T_Lt.
+                            { eapply T_Var with(x:="i").
+                              simpl. try reflexivity. }
+                            { eapply T_Var with(x:="k").
+                              simpl. try reflexivity. }
+                            { simpl. try reflexivity. } }
+                          { eapply T_Ge.
+                            { eapply T_Var with(x:="i").
+                              simpl. try reflexivity. }
+                            { eapply T_Sub.
+                              { eapply T_MethodInvocation with(m:="size").
+                                { eapply T_Var with(x:="temp").
+                                  simpl. try reflexivity. }
+                                { simpl. try reflexivity. }
+                                { simpl. try reflexivity. }
+                                { eapply T_Nil. }
+                                { simpl. try reflexivity. } }
+                              { eapply T_Var with(x:="k").
+                                simpl. try reflexivity. }
+                              { simpl. try reflexivity. } }
+                            { simpl. try reflexivity. } } }
+                        { eapply T_Concat.
+                          { eapply T_Expression.
+                            eapply T_MethodInvocation with(m:="add").
+                            { eapply T_Var with(x:="res").
+                              simpl. try reflexivity. }
+                            { simpl. try reflexivity. }
+                            { simpl. try reflexivity. }
+                            { eapply T_List.
+                              { eapply T_MethodInvocation with(m:="get").
+                                { eapply T_Var with(x:="temp").
+                                  simpl. try reflexivity. }
+                                { simpl. try reflexivity. }
+                                { simpl. try reflexivity. }
+                                { eapply T_List.
+                                  { eapply T_Var with(x:="i").
+                                    simpl. try reflexivity. }
+                                  { eapply T_Nil. } }
+                                { simpl. try reflexivity. } }
+                              { eapply T_Nil. } }
+                            { simpl. try reflexivity. } }
+                          { eapply T_Skip. } } }
+                      { eapply T_Skip. } } }
+                  { eapply T_Concat.
+                    { eapply T_Return.
+                      { eapply T_Var with(x:="res").
+                        simpl. try reflexivity. }
+                      { simpl. try reflexivity. }
+                      { simpl. try reflexivity. } }
+                    { eapply T_Skip. } } } } } } } } } } }
+  Unshelve.
+  all: apply STyVoid.
+Defined.
+Definition prog := the_exists_term (prog_well_typed).
+Print prog.

@@ -409,6 +409,7 @@ class Term:
             assert False, "term中有未知类型: " + self.term
 
     def toCoq(self):
+        Coqsimpl = CoqProof("simpl. try reflexivity")
         """
         Converts the current object to a CoqProof object based on the value of the 'term' attribute.
 
@@ -422,6 +423,7 @@ class Term:
             return CoqProof(
                 "T_Var",
                 params={"x": f'"{self.string}"'},
+                children=[CoqProof("simpl. try reflexivity")],
             )
         elif self.term == "TmNull":
             return CoqProof("T_Null")
@@ -451,33 +453,44 @@ class Term:
             return CoqProof("T_False")
         elif self.term == "TmFieldAccess":
             if self.term1.term == "TmVar" and self.term1.string in [
-                "Math",
-                "Arrays",
                 "Integer",
-                "Collections",
+                "Byte",
+                "Short",
+                "Long",
+                "Boolean",
+                "Double",
+                "Float",
                 "Character",
                 "String",
+                "Math",
+                "Fraction",
+                "Arrays",
+                "Collections",
                 "System",
+                "java",
+                "Pattern"
+                "Comparator",
+                "BigInteger",
             ]:
                 TyObject = Ty("TyExternal", self.term1.string)
                 return CoqProof(
                     "T_TyFieldAccess",
                     params={"f": f'"{self.string}"', "T": TyObject.toCoq()},
+                    children = [Coqsimpl, Coqsimpl]
                 )
             else:
                 proof1 = self.term1.toCoq()
-                proof2 = CoqProof("simpl..")
                 return CoqProof(
                     "T_FieldAccess",
                     params={"f": f'"{self.string}"'},
-                    children=[proof1, proof2, proof2],
+                    children=[proof1, Coqsimpl, Coqsimpl],
                 )
         elif self.term == "TmNew":
             proof1 = self.term1.toCoq()
             return CoqProof(
                 "T_New'",
                 params={"T": self.ty.toCoq()},
-                children=[proof1],
+                children=[Coqsimpl, proof1],
             )
         elif self.term == "TmNewArrayNoInit":
             proof1 = self.term1.toCoq()
@@ -500,14 +513,14 @@ class Term:
             return CoqProof(
                 "T_NewArrayInit",
                 params={"T": self.ty.toCoq()},
-                children=[proof1],
+                children=[Coqsimpl, proof1],
             )
         elif self.term == "TmConversion":
             proof1 = self.term1.toCoq()
             return CoqProof(
                 "T_Conversion",
                 params={"T": self.ty.toCoq()},
-                children=[proof1],
+                children=[proof1, Coqsimpl],
             )
         elif self.term == "TmArrayAccess":
             proof1 = self.term1.toCoq()
@@ -519,19 +532,30 @@ class Term:
         elif self.term == "TmMethodInvocation":
             # is actually a method invocation by type name (Math.max(1, 2))
             if self.term1.term == "TmVar" and self.term1.string in [
-                "Math",
-                "Arrays",
                 "Integer",
-                "Collections",
+                "Byte",
+                "Short",
+                "Long",
+                "Boolean",
+                "Double",
+                "Float",
                 "Character",
                 "String",
+                "Math",
+                "Fraction",
+                "Arrays",
+                "Collections",
                 "System",
+                "java",
+                "Pattern",
+                "Comparator",
+                "BigInteger",
             ]:
                 TyObject = Ty("TyExternal", self.term1.string)
                 return CoqProof(
                     "T_TyMethodInvocation",
                     params={"m": f'"{self.string}"', "T": TyObject.toCoq()},
-                    children=[self.term2.toCoq(), CoqProof("simpl..")],
+                    children=[Coqsimpl, Coqsimpl, self.term2.toCoq(), Coqsimpl],
                 )
             else:
                 proof1 = self.term1.toCoq()
@@ -539,21 +563,21 @@ class Term:
                 return CoqProof(
                     "T_MethodInvocation",
                     params={"m": f'"{self.string}"'},
-                    children=[proof1,CoqProof("simpl.."),CoqProof("simpl.."), proof2,CoqProof("simpl..")],
+                    children=[proof1, Coqsimpl, Coqsimpl, proof2, Coqsimpl],
                 )
         elif self.term == "TmMethodInvocationNoObject":
             proof1 = self.term1.toCoq()
             return CoqProof(
                 "T_MethodInvocationNoObj",
                 params={"m": f'"{self.string}"'},
-                children=[proof1],
+                children=[Coqsimpl, proof1, Coqsimpl],
             )
         elif self.term == "TmAssign":
             proof1 = self.term1.toCoq()
             proof2 = self.term2.toCoq()
             return CoqProof(
                 "T_Assign",
-                children=[proof1, proof2],
+                children=[proof1, proof2, Coqsimpl],
             )
         elif self.term == "TmNil":
             return CoqProof("T_Nil")
@@ -571,31 +595,34 @@ class Term:
             proof2 = self.term2.toCoq()
             return CoqProof(
                 "T_ArrayConcat",
-                children=[proof1, proof2],
+                children=[proof1,proof2],
             )
-        elif self.term == "TmSub":
+        elif self.term in [
+            "TmSub",
+            "TmAdd",
+            "TmNe",
+            "TmEq",
+            "TmGe",
+            "TmLt",
+            "TmGt",
+            "TmLe",
+            "TmBitAnd",
+            "TmBitOr",
+            "TmBitXor",
+            ]:
             proof1 = self.term1.toCoq()
             proof2 = self.term2.toCoq()
             return CoqProof(
-                "T_Sub",
-                children=[proof1, proof2, CoqProof("simpl..")],
+                f"T_{self.term[2:]}",
+                children=[proof1, proof2, Coqsimpl],
             )
         elif self.term in [
-            "TmAdd",
             "TmMul",
             "TmDiv",
             "TmMod",
             "TmShiftL",
             "TmShiftR",
-            "TmBitAnd",
-            "TmBitOr",
-            "TmBitXor",
-            "TmEq",
-            "TmNe",
-            "TmLt",
-            "TmGt",
-            "TmLe",
-            "TmGe",
+
             "TmAnd",
             "TmOr",
         ]:  # binary operation
@@ -625,7 +652,7 @@ class Term:
             proof3 = self.term3.toCoq()
             return CoqProof(
                 "T_Choose",
-                children=[proof1, proof2, proof3],
+                children=[proof1, proof2, proof3, Coqsimpl],
             )
         else:
             assert False, "term中有未知类型: " + self.term
@@ -789,18 +816,20 @@ class Statement:
             assert False, "statement中有未知类型: " + self.statement
 
     def toCoq(self):
+        Coqsimpl = CoqProof("simpl. try reflexivity")
         if self.statement == "StSkip":
             return CoqProof("T_Skip")
         elif self.statement == "StDeclNoInit":
             return CoqProof(
                 "T_DeclNoInit",
                 params={"T": self.ty.toCoq(), "x": f'"{self.string}"'},
+                children=[Coqsimpl]
             )
         elif self.statement == "StDeclInit":
             return CoqProof(
                 "T_DeclInit",
                 params={"T": self.ty.toCoq(), "x": f'"{self.string}"'},
-                children=[self.term.toCoq(), CoqProof("simpl..")],
+                children=[Coqsimpl, self.term.toCoq(), Coqsimpl],
             )
         elif self.statement == "StExpression":
             return CoqProof("T_Expression", children=[self.term.toCoq()])
@@ -843,15 +872,16 @@ class Statement:
                 "T_Foreach",
                 params={"T": self.ty.toCoq(), "x": f'"{self.string}"'},
                 children=[
+                    Coqsimpl,
                     self.term.toCoq(),
-                    CoqProof("simpl.."),
+                    Coqsimpl,
                     self.statement1.toCoq(),
                 ],
             )
         elif self.statement == "StReturn":
             return CoqProof(
                 "T_Return",
-                children=[self.term.toCoq(), CoqProof("simpl..")],
+                children=[self.term.toCoq(), Coqsimpl, Coqsimpl],
             )
         elif self.statement == "StContinue":
             return CoqProof("T_Continue")
@@ -966,6 +996,7 @@ class ClassComponent:
             assert False, "classcomponent中有未知类型: " + self.classcomponent
 
     def toCoq(self):
+        Coqsimpl = CoqProof("simpl. try reflexivity")
         if self.classcomponent == "MethodDecl":
             proof1 = CoqProof(
                 "T_MethodDecl",
@@ -974,7 +1005,7 @@ class ClassComponent:
                     "T": self.ty.toCoq(),
                     "m": f'"{self.string2}"',
                 },
-                children=[self.statement1.toCoq(), self.statement2.toCoq()],
+                children=[Coqsimpl, self.statement1.toCoq(),Coqsimpl, self.statement2.toCoq()],
             )
             return proof1
         elif self.classcomponent == "FieldDeclNoInit":
@@ -985,6 +1016,7 @@ class ClassComponent:
                     "T": self.ty.toCoq(),
                     "x": f'"{self.string2}"',
                 },
+                children=[Coqsimpl],
             )
         elif self.classcomponent == "FieldDeclInit":
             return CoqProof(
@@ -994,12 +1026,12 @@ class ClassComponent:
                     "T": self.ty.toCoq(),
                     "x": f'"{self.string2}"',
                 },
-                children=[self.term.toCoq(), CoqProof("simpl..")],
+                children=[Coqsimpl, self.term.toCoq(), Coqsimpl],
             )
         elif self.classcomponent == "ConstructorDecl":
             return CoqProof(
                 "T_ConstructorDecl",
-                children=[self.statement1.toCoq(), self.statement2.toCoq()],
+                children=[self.statement1.toCoq(), Coqsimpl, self.statement2.toCoq()],
             )
         elif self.classcomponent == "ComponentConcat":
             proof1 = self.classcomponent1.toCoq()
@@ -1065,6 +1097,7 @@ class Program:
             assert False, "program中有未知类型: " + self.program
 
     def toCoq(self):
+        Coqsimpl = CoqProof("simpl. try reflexivity")
         if self.program == "ProgramConcat":
             proof1 = self.program1.toCoq()
             proof2 = self.program2.toCoq()
@@ -1078,7 +1111,7 @@ class Program:
             return CoqProof(
                 "T_ClassDecl",
                 params={"name": f'"{self.string2}"'},
-                children=[self.classcomponent.toCoq()],
+                children=[Coqsimpl, self.classcomponent.toCoq()],
             )
 
 
@@ -1102,14 +1135,14 @@ class CoqProof:
         # main proof sentence
         if self.isEapply:
             if len(self.params.keys()) == 0:
-                proof_str += "eapply " + self.tactic + "..."
+                proof_str += "eapply " + self.tactic + "."
             else:
                 proof_str += (
                     "eapply "
                     + self.tactic
                     + " with"
                     + "".join([f"({k}:={self.params[k]})" for k in self.params])
-                    + "..."
+                    + "."
                 )
         else:
             proof_str += self.tactic + "."

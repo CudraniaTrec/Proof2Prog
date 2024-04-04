@@ -469,6 +469,8 @@ def visit_type(node):
             return Ty("TyLong")
         elif string1 == "Boolean":
             return Ty("TyBool")
+        elif string1 == "Character":
+            return Ty("TyChar")
         else:
             return Ty("TyExternal", string=string1)
     elif node.type == "array_type":
@@ -707,7 +709,7 @@ def visit_local_variable_declaration(node):
 
 def visit_for_statement(node):
     local_variable_declaration = Statement("StSkip")
-    expression = Term("TmNull")
+    expression = Term("TmTrue")
     update_expression = Term("TmNull")
     for child in node.named_children[:-1]:
         if child.type == "local_variable_declaration":
