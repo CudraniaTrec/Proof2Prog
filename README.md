@@ -1,7 +1,7 @@
 ## 环境
 1. The Coq Proof Assistant, version 8.18.0
    compiled with OCaml 4.14.0
-2. python3.8.18
+2. python 3.8.18
    (tree-sitter                0.20.4
     tree-sitter-languages      1.10.2)
     
@@ -16,4 +16,8 @@
    - program_model.py: 内存形式的程序模型
    - utils.py: 翻译 Java 程序到内存形式的程序
    - run.ipynb: 实际运行整个翻译流程
-   - solutions: 所有的 Java 程序
+   - solutions: 所有的 Java 程序(leetcode benchmark)
+   - mbjp: 所有的 Java 程序(mbjp benchmark)
+   - build: tree-sitter 库使用的 Java 语言文法
+   - mxeval: 包含了检测mbjp数据集中生成的程序是否合法的函数，可通过 `pip install -e mxeval`安装
+   - mbjp.json: MBJP完整数据集
