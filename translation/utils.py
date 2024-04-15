@@ -177,13 +177,17 @@ def visit_class_declaration(node):
         start_point = node.named_children[0].start_point
         end_point = node.named_children[0].end_point
         class_name = getcode_from_beginandend(source_code_line, start_point, end_point)
-        classcomponent = visit_classcomponent(node.named_children[1])
+        classcomponent = visit_classcomponent(
+            node.named_children[1], class_name=class_name
+        )
     elif named_child_count == 3 and node.named_children[0].type == "modifiers":
         modifier = getcode_from_node(source_code_line, node.named_children[0])
         start_point = node.named_children[1].start_point
         end_point = node.named_children[1].end_point
         class_name = getcode_from_beginandend(source_code_line, start_point, end_point)
-        classcomponent = visit_classcomponent(node.named_children[2])
+        classcomponent = visit_classcomponent(
+            node.named_children[2], class_name=class_name
+        )
     else:
         assert False, f"classdeclaration中有未知类型:{node.named_children[0].type}"
     return Program(
@@ -191,7 +195,7 @@ def visit_class_declaration(node):
     )
 
 
-def visit_classcomponent(node):
+def visit_classcomponent(node, class_name="Solution"):
     named_child_count = node.named_child_count
     classcomponent_return = None
     component_list = []
@@ -202,11 +206,11 @@ def visit_classcomponent(node):
         elif child.type == "block_comment":
             continue
         elif child.type == "method_declaration":
-            classcomponent_get = visit_method_declaration(child)
+            component_list.append(visit_method_declaration(child))
         elif child.type == "field_declaration":
-            classcomponent_get = visit_field_declaration(child)
+            component_list += visit_field_declaration(child)
         elif child.type == "constructor_declaration":
-            classcomponent_get = visit_constructor_declaration(child)
+            component_list.append(visit_constructor_declaration(child))
         else:
             assert False, (
                 "classcomponent中有未知类型"
@@ -214,28 +218,44 @@ def visit_classcomponent(node):
                 + " "
                 + getcode_from_node(source_code_line, child)
             )
-        component_list.append(classcomponent_get)
 
     # change the order of the components
     # fields -> constructors -> methods
     # if method m1 uses method m2, then m2 should be defined before m1
-    def cmp(c1, c2):
-        if c1.classcomponent == "FieldDeclNoInit":
-            return -1
-        elif c2.classcomponent == "FieldDeclNoInit":
-            return 1
-        elif c1.classcomponent == "FieldDeclInit":
-            return -1
-        elif c2.classcomponent == "FieldDeclInit":
-            return 1
+    def all_variables_used(node):
+        # get all sub nodes
+        var_list = []
+        if node.type == "identifier":
+            var_list.append(
+                getcode_from_beginandend(
+                    source_code_line, node.start_point, node.end_point
+                )
+            )
+        for child in node.children:
+            var_list += all_variables_used(child)
+        return var_list
+
+    def get_name_vars(component):
+        if component.classcomponent == "MethodDecl":
+            return component.string2, all_variables_used(component.node)
+        elif component.classcomponent == "FieldDeclNoInit":
+            return component.string2, []
+        elif component.classcomponent == "FieldDeclInit":
+            return component.string2, all_variables_used(component.node)
+        elif component.classcomponent == "ConstructorDecl":
+            return class_name, all_variables_used(component.node)
         else:
-            c1_name, c2_name = c1.string2 + "(", c2.string2 + "("
-            if c1.classcomponent == "MethodDecl" and c1_name in c2.toString():
-                return -1
-            elif c2.classcomponent == "MethodDecl" and c2_name in c1.toString():
-                return 1
-            else:
-                return 0
+            assert False, "get_name_vars error"
+
+    def cmp(c1, c2):
+        c1_name, c1_vars = get_name_vars(c1)
+        c2_name, c2_vars = get_name_vars(c2)
+        if c1_name == c2_name:
+            return 0
+        if c1_name in c2_vars:
+            return -1
+        if c2_name in c1_vars:
+            return 1
 
     new_list = []
     while len(component_list) > 0:
@@ -247,7 +267,6 @@ def visit_classcomponent(node):
                 new_list.append(comp)
                 component_list.remove(comp)
                 success = True
-                # print(comp.string2)
                 break
         if not success:
             assert False, "cyclic dependency in class components"
@@ -307,45 +326,81 @@ def visit_method_declaration(node):
         string2=method_name,
         statement1=formal_parameters,
         statement2=block,
+        node=node,
     )
 
 
 def visit_field_declaration(node):
-    named_child_count = node.named_child_count
+    # ignoring comments
+    named_children = [
+        child
+        for child in node.named_children
+        if child.type not in ["line_comment", "block_comment"]
+    ]
+    named_child_count = len(named_children)
 
     modifier = ""
     ty = None
     field_name = ""
     term = None
+    component_return = []
     for i in range(named_child_count):
-        if node.named_children[i].type == "modifiers":
+        if named_children[i].type == "modifiers":
             modifier = getcode_from_node(source_code_line, node.named_children[i])
-        elif node.named_children[i].type in type_list:
+        elif named_children[i].type in type_list:
             ty = visit_type(node.named_children[i])
-        elif node.named_children[i].type == "variable_declarator":
-            # a[]={}
+        elif named_children[i].type == "variable_declarator":
             field_name = getcode_from_node(
-                source_code_line, node.named_children[i].named_children[0]
+                source_code_line, named_children[i].named_children[0]
             )
-            for child_varDecl in node.named_children[i].named_children[1:]:
-                if child_varDecl.type == "dimensions":
-                    # a[][];
-                    for child in child_varDecl.children:
+            tmp_ty = ty
+            # int a;
+            if named_children[i].named_child_count == 1:
+                term = None
+            # int a=1; / int a[];
+            elif named_children[i].named_child_count == 2:
+                if named_children[i].named_children[1].type == "dimensions":
+                    for child in named_children[i].named_children[1].children:
                         if child.type == "]":
-                            ty = Ty("TyArray", ty1=ty)
+                            tmp_ty = Ty("TyArray", ty1=tmp_ty)
                 else:
-                    # a = 1;
-                    term = visit_expression(child_varDecl)
+                    term = visit_expression(named_children[i].named_children[1])
+            # int a[] = {1,2,3};
+            elif named_children[i].named_child_count == 3:
+                for child in named_children[i].named_children[1].children:
+                    if child.type == "]":
+                        tmp_ty = Ty("TyArray", ty1=tmp_ty)
+                term = visit_expression(named_children[i].named_children[2])
+            else:
+                assert False, (
+                    "field Declaration中内部有未知子节点" + named_children[i].type
+                )
+
+            if term is None:
+                component_return.append(
+                    ClassComponent(
+                        "FieldDeclNoInit",
+                        string1=modifier,
+                        ty=tmp_ty,
+                        string2=field_name,
+                        node=named_children[i],
+                    )
+                )
+            else:
+                component_return.append(
+                    ClassComponent(
+                        "FieldDeclInit",
+                        string1=modifier,
+                        ty=tmp_ty,
+                        string2=field_name,
+                        term=term,
+                        node=named_children[i],
+                    )
+                )
+
         else:
             assert False, "fielddecl中有未知类型"
-    if term:
-        return ClassComponent(
-            "FieldDeclInit", string1=modifier, ty=ty, string2=field_name, term=term
-        )
-    else:
-        return ClassComponent(
-            "FieldDeclNoInit", string1=modifier, ty=ty, string2=field_name
-        )
+    return component_return
 
 
 def visit_constructor_declaration(node):
@@ -363,7 +418,10 @@ def visit_constructor_declaration(node):
         else:
             assert False, "constructordecl中有未知类型"
     return ClassComponent(
-        "ConstructorDecl", statement1=formal_parameters, statement2=constructor_body
+        "ConstructorDecl",
+        statement1=formal_parameters,
+        statement2=constructor_body,
+        node=node,
     )
 
 
@@ -461,12 +519,14 @@ def visit_type(node):
             return Ty("TyString")
         elif string1 == "Double":
             return Ty("TyFloat")
-        elif string1 == "double":
-            return Ty("TyFloat")
         elif string1 == "Float":
             return Ty("TyFloat")
         elif string1 == "Long":
             return Ty("TyLong")
+        elif string1 == "Short":
+            return Ty("TyShort")
+        elif string1 == "Byte":
+            return Ty("TyByte")
         elif string1 == "Boolean":
             return Ty("TyBool")
         elif string1 == "Character":
@@ -716,8 +776,15 @@ def visit_for_statement(node):
             local_variable_declaration = visit_local_variable_declaration(child)
         elif child.type == "binary_expression":
             expression = visit_expression(child)
-        elif child.type == "update_expression":
+        elif child.type in ["update_expression", "assignment_expression"]:
             update_expression = visit_expression(child)
+        else:
+            assert False, (
+                "forstatement中有未知类型"
+                + child.type
+                + " "
+                + getcode_from_node(source_code_line, child)
+            )
 
     statement = visit_statement(node.named_children[-1])
     return Statement(
@@ -816,6 +883,8 @@ def visit_expression(node):
             assert False, "ternaryexpression子节点数量不对"
     elif node.type == "array_initializer":
         return visit_array_initializer(node)
+    elif node.type == "instanceof_expression":
+        return visit_instanceof_expression(node)
     else:
         assert False, (
             "expression中有未知类型:"
@@ -844,6 +913,8 @@ def visit_primary_expression(node):
         return visit_array_creation_expression(node)
     elif node.type == "this":
         return Term("TmVar", string="this")
+    elif node.type == "parenthesized_expression":
+        return visit_expression(node.named_children[0])
     elif node.type in literal_list:
         return visit_literal(node)
     else:
@@ -1139,3 +1210,12 @@ def visit_update_expression(node):
 
     else:
         assert False, "updateexpression子节点数量不对"
+
+
+def visit_instanceof_expression(node):
+    if node.child_count == 3:
+        term1 = visit_expression(node.children[0])
+        ty1 = visit_type(node.children[2])
+    else:
+        assert False, "instanceofexpression子节点数量不对"
+    return Term("TmInstanceOf", term1=term1, ty=ty1)

@@ -3,10 +3,10 @@ import java.lang.*;
 import java.util.*;
 import java.math.*;
 
-
 class SumNegativenum {
     /**
-     * * Write a function to calculate the sum of the negative numbers of a given list of numbers using lambda function.
+     * * Write a function to calculate the sum of the negative numbers of a given
+     * list of numbers using lambda function.
      *
      * > sumNegativenum([2, 4, -6, -9, 11, -12, 14, -5, 17])
      * -32

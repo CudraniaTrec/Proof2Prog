@@ -180,6 +180,7 @@ class Term:
     | TmLe -> term1 <= term2
     | TmGe -> term1 >= term2
     | TmChoose -> term1 ? term2 : term3
+    | TmInstanceOf -> term1 instanceof ty
     """
 
     term = ""
@@ -405,6 +406,8 @@ class Term:
                 + " : "
                 + self.term3.toString()
             )
+        elif self.term == "TmInstanceOf":
+            return self.term1.toString() + " instanceof " + self.ty.toString()
         else:
             assert False, "term中有未知类型: " + self.term
 
@@ -468,15 +471,14 @@ class Term:
                 "Collections",
                 "System",
                 "java",
-                "Pattern"
-                "Comparator",
+                "Pattern" "Comparator",
                 "BigInteger",
             ]:
                 TyObject = Ty("TyExternal", self.term1.string)
                 return CoqProof(
                     "T_TyFieldAccess",
                     params={"f": f'"{self.string}"', "T": TyObject.toCoq()},
-                    children = [Coqsimpl, Coqsimpl]
+                    children=[Coqsimpl, Coqsimpl],
                 )
             else:
                 proof1 = self.term1.toCoq()
@@ -595,7 +597,7 @@ class Term:
             proof2 = self.term2.toCoq()
             return CoqProof(
                 "T_ArrayConcat",
-                children=[proof1,proof2],
+                children=[proof1, proof2],
             )
         elif self.term in [
             "TmSub",
@@ -609,7 +611,7 @@ class Term:
             "TmBitAnd",
             "TmBitOr",
             "TmBitXor",
-            ]:
+        ]:
             proof1 = self.term1.toCoq()
             proof2 = self.term2.toCoq()
             return CoqProof(
@@ -622,7 +624,6 @@ class Term:
             "TmMod",
             "TmShiftL",
             "TmShiftR",
-
             "TmAnd",
             "TmOr",
         ]:  # binary operation
@@ -653,6 +654,13 @@ class Term:
             return CoqProof(
                 "T_Choose",
                 children=[proof1, proof2, proof3, Coqsimpl],
+            )
+        elif self.term == "TmInstanceOf":
+            proof1 = self.term1.toCoq()
+            return CoqProof(
+                "T_InstanceOf",
+                params={"T": self.ty.toCoq()},
+                children=[proof1],
             )
         else:
             assert False, "term中有未知类型: " + self.term
@@ -823,7 +831,7 @@ class Statement:
             return CoqProof(
                 "T_DeclNoInit",
                 params={"T": self.ty.toCoq(), "x": f'"{self.string}"'},
-                children=[Coqsimpl]
+                children=[Coqsimpl],
             )
         elif self.statement == "StDeclInit":
             return CoqProof(
@@ -924,6 +932,7 @@ class ClassComponent:
         statement2=None,
         classcomponent1=None,
         classcomponent2=None,
+        node=None,
     ):
         self.classcomponent = classcomponent
         self.string1 = string1
@@ -934,6 +943,7 @@ class ClassComponent:
         self.statement2 = statement2
         self.classcomponent1 = classcomponent1
         self.classcomponent2 = classcomponent2
+        self.node = node
 
     def toString(self, class_name="Solution"):
         if self.classcomponent == "MethodDecl":
@@ -1005,7 +1015,12 @@ class ClassComponent:
                     "T": self.ty.toCoq(),
                     "m": f'"{self.string2}"',
                 },
-                children=[Coqsimpl, self.statement1.toCoq(),Coqsimpl, self.statement2.toCoq()],
+                children=[
+                    Coqsimpl,
+                    self.statement1.toCoq(),
+                    Coqsimpl,
+                    self.statement2.toCoq(),
+                ],
             )
             return proof1
         elif self.classcomponent == "FieldDeclNoInit":

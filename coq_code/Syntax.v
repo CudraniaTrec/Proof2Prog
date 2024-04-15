@@ -75,7 +75,8 @@ Inductive Term : Type :=
     | TmAnd : Term->Term->Term                      (* tm1 && tm2 *)
     | TmOr : Term->Term->Term                       (* tm1 || tm2 *)
     | TmNot : Term->Term                            (* !tm *)
-    | TmChoose : Term->Term->Term->Term             (* tm1 ? tm2 : tm3 *).
+    | TmChoose : Term->Term->Term->Term             (* tm1 ? tm2 : tm3 *)
+    | TmInstanceOf : Term->Ty->Term                 (* tm1 instanceof ty *).
 
 Inductive Statement : Type :=
     | StSkip : Statement
@@ -238,7 +239,7 @@ Inductive STy : Type :=
     | STyGeneric0: string->STy           (* s<> *)
     | STyGeneric1: string->STy->STy      (* s<T> *)
     | STyGeneric2: string->STy->STy->STy (* s<T1,T2> *)
-    | STyTemplate: STy                  (* T *)
+    | STyTemplate: STy                   (* T *)
     | STyNull: STy.                      (* null *)
 
     
@@ -256,7 +257,7 @@ Notation "'[]'" := STyVoid (in custom FJ_STy at level 0).
 Notation "[ T ]" := (STyList T STyVoid) (in custom FJ_STy at level 10).
 Notation "[ T1 ; T2 ; .. ; Tn ]" := (STyList T1 (STyList T2 .. (STyList Tn STyVoid) ..)) (in custom FJ_STy at level 10).
 Notation "T []" := (STyArray T) (in custom FJ_STy at level 10).
-(* translate types in java normal grammar into the simplified tpe system*)
+(* translate types in java normal grammar into the simplified type system*)
 
 
 
@@ -1330,6 +1331,10 @@ Inductive has_type : Context->Term->STy->Prop :=
         Gamma |-- tm3 \in T' ->
         have_same_sty T T' = true ->
         Gamma |-- (TmChoose tm1 tm2 tm3) \in T
+    | T_InstanceOf : forall Gamma tm T T',
+        (* tm instanceof T *)
+        Gamma |-- tm \in T' ->
+        Gamma |-- (TmInstanceOf tm T) \in STyBoolean
 where "Gamma '|--' t '\in' T" := (has_type Gamma t T).
 (*typing rules for statements*)
 Reserved Notation "Gamma1 '--' s '-->' Gamma2" (at level 101, s at level 0, Gamma2 at level 0).
