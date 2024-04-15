@@ -3,10 +3,10 @@ import java.lang.*;
 import java.util.*;
 import java.math.*;
 
-
 class SquareSum {
     /**
-     * * Write a Java function to find the sum of squares of first n odd natural numbers.
+     * * Write a Java function to find the sum of squares of first n odd natural
+     * numbers.
      *
      * > squareSum(2)
      * 10

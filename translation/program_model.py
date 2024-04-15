@@ -202,6 +202,7 @@ class Term:
         term1=None,
         term2=None,
         term3=None,
+        parenthesized=False,
     ):
         self.term = term
         self.int_literal = int_literal
@@ -211,6 +212,7 @@ class Term:
         self.term1 = term1
         self.term2 = term2
         self.term3 = term3
+        self.parenthesized = parenthesized
 
     def lengthOfTermlist(self, term_list):
         """
@@ -278,7 +280,7 @@ class Term:
         else:
             return array_list.toString()
 
-    def toString(self, asArrayParam=False):
+    def toStringMain(self, asArrayParam=False):
         """
         Converts the object to its string representation in java.
 
@@ -313,7 +315,7 @@ class Term:
         elif self.term == "TmNewArrayInit":
             return "new " + self.ty.toString() + self.term1.toString()
         elif self.term == "TmConversion":
-            return "(" + self.ty.toString() + ") " + self.term1.toString()
+            return "((" + self.ty.toString() + ") " + self.term1.toString()+")"
         elif self.term == "TmArrayAccess":
             return self.term1.toString() + "[" + self.term2.toString() + "]"
         elif self.term == "TmMethodInvocation":
@@ -328,6 +330,22 @@ class Term:
         elif self.term == "TmMethodInvocationNoObject":
             return self.string + "(" + self.term1.toString() + ")"
         elif self.term == "TmAssign":
+            #print += ... as x = x + ...
+            if self.term1.term == "TmVar" and self.term2.term in ["TmAdd", "TmSub", "TmMul", "TmDiv"]:
+                if self.term2.term1.term == "TmVar" and self.term2.term1.string == self.term1.string:
+                    operator = self.term2.term
+                    if operator == "TmAdd":
+                        operator = "+="
+                    elif operator == "TmSub":
+                        operator = "-="
+                    elif operator == "TmMul":
+                        operator = "*="
+                    elif operator == "TmDiv":
+                        operator = "/="
+                    else:
+                        assert False, "term中有未知类型: " + self.term2.term
+                    return self.term1.toString() + " " + operator + " " + self.term2.term2.toString()
+
             return self.term1.toString() + " = " + self.term2.toString()
         elif self.term == "TmNil":
             return ""
@@ -401,9 +419,15 @@ class Term:
         elif self.term == "TmChoose":
             return f"({self.term1.toString()} ? {self.term2.toString()} : {self.term3.toString()})"
         elif self.term == "TmInstanceOf":
-            return f"({self.term1.toString()} instanceof {self.ty.toString()})"
+            return f"({self.term1.toString()} instanceof {self.ty.toString(printClass=True)})"
         else:
             assert False, "term中有未知类型: " + self.term
+
+    def toString(self, asArrayParam=False):
+        if self.parenthesized:
+            return "(" + self.toStringMain(asArrayParam=asArrayParam) + ")"
+        else:
+            return self.toStringMain(asArrayParam=asArrayParam)
 
     def toCoq(self):
         Coqsimpl = CoqProof("simpl. try reflexivity")
@@ -944,7 +968,7 @@ class ClassComponent:
             return (
                 self.string1
                 + " "
-                + self.ty.toString()
+                + self.ty.toString(printClass=True)
                 + " "
                 + self.string2
                 + "("

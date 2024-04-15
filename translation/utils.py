@@ -518,7 +518,7 @@ def visit_type(node):
         elif string1 == "String":
             return Ty("TyString")
         elif string1 == "Double":
-            return Ty("TyFloat")
+            return Ty("TyDouble")
         elif string1 == "Float":
             return Ty("TyFloat")
         elif string1 == "Long":
@@ -576,6 +576,12 @@ def visit_generic_type(node):
                 ), "generic_type中typearguments子节点数量不对" + getcode_from_node(
                     source_code_line, child
                 )
+        elif child.type == "scoped_type_identifier": #Map.Entry<Int,Int>
+            start_point = child.start_point
+            end_point = child.end_point
+            string1 = getcode_from_beginandend(
+                source_code_line, start_point, end_point
+            )
         else:
             assert False, (
                 "generic_type中有未知类型"
@@ -768,28 +774,50 @@ def visit_local_variable_declaration(node):
 
 
 def visit_for_statement(node):
-    local_variable_declaration = Statement("StSkip")
+    variable_declaration = Statement("StSkip")
     expression = Term("TmTrue")
     update_expression = Term("TmNull")
-    for child in node.named_children[:-1]:
-        if child.type == "local_variable_declaration":
-            local_variable_declaration = visit_local_variable_declaration(child)
-        elif child.type == "binary_expression":
-            expression = visit_expression(child)
-        elif child.type in ["update_expression", "assignment_expression"]:
-            update_expression = visit_expression(child)
-        else:
-            assert False, (
-                "forstatement中有未知类型"
-                + child.type
-                + " "
-                + getcode_from_node(source_code_line, child)
-            )
+    named_children=[child for child in node.named_children if child.type not in ["line_comment", "block_comment", "modifiers"]]
 
-    statement = visit_statement(node.named_children[-1])
+    if len(named_children) == 4: # for(int a=0;a<5;a++){...}
+        if named_children[0].type == "local_variable_declaration":
+            variable_declaration = visit_local_variable_declaration(named_children[0])
+        elif named_children[0].type == "assignment_expression":
+            assign_exp = visit_assignment_expression(named_children[0])
+            variable_declaration = Statement("StExpression", term=assign_exp)
+        else:
+            assert False, "forstatement-0 中有未知类型"+named_children[0].type
+
+        if named_children[1].type in ["binary_expression", "unary_expression"]:
+            expression = visit_expression(named_children[1])
+        else:
+            assert False, "forstatement-1 中有未知类型"+named_children[1].type
+
+        if named_children[2].type in ["update_expression", "assignment_expression"]:
+                update_expression = visit_expression(named_children[2])
+        else:
+            assert False, "forstatement-2 中有未知类型"+named_children[2].type
+
+    elif len(named_children) == 3: # for(a=0;;a++){...}
+        if named_children[0].type == "local_variable_declaration":
+            variable_declaration = visit_local_variable_declaration(named_children[0])
+        elif named_children[0].type == "assignment_expression":
+            assign_exp = visit_assignment_expression(named_children[0])
+            variable_declaration = Statement("StExpression", term=assign_exp)
+        else:
+            assert False, "forstatement-0 中有未知类型"+named_children[0].type
+
+        if named_children[1].type in ["update_expression", "assignment_expression"]:
+            update_expression = visit_expression(named_children[1])
+        else:
+            assert False, "forstatement-1 中有未知类型"+named_children[1].type
+    else:
+        assert False, "forstatement中节点个数不正确"
+
+    statement = visit_statement(named_children[-1])
     return Statement(
         "StFor",
-        statement1=local_variable_declaration,
+        statement1=variable_declaration,
         term=expression,
         update_term=update_expression,
         statement2=statement,
@@ -857,7 +885,9 @@ def visit_expression(node):
     elif node.type == "update_expression":
         return visit_update_expression(node)
     elif node.type == "parenthesized_expression":
-        return visit_expression(node.named_children[0])
+        ret = visit_expression(node.named_children[0])
+        ret.parenthesized = True
+        return ret
     elif node.type in literal_list:
         return visit_literal(node)
     elif node.type in primary_type_list:
@@ -1050,8 +1080,10 @@ def visit_literal(node):
         float_literal = float(getcode_from_node(source_code_line, node))
         return Term("TmFloat", float_literal=float_literal)
     elif node.type == "character_literal":
+        char_literal=getcode_from_node(source_code_line, node)[1:-1]
+        char=char_literal.encode('utf-8').decode("unicode_escape")
         return Term(
-            "TmChar", int_literal=ord(getcode_from_node(source_code_line, node)[1])
+            "TmChar", int_literal=ord(char)
         )
     elif node.type == "true":
         return Term("TmTrue")
@@ -1073,7 +1105,11 @@ def visit_literal(node):
 def visit_binary_expression(node):
     if node.child_count == 3:
         term1 = visit_expression(node.children[0])
+        if term1.term=="TmAssign":
+            term1.parenthesized = True
         term2 = visit_expression(node.children[2])
+        if term2.term=="TmAssign":
+            term2.parenthesized = True
         string1 = getcode_from_node(source_code_line, node.children[1])
     else:
         assert False, "binaryexpression子节点数量不对"
@@ -1090,6 +1126,8 @@ def visit_binary_expression(node):
     elif string1 == "<<":
         return Term("TmShiftL", term1=term1, term2=term2)
     elif string1 == ">>":
+        return Term("TmShiftR", term1=term1, term2=term2)
+    elif string1 == ">>>":
         return Term("TmShiftR", term1=term1, term2=term2)
     elif string1 == "&":
         return Term("TmBitAnd", term1=term1, term2=term2)
@@ -1114,6 +1152,8 @@ def visit_binary_expression(node):
         return Term("TmAnd", term1=term1, term2=term2)
     elif string1 == "||":
         return Term("TmOr", term1=term1, term2=term2)
+    else:
+        assert False, "binaryexpression中有未知运算符"+string1
 
 
 def visit_unary_expression(node):
