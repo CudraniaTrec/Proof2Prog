@@ -349,29 +349,29 @@ class Term:
         elif self.term == "TmArrayConcat":
             return "{" + self.printArrayLiteral(self) + "}"
         elif self.term == "TmAdd":
-            return self.term1.toString() + " + " + self.term2.toString()
+            return f"( {self.term1.toString()} + {self.term2.toString()} )"
         elif self.term == "TmSub":
-            return self.term1.toString() + " - " + self.term2.toString()
+            return f"( {self.term1.toString()} - {self.term2.toString()} )"
         elif self.term == "TmMul":
-            return self.term1.toString() + " * " + self.term2.toString()
+            return f"{self.term1.toString()} * {self.term2.toString()}"
         elif self.term == "TmDiv":
-            return self.term1.toString() + " / " + self.term2.toString()
+            return f"{self.term1.toString()} / {self.term2.toString()}"
         elif self.term == "TmMod":
-            return self.term1.toString() + " % " + self.term2.toString()
+            return f"{self.term1.toString()} % {self.term2.toString()}"
         elif self.term == "TmNeg":
-            return "-" + self.term1.toString()
+            return f"(-{self.term1.toString()})"
         elif self.term == "TmShiftL":
-            return self.term1.toString() + " << " + self.term2.toString()
+            return f"({self.term1.toString()} << {self.term2.toString()})"
         elif self.term == "TmShiftR":
-            return self.term1.toString() + " >> " + self.term2.toString()
+            return f"({self.term1.toString()} >> {self.term2.toString()})"
         elif self.term == "TmBitAnd":
-            return self.term1.toString() + " & " + self.term2.toString()
+            return f"({self.term1.toString()} & {self.term2.toString()})"
         elif self.term == "TmBitOr":
-            return self.term1.toString() + " | " + self.term2.toString()
+            return f"({self.term1.toString()} | {self.term2.toString()})"
         elif self.term == "TmBitXor":
-            return self.term1.toString() + " ^ " + self.term2.toString()
+            return f"({self.term1.toString()} ^ {self.term2.toString()})"
         elif self.term == "TmBitNot":
-            return "~" + self.term1.toString()
+            return f"(~{self.term1.toString()})"
         elif self.term == "TmPostInc":
             return self.term1.toString() + "++"
         elif self.term == "TmPostDec":
@@ -381,7 +381,7 @@ class Term:
         elif self.term == "TmPreDec":
             return "--" + self.term1.toString()
         elif self.term == "TmAnd":
-            return self.term1.toString() + " && " + self.term2.toString()
+            return f"{self.term1.toString()} && {self.term2.toString()} "
         elif self.term == "TmOr":
             return self.term1.toString() + " || " + self.term2.toString()
         elif self.term == "TmNot":
@@ -399,15 +399,9 @@ class Term:
         elif self.term == "TmGe":
             return self.term1.toString() + " >= " + self.term2.toString()
         elif self.term == "TmChoose":
-            return (
-                self.term1.toString()
-                + " ? "
-                + self.term2.toString()
-                + " : "
-                + self.term3.toString()
-            )
+            return f"({self.term1.toString()} ? {self.term2.toString()} : {self.term3.toString()})"
         elif self.term == "TmInstanceOf":
-            return self.term1.toString() + " instanceof " + self.ty.toString()
+            return f"({self.term1.toString()} instanceof {self.ty.toString()})"
         else:
             assert False, "term中有未知类型: " + self.term
 
