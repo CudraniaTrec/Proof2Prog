@@ -301,24 +301,7 @@ Fixpoint SimplType (T:Ty) : STy :=
     | TyGeneric1 s T' => STyGeneric1 s (SimplType T')
     | TyGeneric2 s T1 T2 => STyGeneric2 s (SimplType T1) (SimplType T2)
     end.
-Definition iterable (T1 T2: STy):=
-    match T2 with
-    | STyArray T3 => T1=T3
-    | STyGeneric1 "List" T3 => T1=T3
-    | STyGeneric1 "Set" T3 => T1=T3
-    | STyGeneric1 "Queue" T3 => T1=T3
-    | STyGeneric1 "Deque" T3 => T1=T3
-    | STyGeneric1 "Stack" T3 => T1=T3
-    | STyGeneric1 "ArrayList" T3 => T1=T3
-    | STyGeneric1 "LinkedList" T3 => T1=T3
-    | STyGeneric1 "HashSet" T3 => T1=T3
-    | STyGeneric1 "ArrayDeque" T3 => T1=T3
-    | STyClass ct => match ct "iterator" with
-                    | Some T3 => T1=T3
-                    | None => False
-                    end
-    | _ => False
-    end.
+
 Close Scope string_scope.
 
 (* define a partial map for the context *)
@@ -714,10 +697,35 @@ Definition have_right_conversion (Ty1 : Ty)(STy1 : STy) :=
                     | _ => None
                     end
     | TyExternal "List" => match STy1 with
-                            | STyExternal "Object" => Some(TyGeneric0 "List")
+                            | STyExternal "Object" => Some(STyGeneric1 "List" STyTemplate)
+                            | _ => None
+                            end
+    | TyGeneric1 "List" T => match STy1 with
+                            | STyExternal "Object" => Some(STyGeneric1 "List" (SimplType T))
+                            | _ => None
                             end
     | _ => None
     end.
+
+Definition iterable (T1 T2: STy):=
+    match T2 with
+    | STyArray T3 => T1=T3
+    | STyGeneric1 "List" T3 => (have_son_sty T1 T3) = true
+    | STyGeneric1 "Set" T3 => T1=T3
+    | STyGeneric1 "Queue" T3 => T1=T3
+    | STyGeneric1 "Deque" T3 => T1=T3
+    | STyGeneric1 "Stack" T3 => T1=T3
+    | STyGeneric1 "ArrayList" T3 => T1=T3
+    | STyGeneric1 "LinkedList" T3 => T1=T3
+    | STyGeneric1 "HashSet" T3 => T1=T3
+    | STyGeneric1 "ArrayDeque" T3 => T1=T3
+    | STyClass ct => match ct "iterator"%string with
+                    | Some T3 => T1=T3
+                    | None => False
+                    end
+    | _ => False
+    end.
+
 Definition CObject : partial_map STy := (
                                         "toString" |-> <([]->STyString)>).
 Definition CCollections : partial_map STy := (
@@ -834,7 +842,7 @@ Definition CCharacter : partial_map STy := (
                                             "toLowerCase"|-><([STyChar]->STyChar)>; 
                                             "toUpperCase"|-><([STyChar]->STyChar)>; 
                                             (* "charValue"|-><([]->STyNumeric)>;  *)
-                                            "toString"|-><([STyChar]->STyString)>;
+                                            "toString"|-><([(STyList STyTemplate STyVoid)]->STyString)>;
                                             "isLetterOrDigit"|-><([STyChar]->STyBoolean)>).
 Definition CStringTokenizer : partial_map STy := (
                                                 "nextToken"|-><([]->STyString)>;
@@ -987,6 +995,7 @@ Definition CMap (ST1 ST2:STy) : partial_map STy := (
                                                              "getOrDefault"|-><([ST1;ST2]->ST2)>;
                                                              "values"|-><([]->(STyGeneric1 "Collection" ST2))>;
                                                              "keySet"|-><([]->(STyGeneric1 "Set" ST1))>; 
+                                                             "entrySet" |-> <([]->(STyGeneric1 "Set" (STyGeneric2 "Map.Entry" ST1 ST2)))>;
                                                              "putIfAbsent"|-> <([ST1;ST2]->ST2)>;
                                                              "remove"|-><([ST1]->ST2)>;
                                                              "size"|-><([]->STyNumeric)>).
@@ -1014,6 +1023,7 @@ Open Scope string_scope.
 Definition getClassMap (sty:STy)(Gamma: partial_map STy) : option(partial_map STy) :=
     match sty with
     | STyNumeric => Some CInteger
+    | STyChar => Some CCharacter
     | STyString => Some CString
     | STyExternal s => match s with
                         | "Arrays" => Some CArrays
@@ -1533,75 +1543,3 @@ End Syntax_Example.
 
 Open Scope string_scope.
 
-Example prog_well_typed : exists p, program_well_typed p.
-Proof.
-unfold program_well_typed.
-eexists.
-eexists.
-eapply T_ProgramConcat.
-{ eapply T_ImportDecl with(n1:="java.io")(n2:="*"). }
-{ eapply T_ProgramConcat.
-  { eapply T_ImportDecl with(n1:="java.lang")(n2:="*"). }
-  { eapply T_ProgramConcat.
-    { eapply T_ImportDecl with(n1:="java.util")(n2:="*"). }
-    { eapply T_ProgramConcat.
-      { eapply T_ImportDecl with(n1:="java.math")(n2:="*"). }
-      { eapply T_ClassDecl with(name:="EmptyDit").
-        { simpl. try reflexivity. }
-        { eapply T_MethodDecl with(modif:="public static")(T:=TyBool)(m:="emptyDit").
-          { simpl. try reflexivity. }
-          { eapply T_Concat.
-            { eapply T_DeclNoInit with(T:=(TyExternal "Object"))(x:="list1").
-              simpl. try reflexivity. }
-            { eapply T_Skip. } }
-          { simpl. try reflexivity. }
-          { eapply T_Concat.
-            { eapply T_Concat.
-              { eapply T_DeclInit with(T:=TyBool)(x:="emptyDit").
-                { simpl. try reflexivity. }
-                { eapply T_True. }
-                { simpl. try reflexivity. } }
-              { eapply T_Skip. } }
-            { eapply T_Concat.
-              { eapply T_If.
-                { eapply T_InstanceOf with(T:=(TyExternal "List")).
-                  eapply T_Var with(x:="list1").
-                  simpl. try reflexivity. }
-                { eapply T_Concat.
-                  { eapply T_Foreach with(T:=(TyExternal "Object"))(x:="obj").
-                    { simpl. try reflexivity. }
-                    { eapply T_Conversion with(T:=(TyExternal "List")).
-                      { eapply T_Var with(x:="list1").
-                        simpl. try reflexivity. }
-                      { simpl. try reflexivity. } }
-                    { simpl. try reflexivity. }
-                    { eapply T_Concat.
-                      { eapply T_If.
-                        { eapply T_Not.
-                          eapply T_InstanceOf with(T:=(TyExternal "Map")).
-                          eapply T_Var with(x:="obj").
-                          simpl. try reflexivity. }
-                        { eapply T_Concat.
-                          { eapply T_Expression.
-                            eapply T_Assign.
-                            { eapply T_Var with(x:="emptyDit").
-                              simpl. try reflexivity. }
-                            { eapply T_False. }
-                            { simpl. try reflexivity. } }
-                          { eapply T_Concat.
-                            { eapply T_Break. }
-                            { eapply T_Skip. } } } }
-                      { eapply T_Skip. } } }
-                  { eapply T_Skip. } } }
-              { eapply T_Concat.
-                { eapply T_Return.
-                  { eapply T_Var with(x:="emptyDit").
-                    simpl. try reflexivity. }
-                  { simpl. try reflexivity. }
-                  { simpl. try reflexivity. } }
-                { eapply T_Skip. } } } } } } } } }
-  Unshelve.
-  all: apply STyVoid.
-Defined.
-Definition prog := the_exists_term (prog_well_typed).
-Print prog.

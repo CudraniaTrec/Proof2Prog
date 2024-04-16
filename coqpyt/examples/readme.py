@@ -36,6 +36,7 @@ with CoqFile(os.path.join(os.getcwd(), "examples/readme.v")) as coq_file:
 # Open Proof file
 with ProofFile(os.path.join(os.getcwd(), "examples/readme.v")) as proof_file:
     # Enter proof
+    print("="*50)
     proof_file.exec(nsteps=4)
     print("In proof:", proof_file.in_proof)
     # Get current goals
@@ -44,21 +45,20 @@ with ProofFile(os.path.join(os.getcwd(), "examples/readme.v")) as proof_file:
     # Run remaining file
     proof_file.run()
     # Number of proofs in the file
-    print("Number of proofs:", len(proof_file.proofs))
+    print("\nNumber of proofs:", len(proof_file.proofs))
     print("Proof:", proof_file.proofs[0].text)
 
     # Print steps of proof
     for step in proof_file.proofs[0].steps:
         print(step.text, end="")
-    print()
 
-    # Get the context used in the third step
+    print("\n\nGet the context used in the third step:")
     print(proof_file.proofs[0].steps[2].context)
-    # Print the goals in the third step
+    print("\nPrint the goals in the third step:")
     print(proof_file.proofs[0].steps[2].goals)
 
     # Print number of terms in context
-    print("Number of terms:", len(proof_file.context.terms))
+    print("\nNumber of terms:", len(proof_file.context.terms))
     # Filter for Notations only
     print(
         "Number of notations:",

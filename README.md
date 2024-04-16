@@ -17,7 +17,8 @@
    - utils.py: 翻译 Java 程序到内存形式的程序
    - run.ipynb: 实际运行整个翻译流程
    - solutions: 所有的 Java 程序(leetcode benchmark)
-   - mbjp: 所有的 Java 程序(mbjp benchmark)
+   - mbjp: 所有的 Java 程序(mbjp benchmark) 以及其对应的证明
    - build: tree-sitter 库使用的 Java 语言文法
    - mxeval: 包含了检测mbjp数据集中生成的程序是否合法的函数，可通过 `pip install -e mxeval`安装
    - mbjp.json: MBJP完整数据集
+6. coqpyt: 和coq交互的第三方库
