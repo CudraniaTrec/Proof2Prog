@@ -1147,7 +1147,11 @@ class Program:
                 children=[Coqsimpl, self.classcomponent.toCoq()],
             )
 
-
+from transformers import AutoTokenizer
+tokenizer=AutoTokenizer.from_pretrained("Salesforce/codet5-small")
+ruleDict={} # token -> (id, count)
+predefined_vocab=["TyInt","TyLong","TyShort","TyByte","TyChar","TyBool","TyFloat","TyDouble","TyVoid","TyExternal","TyArray","TyString","TyGeneric0","TyGeneric1","TyGeneric2"]
+tokenizer.add_tokens(predefined_vocab)
 class CoqProof:
     isEapply = False
     tactic = ""
@@ -1191,21 +1195,47 @@ class CoqProof:
 
         return proof_str
 
+    def tokenization(self):
+        """
+        Tokenizes the proof string.
 
-if __name__ == "__main__":
-    coq_proof1 = CoqProof("reflexivity")
-    coq_proof2 = CoqProof("T_Integer", params={"n": 0})
-    coq_proof3 = CoqProof("T_Return", children=[coq_proof2, coq_proof1])
-    coq_proof4 = CoqProof("T_Skip")
-    coq_proof5 = CoqProof(
-        "T_MethodDecl",
-        params={"modif": '""', "T": "TyInt", "m": "main"},
-        children=[coq_proof1, coq_proof4, coq_proof1, coq_proof3],
-    )
-    coq_proof6 = CoqProof(
-        "T_ClassDecl", params={"name": '"Solution"'}, children=[coq_proof1, coq_proof5]
-    )
-    coq_proof7 = CoqProof("eexists", sibling=coq_proof6)
-    coq_proof8 = CoqProof("eexists", sibling=coq_proof7)
-    coq_proof9 = CoqProof("unfold program_well_typed", sibling=coq_proof8)
-    print(coq_proof9.toString())
+        Returns:
+            List[str]: The list of tokens.
+        
+        To zhechong:
+        感觉其实不一定用树结构?直接把核心信息打出来就是Java树的深搜遍历,那个t5的窗口好像是500/700,如果把那些eapply,with加上太长 窗口不够用，所以其实要能让他记住的话还是把那些辅助值删掉 那其实打印下面这些就够了 
+        感觉恢复可能就是要反向匹配一下 感觉不会太难会有点费时间
+        我复制了更改前的一份在那个copy里,我不太想的清你说的树结构是什么样,你可以在那个copy里面继续实现,我用现在下面这个丢到模型里试试
+        如果树结构指的是 比方说 eapply -> T_MethodInvocation, T_MethodInvocation -> m, m -> "max"这种的话, 那我认为其实只保留T_MethodInvocation m "max" 就足够了 反正token之后都是一个数
+        我想的是所有的内置token都分配一个新的id,然后params里面的字符串看看怎么搞 应该params里面的都是已经定义过的字符(子)部分了
+        转化在run_tokenization里面,我觉得这个长度还能接受
+        """
+
+        
+        tokens = []
+        tokenizer.add_tokens([self.tactic])
+        if self.isEapply:
+            tokens.append(self.tactic)
+            for k in self.params:
+                tokenizer.add_tokens([k])
+                tokens.append(k)
+                if len(str(self.params[k]))<=6: #short string can be viewd as a token
+                    tokenizer.add_tokens([str(self.params[k])])
+                tokens+=tokenizer.tokenize(f"{self.params[k]}")
+        elif self.tactic == "simpl. try reflexivity":
+            pass
+        else:
+            tokens.append(self.tactic)
+        
+        for token in tokens:
+            if token not in ruleDict:
+                ruleDict[token] = (len(ruleDict),1)
+            else:
+                ruleDict[token] = (ruleDict[token][0],ruleDict[token][1]+1)
+
+        for child in self.children:
+            tokens += child.tokenization()
+        return tokens
+
+def detokenization(tokens):
+    pass

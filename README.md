@@ -19,6 +19,6 @@
    - solutions: 所有的 Java 程序(leetcode benchmark)
    - mbjp: 所有的 Java 程序(mbjp benchmark) 以及其对应的证明
    - build: tree-sitter 库使用的 Java 语言文法
-   - mxeval: 包含了检测mbjp数据集中生成的程序是否合法的函数，可通过 `pip install -e mxeval`安装
+   - mxeval: 第三方库，包含了检测mbjp数据集中生成的程序是否合法的函数，可通过 `pip install -e mxeval`安装
    - mbjp.json: MBJP完整数据集
-6. coqpyt: 和coq交互的第三方库
+6. coqpyt: 和coq交互的第三方库(可以通过`python -m pip install -e coqpyt`安装)
