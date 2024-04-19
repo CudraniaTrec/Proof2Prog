@@ -495,7 +495,7 @@ class Term:
                 TyObject = Ty("TyExternal", self.term1.string)
                 return CoqProof(
                     "T_TyFieldAccess",
-                    params={"f": f'"{self.string}"', "T": TyObject.toCoq()},
+                    params={"f": f'"{self.string}"', "T": TyObject},
                     children=[Coqsimpl, Coqsimpl],
                 )
             else:
@@ -509,7 +509,7 @@ class Term:
             proof1 = self.term1.toCoq()
             return CoqProof(
                 "T_New'",
-                params={"T": self.ty.toCoq()},
+                params={"T": self.ty},
                 children=[Coqsimpl, proof1],
             )
         elif self.term == "TmNewArrayNoInit":
@@ -517,7 +517,7 @@ class Term:
             if self.term1.term == "TmNil":  # new int a
                 return CoqProof(
                     "T_NewArrayNoInit",
-                    params={"T": self.ty.toCoq()},
+                    params={"T": self.ty},
                 )
             else:  # new int a[1][2]
                 tm1, tm2 = self.term1.term1, self.term1.term2
@@ -525,21 +525,21 @@ class Term:
                 proof2 = Term("TmNewArrayNoInit", term1=tm2, ty=self.ty).toCoq()
                 return CoqProof(
                     "T_NewArrayNoInit'",
-                    params={"T": self.ty.toCoq()},
+                    params={"T": self.ty},
                     children=[proof1, proof2],
                 )
         elif self.term == "TmNewArrayInit":
             proof1 = self.term1.toCoq()
             return CoqProof(
                 "T_NewArrayInit",
-                params={"T": self.ty.toCoq()},
+                params={"T": self.ty},
                 children=[Coqsimpl, proof1],
             )
         elif self.term == "TmConversion":
             proof1 = self.term1.toCoq()
             return CoqProof(
                 "T_Conversion",
-                params={"T": self.ty.toCoq()},
+                params={"T": self.ty},
                 children=[proof1, Coqsimpl],
             )
         elif self.term == "TmArrayAccess":
@@ -574,7 +574,7 @@ class Term:
                 TyObject = Ty("TyExternal", self.term1.string)
                 return CoqProof(
                     "T_TyMethodInvocation",
-                    params={"m": f'"{self.string}"', "T": TyObject.toCoq()},
+                    params={"m": f'"{self.string}"', "T": TyObject},
                     children=[Coqsimpl, Coqsimpl, self.term2.toCoq(), Coqsimpl],
                 )
             else:
@@ -677,7 +677,7 @@ class Term:
             proof1 = self.term1.toCoq()
             return CoqProof(
                 "T_InstanceOf",
-                params={"T": self.ty.toCoq()},
+                params={"T": self.ty},
                 children=[proof1],
             )
         else:
@@ -848,13 +848,13 @@ class Statement:
         elif self.statement == "StDeclNoInit":
             return CoqProof(
                 "T_DeclNoInit",
-                params={"T": self.ty.toCoq(), "x": f'"{self.string}"'},
+                params={"T": self.ty, "x": f'"{self.string}"'},
                 children=[Coqsimpl],
             )
         elif self.statement == "StDeclInit":
             return CoqProof(
                 "T_DeclInit",
-                params={"T": self.ty.toCoq(), "x": f'"{self.string}"'},
+                params={"T": self.ty, "x": f'"{self.string}"'},
                 children=[Coqsimpl, self.term.toCoq(), Coqsimpl],
             )
         elif self.statement == "StExpression":
@@ -896,7 +896,7 @@ class Statement:
         elif self.statement == "StForeach":
             return CoqProof(
                 "T_Foreach",
-                params={"T": self.ty.toCoq(), "x": f'"{self.string}"'},
+                params={"T": self.ty, "x": f'"{self.string}"'},
                 children=[
                     Coqsimpl,
                     self.term.toCoq(),
@@ -1030,7 +1030,7 @@ class ClassComponent:
                 "T_MethodDecl",
                 params={
                     "modif": f'"{self.string1}"',
-                    "T": self.ty.toCoq(),
+                    "T": self.ty,
                     "m": f'"{self.string2}"',
                 },
                 children=[
@@ -1046,7 +1046,7 @@ class ClassComponent:
                 "T_FieldDeclNoInit",
                 params={
                     "modif": f'"{self.string1}"',
-                    "T": self.ty.toCoq(),
+                    "T": self.ty,
                     "x": f'"{self.string2}"',
                 },
                 children=[Coqsimpl],
@@ -1056,7 +1056,7 @@ class ClassComponent:
                 "T_FieldDeclInit",
                 params={
                     "modif": f'"{self.string1}"',
-                    "T": self.ty.toCoq(),
+                    "T": self.ty,
                     "x": f'"{self.string2}"',
                 },
                 children=[Coqsimpl, self.term.toCoq(), Coqsimpl],
@@ -1147,11 +1147,20 @@ class Program:
                 children=[Coqsimpl, self.classcomponent.toCoq()],
             )
 
+# load tokenizer from codeT5 and predefined vocabularies
 from transformers import AutoTokenizer
-tokenizer=AutoTokenizer.from_pretrained("Salesforce/codet5-small")
-ruleDict={} # token -> (id, count)
-predefined_vocab=["TyInt","TyLong","TyShort","TyByte","TyChar","TyBool","TyFloat","TyDouble","TyVoid","TyExternal","TyArray","TyString","TyGeneric0","TyGeneric1","TyGeneric2"]
-tokenizer.add_tokens(predefined_vocab)
+import pickle
+tokenizer=AutoTokenizer.from_pretrained("Salesforce/codet5-small",min_length=4, local_files_only=True)
+ruleDict=pickle.load(open("Data/grammarT5_rules.pkl","rb"))
+# add predefined names into vocab
+type_name_vocab=["TyInt","TyLong","TyShort","TyByte","TyChar","TyBool","TyFloat","TyDouble","TyVoid","TyExternal","TyArray","TyString","TyGeneric0","TyGeneric1","TyGeneric2"]
+classname_vocab=['Object', 'Collections', 'Arrays', 'BigInteger','Integer', 'Math', 'StringBuilder', 'String', 'Character', 'StringTokenizer', 'StringBuffer', 'Scanner', 'PrintStream', 'IntStream', 'OptionalInt', 'System', 'Random', 'Matcher', 'Pattern', 'Long', 'Double','OptionLong','List','Iterator','LinkedList','ArrayList','Set','HashSet','Stack',  'PriorityQueue','Queue','ArrayDeque','Deque','Comparator','Map','Map.Entry','HashMap','LinkedHashMap','BuiltInArray']
+method_vocab=['toUpperCase', 'isUpperCase', 'log', 'put', 'getAsInt', 'subList', 'keySet', 'removeAll', 'bitCount', 'replace', 'binarySearch', 'iterator', 'addFirst', 'lowestOneBit', 'matches', 'lastIndexOf', 'isLetterOrDigit', 'find', 'toBinaryString', 'poll', 'doubleValue', 'replaceAll', 'indexOf', 'singletonList', 'reverseOrder', 'or', 'deletecharAt', 'isLetter', 'addLast', 'toRadians', 'getLast', 'reverse', 'push', 'add', 'intValue', 'toString', 'swap', 'remove', 'join', 'containsAll', 'compare', 'isEmpty', 'getKey', 'pop', 'append', 'xor', 'trimToSize', 'hasNextLine', 'offerFirst', 'hasNext', 'length', 'getValue', 'floor', 'shiftLeft', 'contains', 'endsWith', 'valueOf', 'naturalOrder', 'pow', 'not', 'putIfAbsent', 'charAt', 'floorMod', 'and', 'setLength', 'containsKey', 'arraycopy', 'copyOf', 'toArray', 'deleteCharAt', 'charValue', 'getFirst', 'retainAll', 'get', 'println', 'min', 'sin', 'offer', 'emptyList', 'getAsLong', 'sort', 'highestOneBit', 'replaceFirst', 'size', 'concat', 'format', 'removeLast', 'element', 'isAlphabetic', 'peekFirst', 'exit', 'isDigit', 'clear', 'max', 'sum', 'addAll', 'parseDouble', 'getNumericValue', 'hasMoreTokens', 'random', 'toOctalString', 'clone', 'cos', 'entrySet', 'sqrt', 'peekLast', 'PI', 'nextLine', 'nextToken', 'pollFirst', 'log10', 'tan', 'equals', 'nextInt', 'compareTo', 'removeFirst', 'trim', 'getOrDefault', 'split', 'ensureCapacity', 'values', 'MIN_VALUE', 'out', 'copyOfRange', 'asList', 'isWhitespace', 'parselong', 'putAll', 'next', 'set', 'peek', 'round', 'offerLast', 'toCharArray', 'parseInt', 'substring', 'pollLast', 'numberOfLeadingZeros', 'floorDiv', 'abs', 'hashCode', 'startsWith', 'stream', 'toLowerCase', 'fill', 'ceil', 'matcher', 'isLowerCase', 'MAX_VALUE', 'empty']
+tokenizer.add_tokens(type_name_vocab+classname_vocab+method_vocab)
+for token in type_name_vocab+classname_vocab+method_vocab:
+    if token not in ruleDict:
+        ruleDict[token] = len(ruleDict)
+
 class CoqProof:
     isEapply = False
     tactic = ""
@@ -1165,6 +1174,7 @@ class CoqProof:
         self.params = params
         self.children = children
 
+    # translate into coq proof string
     def toString(self, indent=0):
         proof_str = "  " * indent
         indent_len = len(proof_str)
@@ -1174,11 +1184,17 @@ class CoqProof:
             if len(self.params.keys()) == 0:
                 proof_str += "eapply " + self.tactic + "."
             else:
+                def toStr(param):
+                    if 'Ty' not in str(type(param)):
+                        return f'{param}'
+                    else:
+                        return param.toCoq()
+
                 proof_str += (
                     "eapply "
                     + self.tactic
                     + " with"
-                    + "".join([f"({k}:={self.params[k]})" for k in self.params])
+                    + "".join([f"({k}:={toStr(self.params[k])})" for k in self.params])
                     + "."
                 )
         else:
@@ -1201,41 +1217,341 @@ class CoqProof:
 
         Returns:
             List[str]: The list of tokens.
-        
-        To zhechong:
-        感觉其实不一定用树结构?直接把核心信息打出来就是Java树的深搜遍历,那个t5的窗口好像是500/700,如果把那些eapply,with加上太长 窗口不够用，所以其实要能让他记住的话还是把那些辅助值删掉 那其实打印下面这些就够了 
-        感觉恢复可能就是要反向匹配一下 感觉不会太难会有点费时间
-        我复制了更改前的一份在那个copy里,我不太想的清你说的树结构是什么样,你可以在那个copy里面继续实现,我用现在下面这个丢到模型里试试
-        如果树结构指的是 比方说 eapply -> T_MethodInvocation, T_MethodInvocation -> m, m -> "max"这种的话, 那我认为其实只保留T_MethodInvocation m "max" 就足够了 反正token之后都是一个数
-        我想的是所有的内置token都分配一个新的id,然后params里面的字符串看看怎么搞 应该params里面的都是已经定义过的字符(子)部分了
-        转化在run_tokenization里面,我觉得这个长度还能接受
         """
 
-        
         tokens = []
-        tokenizer.add_tokens([self.tactic])
+        if self.tactic not in ruleDict:
+            tokenizer.add_tokens([self.tactic])
         if self.isEapply:
             tokens.append(self.tactic)
+            # tokenize parameters
             for k in self.params:
-                tokenizer.add_tokens([k])
-                tokens.append(k)
-                if len(str(self.params[k]))<=6: #short string can be viewd as a token
-                    tokenizer.add_tokens([str(self.params[k])])
-                tokens+=tokenizer.tokenize(f"{self.params[k]}")
+                
+                def toStr(param):
+                    if 'Ty' not in str(type(param)):
+                        return f'{param}',True
+                    else:
+                        return param.toCoq().strip(),False
+                # whether this parameter is a string
+                pvalue, isString = toStr(self.params[k])
+
+                #remove the quotation marks
+                is_string=False
+                if pvalue[0] == '"' and pvalue[-1] == '"':
+                    pvalue = pvalue[1:-1]
+                    is_string=True
+
+                #short string can be viewd as a token
+                if len(pvalue)>=3 and len(pvalue)<5 and pvalue not in ruleDict: 
+                    tokenizer.add_tokens([pvalue])
+
+                # tokenize parameter's value
+                ptokens=tokenizer.tokenize(pvalue)
+                ptokens=[token.replace("Ġ","") for token in ptokens if '(' not in token and ')' not in token]
+                tokens+=[token for token in ptokens if token not in [" ", tokenizer.unk_token, '"',""]] + (["Ġ"] if isString else [])
         elif self.tactic == "simpl. try reflexivity":
             pass
         else:
             tokens.append(self.tactic)
         
+        # add new tokens into ruleDict
         for token in tokens:
             if token not in ruleDict:
-                ruleDict[token] = (len(ruleDict),1)
-            else:
-                ruleDict[token] = (ruleDict[token][0],ruleDict[token][1]+1)
+                ruleDict[token] = len(ruleDict)
 
         for child in self.children:
             tokens += child.tokenization()
         return tokens
 
+    def toJava(self):
+        """
+        Converts the proof into Java Model
+
+        Returns:
+            Term/Statement/ClassComponent/Program : The Java Model
+        
+        """
+
+        
+    
+# Convert tokensequence back into Coqproof
 def detokenization(tokens):
-    pass
+    class partialProof:
+        def __init__(self,type,content,complete=False):
+            self.type=type          # type of the partial-proof: string / ty / tactic
+            self.content=content    # content of the partial-proof: string-literal / ty name / tactic name
+            self.completed=complete  # whether the partial-proof is complete
+            self.terms_needed=-1     # number of terms needed to complete the partial-proof
+
+            if self.type=="string":
+                if self.content == "Ġ":
+                    self.terms_needed=0
+                    self.completed=True
+                else:
+                    self.terms_needed=1
+                    self.completed=False
+            elif self.type=="ty":
+                if self.content in ["TyInt","TyLong","TyShort","TyByte","TyChar","TyBool","TyFloat","TyDouble","TyVoid", "TyString"]:
+                    self.terms_needed=0
+                    self.content=Ty(self.content)
+                    self.completed=True
+                elif self.content in ["TyExternal","TyArray","TyGeneric0"]:
+                    self.terms_needed=1
+                    self.completed=False
+                elif self.content in ["TyGeneric1"]:
+                    self.terms_needed=2
+                    self.completed=False
+                elif self.content in ["TyGeneric2"]:
+                    self.terms_needed=3
+                    self.completed=False
+                else:
+                    assert False, "Unknown type name: "+self.content
+            elif self.type=="tactic":
+                if self.content in ["T_Null","T_True","T_False","T_Nil","T_EmptyArray","T_Skip","T_Continue","T_Break"]:
+                    self.terms_needed=0
+                    self.content=CoqProof(self.content)
+                    self.completed=True
+                elif self.content in ["T_Var","T_Integer","T_Float","T_String","T_Char","T_NewArrayNoInit","T_Neg","T_Not","T_PostInc","T_PostDec","T_PreInc","T_PreDec","T_BitNot","T_Expression","T_Return"]:
+                    self.terms_needed=1
+                    self.completed=False
+                elif self.content in ["T_TyFieldAccess","T_FieldAccess","T_New'","T_NewArrayInit","T_Conversion","T_ArrayAccess","T_MethodInvocationNoObj","T_Assign","T_List","T_ArrayConcat","T_Sub","T_Add","T_Ne","T_Eq","T_Ge","T_Lt","T_Gt","T_Le","T_BitAnd","T_BitOr","T_BitXor","T_Mul","T_Div","T_Mod","T_ShiftL","T_ShiftR","T_And","T_Or","T_InstanceOf","T_DeclNoInit","T_If","T_While","T_DoWhile","T_Concat","T_ConstructorDecl","T_ComponentConcat","T_ProgramConcat","T_ImportDecl","T_ClassDecl"]:
+                    self.terms_needed=2
+                    self.completed=False
+                elif self.content in ["T_NewArrayNoInit'","T_TyMethodInvocation","T_MethodInvocation","T_Choose","T_DeclInit","T_IfElse","T_FieldDeclNoInit"]:
+                    self.terms_needed=3
+                    self.completed=False
+                elif self.content in ["T_For","T_Foreach","T_FieldDeclInit"]:
+                    self.terms_needed=4
+                    self.completed=False
+                elif self.content in ["T_MethodDecl"]:
+                    self.terms_needed=5
+                    self.completed=False
+                else:
+                    assert False, "Unknown tactic name: "+self.content
+            else:
+                assert False, "Unknown type: "+self.type
+        
+        def complete(self,terms):
+            self.completed=True
+            if self.type=="string":
+                assert len(terms)==1 and terms[0].type=="string", f"{self.content} {terms[0].content.toString()}"
+                self.content+=("" if terms[0].content=="Ġ" else terms[0].content)
+            elif self.type=="ty":
+                if self.content=="TyExternal":
+                    assert len(terms)==1 and terms[0].type=="string"
+                    self.content=Ty("TyExternal",string=terms[0].content)
+                elif self.content=="TyArray":
+                    assert len(terms)==1 and terms[0].type=="ty"
+                    self.content=Ty("TyArray",ty1=terms[0].content)
+                elif self.content=="TyGeneric0":
+                    assert len(terms)==1 and terms[0].type=="string"
+                    self.content=Ty("TyGeneric0",string=terms[0].content)
+                elif self.content=="TyGeneric1":
+                    assert len(terms)==2 and terms[0].type=="string" and terms[1].type=="ty"
+                    self.content=Ty("TyGeneric1",string=terms[0].content,ty1=terms[1].content)
+                elif self.content=="TyGeneric2":
+                    assert len(terms)==3 and terms[0].type=="string" and terms[1].type=="ty" and terms[2].type=="ty"
+                    self.content=Ty("TyGeneric2",string=terms[0].content,ty1=terms[1].content,ty2=terms[2].content)
+                else:
+                    assert False, "Unknown type name: "+self.content
+            elif self.type=="tactic":
+                Coqsimpl = CoqProof("simpl. try reflexivity")
+                if self.content=="T_Var":
+                    assert len(terms)==1 and terms[0].type=="string"
+                    self.content=CoqProof("T_Var",params={"x":f'"{terms[0].content}"'},children=[Coqsimpl])
+                elif self.content=="T_Integer":
+                    assert len(terms)==1 and terms[0].type=="string"
+                    self.content=CoqProof("T_Integer",params={"n":terms[0].content})
+                elif self.content=="T_Float":
+                    assert len(terms)==1 and terms[0].type=="string"
+                    self.content=CoqProof("T_Float",params={"f":terms[0].content+"%float"})
+                elif self.content=="T_String":
+                    assert len(terms)==1 and terms[0].type=="string"
+                    self.content=CoqProof("T_String",params={"s":f'"{terms[0].content}"'})
+                elif self.content=="T_Char":
+                    assert len(terms)==1 and terms[0].type=="string"
+                    self.content=CoqProof("T_Char",params={"c":terms[0].content})
+                elif self.content=="T_TyFieldAccess":
+                    assert len(terms)==2 and terms[0].type=="string" and terms[1].type=="ty"
+                    self.content=CoqProof("T_TyFieldAccess",params={"f":f'"{terms[0].content}"',"T":terms[1].content},children=[Coqsimpl,Coqsimpl])
+                elif self.content=="T_FieldAccess":
+                    assert len(terms)==2 and terms[0].type=="string" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_FieldAccess",params={"f":f'"{terms[0].content}"'},children=[terms[1].content, Coqsimpl, Coqsimpl])
+                elif self.content=="T_New'":
+                    assert len(terms)==2 and terms[0].type=="ty" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_New'",params={"T":terms[0].content},children=[Coqsimpl,terms[1].content])
+                elif self.content=="T_NewArrayNoInit":
+                    assert len(terms)==1 and terms[0].type=="ty"
+                    self.content=CoqProof("T_NewArrayNoInit",params={"T":terms[0].content})
+                elif self.content=="T_NewArrayNoInit'":
+                    assert len(terms)==3 and terms[0].type=="ty" and terms[1].type=="tactic" and terms[2].type=="tactic"
+                    self.content=CoqProof("T_NewArrayNoInit'",params={"T":terms[0].content},children=[terms[1].content, terms[2].content])
+                elif self.content=="T_NewArrayInit":
+                    assert len(terms)==2 and terms[0].type=="ty" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_NewArrayInit",params={"T":terms[0].content},children=[Coqsimpl, terms[1].content])
+                elif self.content=="T_Conversion":
+                    assert len(terms)==2 and terms[0].type=="ty" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_Conversion",params={"T":terms[0].content},children=[terms[1].content,Coqsimpl])
+                elif self.content=="T_ArrayAccess":
+                    assert len(terms)==2 and terms[0].type=="tactic" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_ArrayAccess",children=[terms[0].content,terms[1].content])
+                elif self.content=="T_TyMethodInvocation":
+                    assert len(terms)==3 and terms[0].type=="string" and terms[1].type=="ty" and terms[2].type=="tactic"
+                    self.content=CoqProof("T_TyMethodInvocation",params={"m":f'"{terms[0].content}"',"T":terms[1].content},children=[Coqsimpl, Coqsimpl, terms[2].content, Coqsimpl])
+                elif self.content=="T_MethodInvocation":
+                    assert len(terms)==3 and terms[0].type=="string" and terms[1].type=="tactic" and terms[2].type=="tactic"
+                    self.content=CoqProof("T_MethodInvocation",params={"m":f'"{terms[0].content}"'},children=[terms[1].content, Coqsimpl, Coqsimpl, terms[2].content, Coqsimpl])
+                elif self.content=="T_MethodInvocationNoObj":
+                    assert len(terms)==2 and terms[0].type=="string" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_MethodInvocationNoObj",params={"m":f'"{terms[0].content}"'},children=[Coqsimpl, terms[1].content, Coqsimpl])
+                elif self.content=="T_Assign":
+                    assert len(terms)==2 and terms[0].type=="tactic" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_Assign",children=[terms[0].content, terms[1].content,Coqsimpl])
+                elif self.content=="T_List":
+                    assert len(terms)==2 and terms[0].type=="tactic" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_List",children=[terms[0].content, terms[1].content])
+                elif self.content=="T_ArrayConcat":
+                    assert len(terms)==2 and terms[0].type=="tactic" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_ArrayConcat",children=[terms[0].content, terms[1].content])
+                elif self.content in ["T_Sub","T_Add","T_Ne","T_Eq","T_Ge","T_Lt","T_Gt","T_Le","T_BitAnd","T_BitOr","T_BitXor"]:
+                    assert len(terms)==2 and terms[0].type=="tactic" and terms[1].type=="tactic"
+                    self.content=CoqProof(self.content,children=[terms[0].content, terms[1].content, Coqsimpl])
+                elif self.content in ["T_Mul","T_Div","T_Mod","T_ShiftL","T_ShiftR","T_And","T_Or"]:
+                    assert len(terms)==2 and terms[0].type=="tactic" and terms[1].type=="tactic"
+                    self.content=CoqProof(self.content,children=[terms[0].content, terms[1].content])
+                elif self.content in ["T_Neg","T_Not","T_PostInc","T_PostDec","T_PreInc","T_PreDec","T_BitNot"]:
+                    assert len(terms)==1 and terms[0].type=="tactic"
+                    self.content=CoqProof(self.content,children=[terms[0].content])
+                elif self.content=="T_Choose":
+                    assert len(terms)==3 and terms[0].type=="tactic" and terms[1].type=="tactic" and terms[2].type=="tactic"
+                    self.content=CoqProof("T_Choose",children=[terms[0].content, terms[1].content, terms[2].content, Coqsimpl])
+                elif self.content=="T_InstanceOf":
+                    assert len(terms)==2 and terms[0].type=="ty" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_InstanceOf",params={"T":terms[0].content},children=[terms[1].content])
+                elif self.content=="T_DeclNoInit":
+                    assert len(terms)==2 and terms[0].type=="ty" and terms[1].type=="string"
+                    self.content=CoqProof("T_DeclNoInit",params={"T":terms[0].content,"x":f'"{terms[1].content}"'},children=[Coqsimpl])
+                elif self.content=="T_DeclInit":
+                    assert len(terms)==3 and terms[0].type=="ty" and terms[1].type=="string" and terms[2].type=="tactic"
+                    self.content=CoqProof("T_DeclInit",params={"T":terms[0].content,"x":f'"{terms[1].content}"'},children=[Coqsimpl, terms[2].content, Coqsimpl])
+                elif self.content=="T_Expression":
+                    assert len(terms)==1 and terms[0].type=="tactic"
+                    self.content=CoqProof("T_Expression",children=[terms[0].content])
+                elif self.content=="T_If":
+                    assert len(terms)==2 and terms[0].type=="tactic" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_If",children=[terms[0].content, terms[1].content])
+                elif self.content=="T_IfElse":
+                    assert len(terms)==3 and terms[0].type=="tactic" and terms[1].type=="tactic" and terms[2].type=="tactic"
+                    self.content=CoqProof("T_IfElse",children=[terms[0].content, terms[1].content, terms[2].content])
+                elif self.content=="T_While":
+                    assert len(terms)==2 and terms[0].type=="tactic" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_While",children=[terms[0].content, terms[1].content])
+                elif self.content=="T_DoWhile":
+                    assert len(terms)==2 and terms[0].type=="tactic" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_DoWhile",children=[terms[0].content, terms[1].content])
+                elif self.content=="T_For":
+                    assert len(terms)==4 and terms[0].type=="tactic" and terms[1].type=="tactic" and terms[2].type=="tactic" and terms[3].type=="tactic"
+                    self.content=CoqProof("T_For",children=[terms[0].content, terms[1].content, terms[2].content, terms[3].content])
+                elif self.content=="T_Foreach":
+                    assert len(terms)==4 and terms[0].type=="ty" and terms[1].type=="string" and terms[2].type=="tactic" and terms[3].type=="tactic"
+                    self.content=CoqProof("T_Foreach",params={"T":terms[0].content,"x":f'"{terms[1].content}"'},children=[Coqsimpl, terms[2].content, Coqsimpl, terms[3].content])
+                elif self.content=="T_Return":
+                    assert len(terms)==1 and terms[0].type=="tactic"
+                    self.content=CoqProof("T_Return",children=[terms[0].content, Coqsimpl, Coqsimpl])
+                elif self.content=="T_Concat":
+                    assert len(terms)==2 and terms[0].type=="tactic" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_Concat",children=[terms[0].content, terms[1].content])
+                elif self.content=="T_MethodDecl":
+                    assert len(terms)==5 and terms[0].type=="string" and terms[1].type=="ty" and terms[2].type=="string" and terms[3].type=="tactic" and terms[4].type=="tactic"
+                    self.content=CoqProof("T_MethodDecl",params={"modif":f'"{terms[0].content}"',"T":terms[1].content,"m":f'"{terms[2].content}"'},children=[Coqsimpl, terms[3].content, Coqsimpl, terms[4].content])
+                elif self.content=="T_FieldDeclNoInit":
+                    assert len(terms)==3 and terms[0].type=="string" and terms[1].type=="ty" and terms[2].type=="string"
+                    self.content=CoqProof("T_FieldDeclNoInit",params={"modif":f'"{terms[0].content}"',"T":terms[1].content,"x":f'"{terms[2].content}"'},children=[Coqsimpl])
+                elif self.content=="T_FieldDeclInit":
+                    assert len(terms)==4 and terms[0].type=="string" and terms[1].type=="ty" and terms[2].type=="string" and terms[3].type=="tactic"
+                    self.content=CoqProof("T_FieldDeclInit",params={"modif":f'"{terms[0].content}"',"T":terms[1].content,"x":f'"{terms[2].content}"'},children=[Coqsimpl, terms[3].content, Coqsimpl])
+                elif self.content=="T_ConstructorDecl":
+                    assert len(terms)==2 and terms[0].type=="tactic" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_ConstructorDecl",children=[terms[0].content, Coqsimpl, terms[1].content])
+                elif self.content=="T_ComponentConcat":
+                    assert len(terms)==2 and terms[0].type=="tactic" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_ComponentConcat",children=[terms[0].content, terms[1].content])
+                elif self.content=="T_ProgramConcat":
+                    assert len(terms)==2 and terms[0].type=="tactic" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_ProgramConcat",children=[terms[0].content, terms[1].content])
+                elif self.content=="T_ImportDecl":
+                    assert len(terms)==2 and terms[0].type=="string" and terms[1].type=="string"
+                    self.content=CoqProof("T_ImportDecl",params={"n1":f'"{terms[0].content}"',"n2":f'"{terms[1].content}"'})
+                elif self.content=="T_ClassDecl":
+                    assert len(terms)==2 and terms[0].type=="string" and terms[1].type=="tactic"
+                    self.content=CoqProof("T_ClassDecl",params={"name":f'"{terms[0].content}"'},children=[Coqsimpl, terms[1].content])
+                else:
+                    assert False, "Unknown tactic name: "+self.content
+            else:
+                assert False, "Unknown type: "+self.type
+    
+    # unify the right most complete terms into a partial terms to get a complete term
+    def unify(stack):
+        # nothing to unify
+        if len(stack)==0 or stack[-1].completed==False:
+            return
+        
+        # find the rightmost partial-proof
+        pindex=len(stack)-1
+        while pindex>=0 and stack[pindex].completed==True:
+            pindex-=1
+        if pindex<0:
+            return
+        
+        # need enough terms to complete the partial-proof
+        pterm=stack[pindex]
+        if len(stack)-1-pindex<pterm.terms_needed:
+            return
+        elif len(stack)-1-pindex>pterm.terms_needed:
+            assert False, "The number of complete terms > terms needed"
+        
+        # complete the partial-proof
+        pterm.complete(stack[pindex+1:])
+        del stack[pindex+1:]
+        unify(stack)
+
+    stack=[]
+    for token in tokens:
+        if token.startswith("T_"):
+            stack.append(partialProof("tactic",token))
+        elif token in type_name_vocab:
+            stack.append(partialProof("ty",token))
+        else:
+            str=partialProof("string",token)
+            #if the string is in a type definition Eg. TyGeneric1 List TyInt
+            if stack[-1].type=="ty" and stack[-1].completed==False:
+                str.completed=True
+            
+            # end of a string
+            if token=="Ġ": 
+                # empty string
+                if stack[-1].type=='tactic' and stack[-1].content=="T_String":
+                    stack[-1].content=CoqProof("T_String",params={"s":'""'})
+                stack[-1].completed=True
+            else:
+                stack.append(str)
+
+        # print the stack infomation
+        # log=[]
+        # for item in stack:
+        #     if item.type=="ty" and item.completed==True:
+        #         log.append(item.content.toString())
+        #     elif item.type=="tactic" and item.completed==True:
+        #         log.append(item.content.tactic)
+        #     else:
+        #         log.append(item.content)
+        # print(log)
+
+        unify(stack)
+    
+    assert len(stack)==1 and stack[0].completed==True, "The proof is not complete"
+    return stack[0].content
+
+if __name__ == "__main__":
+    vocab=tokenizer.vocab
+    print(vocab['a'])
